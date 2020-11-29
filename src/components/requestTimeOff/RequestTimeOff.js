@@ -10,15 +10,30 @@ const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const RequestTimeOff = (({data, user}) => {
 
-
+    const [descriptionStatus, setDescriptionStatus] = useState(false);
 
     const countDayOff = () => {
         return Math.floor((data.endOn.getTime()-data.startOn.getTime())/(1000 * 60 * 60 * 24)) + 1;
     }
 
+    const onClick = () => {
+        setDescriptionStatus(!descriptionStatus);
+    }
+
+    const descriptionContent = (description) => {
+        if(description.length <= 150) return description;
+        else if(descriptionStatus) return description;
+            else {
+                var summary = description.substring(0,150) + "...";
+            }
+        return summary;
+    }
+
     return (
         <div
             className="request_time_off"
+            onClick={onClick}
+            style={{backgroundColor: descriptionStatus ? "#F6F8FD" : ""}}
         >
             <div className="request_time_off__left">
                 <div className="request_time_off__left__data">
@@ -51,7 +66,7 @@ const RequestTimeOff = (({data, user}) => {
                 <div className="request_time_off__right__actions">
                     <TimeOffActions />
                 </div>
-                {data.decription}
+                {descriptionContent(data.decription)}
                 <div className="request_time_off__right__info">
                     <Avatar
                         avatar={user?.avatar}
