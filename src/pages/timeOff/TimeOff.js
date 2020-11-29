@@ -10,7 +10,7 @@ const TimeOff = (() => {
     const data = {
         startOn: new Date(2020, 10, 23),
         endOn: new Date(),
-        decription: "Dear Mr.Christophe, At the current time, all of my work is completed. We use a lot of white space and thin line icon. So I want to tell you about the days off.",
+        decription: "Dear Mr.Christophe, At the current time, all of my work is completed. We use a lot of white space and thin line icon. So I want to tell you about the days off. Sound good on the plane above. I will be not able to get you the additional koa frames to add until after Kent return on 1/16.",
         createAt: new Date(2020, 9, 20),
         approvedBy: "Christophe",
         approvedAt: new Date(2020, 9, 21),
@@ -28,7 +28,7 @@ const TimeOff = (() => {
                 headerRight= {rightHeader()}
             >
             <div className="time_off__limit">
-                <span>5</span> days userd / <span>7</span> remaining
+                <span>5</span> days used / <span>7</span> remaining
             </div>
             <div className="time_off_requests">
                 <RequestTimeOff data={data}/>
