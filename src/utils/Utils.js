@@ -108,6 +108,12 @@ export const getTimeWriteDiscussion = (createAt) => {
   else return "Just now";
 };
 
+export const getStringDayInWeek = (date) => {
+  const day = date.getDay();
+  if (day === 0) return days[6];
+  return days[day - 1];
+};
+
 export const getDaysOfWeek = (date) => {
   const dayInWeek = new Date(date);
   let first;
@@ -174,6 +180,17 @@ export const get50Years = (year) => {
   if (year < 1970) temp = 1970;
   for (let i = 0; i < 50; i++) {
     result.push(temp++);
+  }
+  return result;
+};
+
+export const getDaysFromNow = (amount) => {
+  const now = new Date();
+  const result = [now];
+  for (let i = 1; i < amount - 1; i++) {
+    const temp = new Date(result[i - 1]);
+    temp.setDate(temp.getDate() + 1);
+    result.push(temp);
   }
   return result;
 };

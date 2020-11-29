@@ -20,7 +20,7 @@ const SelectCalendar = ({
   );
   return (
     <div className="select_calendar" onClick={(e) => e.stopPropagation()}>
-      <button onClick={() => setShowDD(true)}>
+      <button onClick={() => setShowDD(!showDD)}>
         <EventNoteIcon />
       </button>
       <DropDown2

@@ -1,14 +1,10 @@
 .discussion {
-  /* box-shadow: var(--box-shadow-primary); */
   position: relative;
 }
-
-
 .discussion__header>* {
     flex-grow:1;
 
 }
-
 .discussion__content {
     overflow-y: auto;
     overflow-x: hidden;
@@ -18,9 +14,6 @@
     min-height: 15rem;
     
 }
-
-
-
 .discussion__filter {
   display: flex;
 }
@@ -63,9 +56,7 @@
   font-size: 2rem;
   padding: .5rem;
 }
-.discussion__content_dd_project{
 
-}
 .discussion__content_dd_project>p{
   font-size: 1.7rem;
   font-weight: 600;

@@ -7,9 +7,10 @@ const getAuthState = () => {
 };
 //http://localhost:8080/
 //https://apitimecloudtracker.herokuapp.com/
+
 export default () => {
   return axios.create({
-    baseURL: "http://localhost:8080/",
+    baseURL: "https://apitimecloudtracker.herokuapp.com/",
     headers: {
       [TOKEN]: getAuthState().token ? getAuthState().token : "token",
       [USER_ID]: getAuthState().userId ? getAuthState().userId : "userId",

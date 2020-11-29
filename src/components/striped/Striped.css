@@ -1,0 +1,13 @@
+.striped{
+  box-sizing: border-box;
+  width: calc(100% + 1px);
+  height: calc(100% + 1px);
+  /* color: transparent;
+  background-image: repeating-linear-gradient(
+    135deg,
+    red 0,
+    red 5px,
+    transparent 5px,
+    transparent 10px
+  ); */
+}

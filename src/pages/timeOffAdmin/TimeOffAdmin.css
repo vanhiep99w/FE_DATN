@@ -1,0 +1,30 @@
+.pending_request{
+  padding: 2rem;
+}
+.pending_request:hover{
+  background-color: #F3F5F8;
+}
+.pending_request__user_info{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.pending_request__user_info>p:first-child{
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #363636;
+  text-transform: capitalize;
+}
+.pending_request__user_info>p:nth-last-of-type(2){
+  font-size: 1.65rem;
+  font-weight: 400;
+  color: #363636;
+}
+.pending_request__user_info>p:nth-last-of-type(2)>span{
+  color: #7B7C7C;
+  margin-left: .5rem;
+}
+.pending_request__user_info>p:last-child{
+  color: #7B7C7C;
+  font-size: 1.5rem;
+}
