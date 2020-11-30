@@ -201,6 +201,4 @@ class Projects extends React.Component {
   }
 }
 
-const mapStateToProps = () => {};
-
 export default Projects;

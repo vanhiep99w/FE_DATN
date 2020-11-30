@@ -36,10 +36,10 @@ const CreateProject = ({ match, fetchMembers, members }) => {
   const [changedTasks, setChangedTasks] = useState([]);
   const [changedListTaskMember, setChangedListTaskMember] = useState([]);
 
-  useEffect(() => {
-    fetchMembers(52);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   fetchMembers(52);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   useEffect(() => {
     const fetchTasks = async () => {

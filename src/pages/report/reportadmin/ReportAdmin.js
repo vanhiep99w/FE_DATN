@@ -4,21 +4,17 @@ import TimeCloudAPI from "../../../apis/timeCloudAPI";
 import ReportAdminUserItem from "./reportadminuseritem/ReportAdminUserItem";
 import ReportAdminProjectItem from "./reportadminprojectitem/ReportAdminProjectItem";
 import PageDesign from "../../../components/pageDesign/PageDesign";
+import { connect } from "react-redux";
 
-const ReportAdmin = () => {
+const ReportAdmin = ({ members }) => {
   const [users, setUsers] = useState([]);
   const [projects, setProjects] = useState([]);
 
   let newUsers = [];
 
   useEffect(() => {
-    TimeCloudAPI()
-      .get(`companies/52/users`)
-      .then((response) => {
-        setUsers(response.data.map((res) => res.user));
-      })
-      .catch((error) => {});
-  }, []);
+    setUsers([...members]);
+  }, [members]);
 
   useEffect(() => {
     TimeCloudAPI()
@@ -67,5 +63,9 @@ const ReportAdmin = () => {
     </PageDesign>
   );
 };
-
-export default ReportAdmin;
+const mapStateToProps = (state) => {
+  return {
+    members: state.members.members.map((member) => member.user),
+  };
+};
+export default connect(mapStateToProps)(ReportAdmin);

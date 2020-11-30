@@ -1,9 +1,13 @@
-.time_off_calendar >table{
-
-  --color-pending : #F7AE18;
-  --color-approve : #5CCC78;
-  --color-reject : #E76450;
+ .time_off_calendar{
+  --color-pending : rgba(234, 146, 69, .8);
+  --color-approve : rgba(46, 194, 165,.8);
+  --color-reject : rgba(226, 80, 80, .8);
   --color-holiday : #C39BD3;
+  --color-last-week : #F1F1F1;
+}
+
+.time_off_calendar>table{
+
 
   margin-top: 1rem;
   margin-left: 1rem;
@@ -12,7 +16,8 @@
   table-layout: auto;
   box-sizing: border-box;
 }
-.time_off_calendar >table *{
+
+.time_off_calendar>table *{
   box-sizing: inherit;
 }
 .time_off_calendar__header{
@@ -20,8 +25,8 @@
 }
 .time_off_calendar__header th:first-child{
   vertical-align: middle;
-  
 }
+
 .time_off_calendar__header th:nth-of-type(2){
   border-top: 4px solid #0066CC;
 }
@@ -30,9 +35,11 @@
   height: 6rem;
   
 }
-.time_off_calendar  th, td{
-  border: 1px solid #EAEAEA;
+
+.time_off_calendar th,.time_off_calendar td{
+  border: 1px solid #dddddd;
 }
+
 .time_off_calendar  th{
   border-top-color: transparent;
   border-left-color: transparent;
@@ -125,3 +132,23 @@
   background-color: var(--color-holiday);
   border-color: var(--color-holiday);
 }
+.time_off_calendar .last_of_week{
+  background-color: var(--color-last-week);
+
+}
+.time_off_calendar__footer{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 4rem;
+}
+.time_off_calendar__footer>div{
+  width: 4rem;
+  height: 4rem;
+}
+.time_off_calendar__footer>p{
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-left: .5rem;
+  margin-right: 2.5rem;
+} 

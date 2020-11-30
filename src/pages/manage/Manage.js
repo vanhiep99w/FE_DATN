@@ -22,10 +22,10 @@ const Manage = ({ members, fetchMembers, selectMember }) => {
   }, [members]);
   const cssFlexRole =
     maxRoleCount <= maxRole ? (10 / maxRoleCount) * 0.1 : (10 / maxRole) * 0.1;
-  useEffect(() => {
-    fetchMembers(52);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   fetchMembers(52);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   const cssHeader = {
     textAlign: "left",

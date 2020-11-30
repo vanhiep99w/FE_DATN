@@ -1,23 +1,56 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import Login from "../pages/login/Login";
-import Timer from "./timer/Timer";
-import SignUp from "./signup/SignUp";
-import Header from "../components/header/Header";
-import Manage from "./manage/Manage";
-import CreateProject from "./createProject/CreateProject";
-import Report from "./report/Report";
-import Projects from "./../pages/companyProjects/Projects";
+import withAsyncComponent from "../hoc/withAsyncComponent";
 import { checkAuth, setRedirectPath, fetchUser } from "../redux/actions";
-import ProjectDetail from "./projectDetail/ProjectDetail";
-import Profile from "./profile/Profile";
+import Header from "../components/header/Header";
 import NotFound from "./notFound/NotFound";
-import ReportAdmin from "./report/reportadmin/ReportAdmin";
-import TimerCalendar from "../components/timerCalendar/TimerCalendar";
-import Discussion from '../pages/discussion/Discussion';
-import TimeOff from '../pages/timeOff/TimeOff';
-import CreateRequestTimeOff from '../pages/createRequestTimeOff/CreateRequestTimeOff';
+
+const Login = withAsyncComponent(() => {
+  return import("../pages/login/Login");
+});
+
+const SignUp = withAsyncComponent(() => {
+  return import("./signup/SignUp");
+});
+
+const Timer = withAsyncComponent(() => {
+  return import("./timer/Timer");
+});
+
+const Manage = withAsyncComponent(() => {
+  return import("./manage/Manage");
+});
+const CreateProject = withAsyncComponent(() => {
+  return import("./createProject/CreateProject");
+});
+const Report = withAsyncComponent(() => {
+  return import("./report/Report");
+});
+const Projects = withAsyncComponent(() => {
+  return import("./../pages/companyProjects/Projects");
+});
+const ProjectDetail = withAsyncComponent(() => {
+  return import("./projectDetail/ProjectDetail");
+});
+const Profile = withAsyncComponent(() => {
+  return import("./profile/Profile");
+});
+const ReportAdmin = withAsyncComponent(() => {
+  return import("./report/reportadmin/ReportAdmin");
+});
+const Discussion = withAsyncComponent(() => {
+  return import("../pages/discussion/Discussion");
+});
+const CreateRequestTimeOff = withAsyncComponent(() => {
+  return import("../pages/createRequestTimeOff/CreateRequestTimeOff");
+});
+const TimeOffAdmin = withAsyncComponent(() => {
+  return import("../pages/timeOffAdmin/TimeOffAdmin");
+});
+const TimeOff = withAsyncComponent(() => {
+  return import("../pages/timeOff/TimeOff");
+});
 
 class Router extends React.Component {
   componentDidMount() {
@@ -37,14 +70,16 @@ class Router extends React.Component {
           <Route path="/profile/:id" component={Profile} />
           <Route path="/report/:id" component={Report} />
           <Route path="/profile/:id" component={Profile} />
-          <Route path="/time-off" component={TimeOff} />
+          <Route path="/time-off" component={TimeOffAdmin} />
           <Route path="/manage" component={Manage} />
           <Route path="/create_project" component={CreateProject} />
           <Route path="/edit_project/:id" component={CreateProject} />
           <Route path="/projects" exact component={Projects} />
           <Route path="/projects/:id" component={ProjectDetail} />
-          <Route path="/create-request-time-off" component={CreateRequestTimeOff} />
-          <Route path="/timer_calendar" component={TimerCalendar} />
+          <Route
+            path="/create-request-time-off"
+            component={CreateRequestTimeOff}
+          />
           <Route path="/discussion" component={Discussion}></Route>
           <Route component={NotFound} />
         </Switch>
@@ -56,7 +91,11 @@ class Router extends React.Component {
           <Route path="/time-off" component={TimeOff} />
           <Route path="/timer" component={Timer} />
           <Route path="/report" component={Report} />
-          <Route path="/create-request-time-off" component={CreateRequestTimeOff} />
+          <Route path="/time-off" component={TimeOff} />
+          <Route
+            path="/create-request-time-off"
+            component={CreateRequestTimeOff}
+          />
           <Route path="/profile/:id" component={Profile} />
           <Route path="/discussion" component={Discussion} />
           {managedProjects.length && (

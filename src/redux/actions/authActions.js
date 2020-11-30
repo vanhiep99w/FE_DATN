@@ -12,6 +12,7 @@ import {
   AUTH_SET_MANAGED_PROJECTS,
 } from "./actionType";
 import timeCloudAPI from "../../apis/timeCloudAPI";
+import { fetchMembers } from "../actions";
 import history from "../../history";
 import { TOKEN, USER_ID } from "../../utils/localStorageContact";
 export const authStart = () => {
@@ -89,7 +90,9 @@ const fetchUserRole = (userId) => {
       );
       const roles = response2.data.map((ele) => ele.role);
       dispatch(setUserRole(roles));
-      if (!roles.some((ele) => ele.name === "ADMIN")) {
+      if (roles.some((ele) => ele.name === "ADMIN")) {
+        dispatch(fetchMembers(52));
+      } else {
         const res = await timeCloudAPI().get(`users/${userId}/manage_project`);
         dispatch(setManagedProjects(res.data));
       }
@@ -115,7 +118,7 @@ export const logout = () => {
 };
 
 export const checkAuth = () => {
-  return (dispatch) => {
+  return async (dispatch) => {
     const token = localStorage.getItem(TOKEN);
     const userId = localStorage.getItem(USER_ID);
     if (!token) {
@@ -125,6 +128,7 @@ export const checkAuth = () => {
       dispatch(fetchUser(userId));
       dispatch(fetchUserRole(userId));
     }
+    return;
   };
 };
 
