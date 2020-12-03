@@ -52,3 +52,8 @@ export {
   updateTimeOfSelectedDay,
   setSelectedIndex,
 } from "./weekActions";
+
+export {
+  onSetStartTimeOff,
+  onSetEndTimeOff
+} from './timeOffActions';
