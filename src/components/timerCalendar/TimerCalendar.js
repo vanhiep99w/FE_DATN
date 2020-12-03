@@ -17,10 +17,8 @@ class TimerCalender extends Component {
       const { days, getWeek, selectDay } = this.props;
       const index = days.findIndex((ele) => equalDates(ele, selectedDays[0]));
       if (index === -1) {
-        console.log(1);
         getWeek(selectedDays[0]);
       } else {
-        console.log(2);
         selectDay(index);
       }
     }

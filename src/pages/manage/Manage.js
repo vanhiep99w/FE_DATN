@@ -2,14 +2,14 @@ import "./Manage.css";
 import React, { useEffect, useState } from "react";
 import Table from "../../components/table/Table";
 import { connect } from "react-redux";
-import { fetchMembers, selectMember } from "../../redux/actions";
+import { selectMember } from "../../redux/actions";
 import Point from "../../components/point/Point";
 import classes from "./Manage.module.css";
 import ColumnEmail from "./columEmail/ColumnEmail";
 import PageDesign from "../../components/pageDesign/PageDesign";
 import history from "../../history";
 
-const Manage = ({ members, fetchMembers, selectMember }) => {
+const Manage = ({ members, selectMember }) => {
   const maxRole = 4;
   const [searchInput, setSearchInput] = useState("");
   const [currentMembers, setCurrentMembers] = useState([]);
@@ -22,10 +22,6 @@ const Manage = ({ members, fetchMembers, selectMember }) => {
   }, [members]);
   const cssFlexRole =
     maxRoleCount <= maxRole ? (10 / maxRoleCount) * 0.1 : (10 / maxRole) * 0.1;
-  // useEffect(() => {
-  //   fetchMembers(52);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
 
   const cssHeader = {
     textAlign: "left",
@@ -50,16 +46,6 @@ const Manage = ({ members, fetchMembers, selectMember }) => {
   }, [members, searchInput]);
 
   const columns = {
-    // action: {
-    //   key: "action",
-    //   width: "5%",
-    //   convertData: (element) => {
-    //     return <input type="checkbox" className="visible_hover" />;
-    //   },
-    //   cssData: {
-    //     textAlign: "center",
-    //   },
-    // },
     name: {
       key: "name",
       label: "name",
@@ -144,6 +130,5 @@ const mapStateToProp = (state) => {
   };
 };
 export default connect(mapStateToProp, {
-  fetchMembers,
   selectMember,
 })(Manage);

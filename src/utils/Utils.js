@@ -184,10 +184,10 @@ export const get50Years = (year) => {
   return result;
 };
 
-export const getDaysFromNow = (amount) => {
-  const now = new Date();
-  const result = [now];
-  for (let i = 1; i < amount - 1; i++) {
+export const getDaysFromSelectedDay = (amount, selectedDay) => {
+  const date = new Date(selectedDay);
+  const result = [date];
+  for (let i = 1; i < amount; i++) {
     const temp = new Date(result[i - 1]);
     temp.setDate(temp.getDate() + 1);
     result.push(temp);

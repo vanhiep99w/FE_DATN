@@ -19,6 +19,27 @@
 
   --box-shadow-primary: 5px 5px 10px rgba(0, 0, 0, .5);
   --box-shadow-secondary: 3px 3px 10px rgba(0, 0, 0, .4);
+
+  --color-pending : rgba(234, 146, 69, .8);
+  --color-approve : rgba(46, 194, 165,.8);
+  --color-reject : rgba(226, 80, 80, .8);
+  --color-holiday : #C39BD3;
+  --color-last-week : #F1F1F1;
+}
+
+.status_approve{
+  background-color: #BAEAE1;
+  color : #20BE9F;
+}
+
+.status_reject{
+  background-color: #F5C6C6;
+  color : #E35252;
+}
+
+.status_pending{
+  background-color: #F7D8BC;
+  color : #E78229;
 }
 
 

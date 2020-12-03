@@ -9,7 +9,6 @@ import UserInfo from "../../components/userInfo/UserInfo";
 import history from "../../history/index";
 
 const Header = ({ user, logout, managedProjects }) => {
-  console.log(managedProjects);
   const [isOpen, setIsOpen] = useState(false);
   const dropDownRef = useRef(null);
   function onClickHandler() {

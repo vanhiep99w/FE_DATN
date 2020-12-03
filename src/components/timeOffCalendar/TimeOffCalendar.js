@@ -1,13 +1,23 @@
 import "./TimeOffCalendar.css";
 import React, { useState, useEffect } from "react";
-import { getDaysFromNow, getStringDayInWeek } from "../../utils/Utils";
+import { getDaysFromSelectedDay, getStringDayInWeek } from "../../utils/Utils";
 import SearchIcon from "@material-ui/icons/Search";
 import Avatar from "../avatar/Avatar";
 import { connect } from "react-redux";
+import DaySelect from "./daySelect/DaySelect";
 
 const TimeOffCalendar = ({ members }) => {
   const [currentMembers, setCurrentMembers] = useState([]);
-  const [selectedDay, setSelectedDay] = useState(new Date());
+  const [selectedDays, setSelectedDays] = useState([]);
+  const [searchInputValue, setSearchInputValue] = useState("");
+  useEffect(() => {
+    const now = new Date();
+    setSelectedDays(getDaysFromSelectedDay(15, now));
+  }, []);
+
+  const onChangeSelectDays = (selectedDay) => {
+    setSelectedDays(getDaysFromSelectedDay(15, selectedDay));
+  };
 
   useEffect(() => {
     setCurrentMembers([...members]);
@@ -20,21 +30,39 @@ const TimeOffCalendar = ({ members }) => {
     if (random < 0.07) return "pending";
     if (random < 0.14) return "approve";
     if (random < 0.21) return "reject";
-    // if (random < 0.27) return "holiday";
     return "";
   };
+
+  useEffect(() => {
+    const temp = members.filter((member) =>
+      member.user.name
+        .toLocaleLowerCase()
+        .includes(searchInputValue.toLocaleLowerCase())
+    );
+    setCurrentMembers(temp);
+  }, [members, searchInputValue]);
   return (
     <div className="time_off_calendar">
+      <DaySelect
+        onChangeSelectDays={onChangeSelectDays}
+        firstDay={selectedDays[0]}
+        lastDay={selectedDays[selectedDays.length - 1]}
+      />
       <table>
         <thead className="time_off_calendar__header">
           <tr>
             <th scope="row">
               <div className="time_off_calendar__search">
                 <SearchIcon />
-                <input placeholder="Search people..." />
+                <input
+                  placeholder="Search people..."
+                  maxLength="20"
+                  value={searchInputValue}
+                  onChange={(event) => setSearchInputValue(event.target.value)}
+                />
               </div>
             </th>
-            {getDaysFromNow(15).map((day, index) => {
+            {selectedDays.map((day, index) => {
               return (
                 <th key={index}>
                   <p>{getStringDayInWeek(day)}</p>
@@ -55,14 +83,14 @@ const TimeOffCalendar = ({ members }) => {
                       <div className="time_off_calendar__user_info">
                         <div className="primary_info">
                           <p>{memberInfo.name}</p>
-                          <p className="pending">Pending</p>
+                          <p className="status_reject">Pending</p>
                         </div>
                         <p>Developer</p>
                       </div>
                     </Avatar>
                   </div>
                 </th>
-                {getDaysFromNow(15).map((day, index) => {
+                {selectedDays.map((day, index) => {
                   return (
                     <td key={index} className={`${randomStatus(day)}`}></td>
                   );

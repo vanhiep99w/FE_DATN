@@ -1,59 +1,132 @@
 import "./PendingRequest.css";
-import React, { useEffect, useState } from "react";
-import Avatar from "../avatar/Avatar";
-import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
+import React, { useEffect, useState, useRef } from "react";
 import timeCloudAPI from "../../apis/timeCloudAPI";
-import { connect } from "react-redux";
-import { checkAuth } from "../../redux/actions";
+import DropDown2 from "../dropdown2/DropDown2";
+import RequestTO from "../requestTO/RequestTO";
 
-const PendingRequest = ({ checkAuth }) => {
+const PendingRequest = () => {
   const [test, setTest] = useState(null);
-  const [showContent, setShowContent] = useState(false);
+  const [showDDApprove, setShowDDApprove] = useState(false);
+  const [showDDReject, setShowDDReject] = useState(false);
+  const [approveInput, setApproveInput] = useState("");
+  const [rejectInput, setRejectInput] = useState("");
+
+  const approveButtonRef = useRef(null);
+  const rejectButtonRef = useRef(null);
   useEffect(() => {
-    checkAuth().then(() => {
-      timeCloudAPI()
-        .get("time-off/8")
-        .then((res) => setTest(res.data));
-    });
-  }, [checkAuth]);
+    timeCloudAPI()
+      .get("time-off/8")
+      .then((res) => setTest(res.data));
+  }, []);
+  const onApproveButtonCancelClick = () => {
+    setApproveInput("");
+    setShowDDApprove(false);
+  };
+  const onRejectButtonCancelClick = () => {
+    setRejectInput("");
+    setShowDDReject(false);
+  };
+
+  const renderDDApproveContent = () => {
+    return (
+      <div className="pending_request__dd_approve">
+        <label htmlFor="response_approve">Your response</label>
+        <textarea
+          id="response_approve"
+          rows="12"
+          cols="50"
+          placeholder="Say something..."
+          value={approveInput}
+          onChange={(event) => setApproveInput(event.target.value)}
+        />
+        <div>
+          <button className="approve_active">Approve & Send</button>
+          <button onClick={onApproveButtonCancelClick}>Cancel</button>
+        </div>
+      </div>
+    );
+  };
+
+  const renderDDRejectContent = () => {
+    return (
+      <div className="pending_request__dd_approve">
+        <label htmlFor="response_approve">Your response</label>
+        <textarea
+          id="response_approve"
+          rows="12"
+          cols="50"
+          placeholder="Say something..."
+          value={rejectInput}
+          onChange={(event) => setRejectInput(event.target.value)}
+        />
+
+        <div>
+          <button className="reject_active">Reject & Send</button>
+          <button onClick={onRejectButtonCancelClick}>Cancel</button>
+        </div>
+      </div>
+    );
+  };
+  const onApproveButtonClick = () => {
+    if (!showDDApprove) {
+      setShowDDReject(false);
+    }
+    setShowDDApprove(!showDDApprove);
+  };
+  const onRejectButtonClick = () => {
+    if (!showDDReject) {
+      setShowDDApprove(false);
+    }
+    setShowDDReject(!showDDReject);
+  };
 
   return (
-    <div className="pending_request">
+    <RequestTO requestInfo={test}>
       <div
-        className="pending_request__header"
-        onClick={() => setShowContent(!showContent)}
+        className="pending_request__action"
+        onClick={(event) => event.stopPropagation()}
       >
-        <Avatar avatarSize="6.5rem" css={{ alignItems: "stretch" }}>
-          <div className="pending_request__user_info">
-            <p>vanhiep99w</p>
-            <p>
-              Vacation on Aug 31 - Sep 1<span>(2 days)</span>
-            </p>
-            <p> Requested 1 day ago</p>
-          </div>
-        </Avatar>
-        <div
-          className="pending_request__action"
-          onClick={(event) => event.stopPropagation()}
-        >
-          <button>Approve</button>
-          <button>Reject</button>
+        <div className="pending_request__action__approve">
+          <button
+            ref={approveButtonRef}
+            onClick={onApproveButtonClick}
+            className={showDDApprove ? "approve_active" : ""}
+          >
+            Approve
+          </button>
+          <DropDown2
+            css={{
+              cursor: "inherit",
+              padding: "2rem",
+              transform: `translateY(102%) translateX(calc(-100% + ${approveButtonRef.current?.offsetWidth}px)) `,
+            }}
+            isShow={showDDApprove}
+            onCloseHandler={() => setShowDDApprove(false)}
+            renderContent={() => renderDDApproveContent()}
+          />
+        </div>
+        <div className="pending_request__action__reject">
+          <button
+            ref={rejectButtonRef}
+            onClick={onRejectButtonClick}
+            className={showDDReject ? "reject_active" : ""}
+          >
+            Reject
+          </button>
+          <DropDown2
+            css={{
+              cursor: "inherit",
+              padding: "2rem",
+              transform: `translateY(102%) translateX(calc(-100% + ${rejectButtonRef.current?.offsetWidth}px)) `,
+            }}
+            isShow={showDDReject}
+            onCloseHandler={() => setShowDDReject(false)}
+            renderContent={() => renderDDRejectContent()}
+          />
         </div>
       </div>
-      <div className={`pending_request__content ${showContent ? "show" : ""}`}>
-        <p className="pending_request__description">{test?.description}</p>
-        <div className="pending_request__time">
-          <p>This request:</p>
-          <p>
-            Aug 31 (All Day)
-            <ArrowRightAltIcon />
-            Sep 1 (All Day)
-          </p>
-          <p>Requested 1 day ago</p>
-        </div>
-      </div>
-    </div>
+    </RequestTO>
   );
 };
 
-export default connect(null, { checkAuth })(PendingRequest);
+export default PendingRequest;
