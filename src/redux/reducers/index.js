@@ -6,6 +6,7 @@ import timeReducer from "./timeReducer";
 import timesReducer from "./timesReducer";
 import membersReducer from "./membersReducer";
 import weekReducer from "./weekReducer";
+import timeOff from './timeOffReducer';
 import { AUTH_LOGOUT } from "../actions/actionType";
 const rootReducer = combineReducers({
   form: formReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   times: timesReducer,
   members: membersReducer,
   week: weekReducer,
+  timeOff: timeOff,
 });
 
 export default (state, action) =>
