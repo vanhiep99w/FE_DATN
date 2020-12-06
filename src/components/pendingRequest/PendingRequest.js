@@ -4,8 +4,7 @@ import timeCloudAPI from "../../apis/timeCloudAPI";
 import DropDown2 from "../dropdown2/DropDown2";
 import RequestTO from "../requestTO/RequestTO";
 
-const PendingRequest = () => {
-  const [test, setTest] = useState(null);
+const PendingRequest = ({ request }) => {
   const [showDDApprove, setShowDDApprove] = useState(false);
   const [showDDReject, setShowDDReject] = useState(false);
   const [approveInput, setApproveInput] = useState("");
@@ -13,11 +12,7 @@ const PendingRequest = () => {
 
   const approveButtonRef = useRef(null);
   const rejectButtonRef = useRef(null);
-  useEffect(() => {
-    timeCloudAPI()
-      .get("time-off/8")
-      .then((res) => setTest(res.data));
-  }, []);
+
   const onApproveButtonCancelClick = () => {
     setApproveInput("");
     setShowDDApprove(false);
@@ -81,7 +76,7 @@ const PendingRequest = () => {
   };
 
   return (
-    <RequestTO requestInfo={test}>
+    <RequestTO requestInfo={request}>
       <div
         className="pending_request__action"
         onClick={(event) => event.stopPropagation()}

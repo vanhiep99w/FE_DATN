@@ -1,16 +1,28 @@
 import "./TimeOffAdmin.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PageDesign from "../../components/pageDesign/PageDesign";
 import TimeOffCalendar from "../../components/timeOffCalendar/TimeOffCalendar";
 import PendingRequest from "../../components/pendingRequest/PendingRequest";
 import { Link } from "react-router-dom";
+import timeCloudAPI from "../../apis/timeCloudAPI";
 
 const TimeOffAdmin = () => {
+  const [pendingRequest, setPendingRequest] = useState([]);
+  useEffect(() => {
+    timeCloudAPI()
+      .get("time-off/pending")
+      .then((res) => {
+        setPendingRequest(res.data);
+      });
+  }, []);
+
   return (
     <div className="time_off_admin">
       <PageDesign title="TimeOff">
-        <h3>Pending Requests (5)</h3>
-        <PendingRequest />
+        <h3>Pending Requests ({pendingRequest.length})</h3>
+        {pendingRequest.map((request) => {
+          return <PendingRequest request={request} key={request.id} />;
+        })}
         <h3>Time off calendar</h3>
         <TimeOffCalendar />
         <Link to="/all-request">Show pass Time off</Link>

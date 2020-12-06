@@ -22,7 +22,7 @@
   padding: .25rem .5rem;
   margin-left: .5rem;
 }
-.request_to__user_info>p:first-child{
+.request_to__user_info__head>p:first-child{
   font-size: 1.8rem;
   font-weight: 600;
   color: #363636;
@@ -31,12 +31,13 @@
   justify-content: flex-start;
   align-items: center;
 }
-.request_to__user_info>p:nth-last-of-type(2){
-  font-size: 1.65rem;
-  font-weight: 400;
+.request_to__user_info__head>p:last-child{
+  font-size: 1.6rem;
+  font-weight: 500;
   color: #363636;
+  margin-top: .6rem;
 }
-.request_to__user_info>p:nth-last-of-type(2)>span{
+.request_to__user_info__head>p:last-child>span{
   color: #7B7C7C;
   margin-left: .5rem;
 }
