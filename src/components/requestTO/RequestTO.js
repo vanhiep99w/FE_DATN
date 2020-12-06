@@ -18,6 +18,12 @@ const RequestTO = ({ requestInfo, children }) => {
   const getMouthAndDate = (date) => {
     return `${months[date.getMonth()]} ${date.getDate()}`;
   };
+
+  const getDateStatus = (date) => {
+    console.log(date.getHours());
+    if (date.getHours() === 12) return "Half";
+    return "All";
+  };
   return (
     <div className="request_to">
       <div
@@ -65,9 +71,11 @@ const RequestTO = ({ requestInfo, children }) => {
         <div className="request_to__time">
           <p>This requestInfo:</p>
           <p>
-            {getMouthAndDate(new Date(requestInfo.timeOff.startTime))} (All Day)
+            {getMouthAndDate(new Date(requestInfo.timeOff.startTime))} (
+            {getDateStatus(new Date(requestInfo.timeOff.startTime))} Day)
             <ArrowRightAltIcon />
-            {getMouthAndDate(new Date(requestInfo.timeOff.endTime))} (All Day)
+            {getMouthAndDate(new Date(requestInfo.timeOff.endTime))} (
+            {getDateStatus(new Date(requestInfo.timeOff.endTime))} Day)
           </p>
           <p>
             Requested {getTimeWriteDiscussion(requestInfo.timeOff.createAt)}
