@@ -5,23 +5,20 @@ import "./TimeBalance.css";
 const TimeBalance = ({beforeRequest, currentRequest}) => {
 
   const [approver, setApprover] = useState(null);
+  const [approverURL, setApproverURL] = useState("Admin");
 
   useEffect(() => {
     timeCloudAPI().get(`time-off/approver`)
     .then(res => {
       setApprover(res.data)
+      let result = "";
+      res.data.forEach((ele, index) => {
+        if(index === res.data.length - 1) result += ele.name;
+        else result += ele.name + ", "
+      })
+      setApproverURL(result);
     })
   },[])
-
-  const nameApprover = () => {
-    let result = "";
-    if(approver) approver.forEach((ele, index) => {
-      if(index === approver.length - 1) result += ele.name;
-      else result += ele.name + ", "
-    })
-    return result;
-  }
-
   return (
     <div className="content__info">
       <h1>My time balance</h1>
@@ -38,7 +35,7 @@ const TimeBalance = ({beforeRequest, currentRequest}) => {
         <p> {12 - (beforeRequest + currentRequest)} </p>
       </div>
       <span> Approvers: </span>
-      <span> {nameApprover()} </span>
+      <span> {approverURL} </span>
     </div>
   );
 };

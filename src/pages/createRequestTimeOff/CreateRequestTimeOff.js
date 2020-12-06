@@ -31,16 +31,12 @@ const CreateRequestTimeOff = ((props) => {
 
     useEffect(() => {
         if(startTime && endTime) setDayRequest(countDate(startTime, endTime))
-        if(startTime !== null) setStartValidation(validate([require, checkDayRequestFail, checkDayRequestIsDayOff], startTime));
-        if(endTime !== null) {
-            if(endTime < startTime) 
-                setEndValidation("End day can't before start day!");
-            else setEndValidation(validate([require, checkDayRequestFail, checkDayRequestIsDayOff], endTime));
-        }
+        if(startTime !== null) setStartValidation(validate([require,checkDayRequestFail, checkDayRequestIsDayOff], startTime));
+        if(endTime !== null)  setEndValidation(validate([require,checkDayRequestFail, checkDayRequestIsDayOff], endTime));
         if(description !== "") setDescriptionValidation(validate([require], description));
         
     },[startTime, endTime, description, dayRequest]);
-
+    console.log(startTime);
     useEffect(() => {
         if(startValidation === undefined && endValidation === undefined && descriptionValidation === undefined) setSubmitStatus(true);
         else setSubmitStatus(false);
@@ -161,6 +157,29 @@ const CreateRequestTimeOff = ((props) => {
         setDescription(even.target.value);
         setDescriptionValidation(validate([require], even.target.value));
     }
+
+    const conditionDisableCalendar = (date) => {
+        if(endTime) {
+            if (date < endTime) return true;
+            return false;
+        }
+        else {
+            if (date < new Date() - 86400000) return true;
+            return false;
+        }
+      };
+
+    const conditionDisableCalendarEnd = (date) => {
+        if(startTime) {
+            if (date < startTime) return true;
+            return false;
+        }
+        else {
+                if (date < new Date() - 86400000) return true;
+                return false;
+            }
+    }
+
     return (
         <div className="create_request_time_off">
             <PageDesign
@@ -177,8 +196,8 @@ const CreateRequestTimeOff = ((props) => {
                                         <SelectCalendar
                                             multipleSelect={false}
                                             onSelectDay={onSetStartTime}
-                                            conditionDisable = {() => (false)}
-                                            value={[new Date()]}
+                                            conditionDisable = {conditionDisableCalendar}
+                                            value={[startTime || new Date()]}
                                         />
                                     </div>
                                 </div>
@@ -214,8 +233,8 @@ const CreateRequestTimeOff = ((props) => {
                                         <SelectCalendar
                                             multipleSelect={false}
                                             onSelectDay={onSetEndTime}
-                                            conditionDisable = {() => (false)}
-                                            value={[new Date()]}
+                                            conditionDisable = {conditionDisableCalendarEnd}
+                                            value={[endTime || new Date()]}
                                         />
                                     </div>
                                 </div>
