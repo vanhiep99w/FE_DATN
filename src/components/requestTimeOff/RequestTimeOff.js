@@ -11,14 +11,13 @@ const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 
 const RequestTimeOff = (({data, user, onDelete}) => {
-
+    console.log(data);
     const [descriptionStatus, setDescriptionStatus] = useState(false);
 
     const countDayOff = () => {
         return countDate(new Date(data.timeOff.startTime), new Date(data.timeOff.endTime));
         //return Math.floor(((new Date(data.timeOff.endTime)).getTime()-(new Date(data.timeOff.startTime)).getTime())/(1000 * 60 * 60 * 24)) + 1;
     }
-    console.log(checkDayOff(new Date(data.timeOff.startTime), new Date(data.timeOff.endTime)));
     const onClick = () => {
         setDescriptionStatus(!descriptionStatus);
     }
@@ -34,10 +33,9 @@ const RequestTimeOff = (({data, user, onDelete}) => {
 
     const statusTimeOffURL = () => {
         if(data.status === 1) return "Waiting for approval";
-        else if(data.status === 2) return `${data.approver.name} approved ${getTimeWriteDiscussion(data.accept_at)}`;
-            else return `${data.approver.name} approved ${getTimeWriteDiscussion(data.accept_at)}`;
+        else if(data.status === 2) return `${data.approver.name} approved ${getTimeWriteDiscussion(data.acceptAt)}`;
+            else return `${data.approver.name} approved ${getTimeWriteDiscussion(data.acceptAt)}`;
     }
-
     return (
         <div
             className="request_time_off"
