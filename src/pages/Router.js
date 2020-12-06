@@ -95,6 +95,11 @@ class Router extends React.Component {
           <Route
             path="/create-request-time-off"
             component={CreateRequestTimeOff}
+            exact
+          />
+          <Route
+            path="/create-request-time-off/:id"
+            component={CreateRequestTimeOff}
           />
           <Route path="/profile/:id" component={Profile} />
           <Route path="/discussion" component={Discussion} />
