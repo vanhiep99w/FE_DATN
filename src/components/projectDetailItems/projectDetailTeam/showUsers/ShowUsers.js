@@ -42,7 +42,6 @@ class ShowUsers extends React.Component {
             });
         });
     } else {
-      if()
       // * fetch all in oldProject(isDoing = false)
       Promise.all(
         this.props.unavailableTasks?.map((ele) =>

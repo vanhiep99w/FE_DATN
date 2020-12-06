@@ -93,9 +93,9 @@ class Router extends React.Component {
       routes = (
         <Switch>
           <Redirect from="/" exact to="/timer" />
-          <Route path="/time-off" component={TimeOffAdmin} />
+          {/* <Route path="/time-off" component={TimeOffAdmin} /> */}
 
-          {/* <Route path="/time-off" component={TimeOff} /> */}
+          <Route path="/time-off" component={TimeOff} />
           <Route path="/timer" component={Timer} />
           <Route path="/report" component={Report} />
           <Route path="/all-request" component={AllRequest} />
