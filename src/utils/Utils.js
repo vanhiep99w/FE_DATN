@@ -1,6 +1,22 @@
 export function randomNumber(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
+
+export const status= [
+  {
+    name: "Pending",
+    color: "#FFB332"
+  },
+  {
+    name: "Approved",
+    color: "#1ABC9C"
+  },
+  {
+    name: "Rejected",
+    color: "#E04343"
+  }
+]
+
 export const randomColorArray = [
   "#eb4d4b",
   "#686de0",
@@ -55,6 +71,21 @@ export const convertSecond = (totalSecond) => {
     hour: convertedHour + "",
   };
 };
+
+export const checkDayOff = (start, end) => {
+  let result =0;
+  let temp = start;
+  do {
+    if(temp.getDay() === 0 || temp.getDay() === 6) result +=1;
+    temp = new Date(temp.getTime() + 86400000);
+  }while(temp.getDate() !== end.getDate());
+  return result;
+}
+
+export const countDate = (start, end) => {
+  let result = checkDayOff(start, end);
+  return (end.getTime() - start.getTime() + 86400000) / 86400000 - result;
+}
 
 export const convertSecondToHour = (seconds) => {
   let hours = seconds / 60 / 60;

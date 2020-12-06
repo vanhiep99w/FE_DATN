@@ -81,6 +81,7 @@ class UserInfo extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
+    console.log("ok");
     var {user} = this.props;
     var {
       txtname,

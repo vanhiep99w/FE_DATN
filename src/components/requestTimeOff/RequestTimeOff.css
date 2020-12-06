@@ -28,7 +28,6 @@
 
 .request_time_off__left__data>p:nth-child(1) {
     padding: 1rem 1.5rem;
-    background-color: #FFB332;
     border-radius: 1.8rem;
     font-size: medium;
     color: white;
@@ -40,7 +39,7 @@
 .request_time_off__center {
     position: absolute;
     bottom: -.1rem;
-    right: 5rem;
+    right: 6.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -59,17 +58,27 @@
 
 .request_time_off__left__start {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     padding: 3rem 2rem;
     background-color: #DBDFDF;
     border-radius: 1.5rem 0 0 1.5rem;
     text-align: center;
+    min-width: 7rem;
 }
 
+
 .request_time_off__left__end {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     padding: 3rem 2rem;
     background-color: #ECF0F1;
     border-radius: 0 1.5rem 1.5rem 0;
     text-align: center;
+    min-width: 7rem;
 }
 
 .day_month {
@@ -86,6 +95,7 @@
     font-weight: 500;
     line-height: 2.3rem;
     padding: 0 3rem 0 5rem;
+    flex: 1;
 }
 
 .request_time_off__right__actions {

@@ -1,38 +1,114 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import PageDesign from "../../components/pageDesign/PageDesign";
 import RequestTimeOff from "../../components/requestTimeOff/RequestTimeOff";
 import history from "../../history/index";
+import timeCloudAPI from '../../apis/timeCloudAPI';
+import {USER_ID} from '../../utils/localStorageContact';
+import Modal from '../../components/modal/Modal';
+import {v4} from 'uuid';
 import "./TimeOff.css";
+import { countDate } from "../../utils/Utils";
 
 const TimeOff = () => {
-  const data = {
-    startOn: new Date(2020, 10, 23),
-    endOn: new Date(),
-    decription:
-      "Dear Mr.Christophe, At the current time, all of my work is completed. We use a lot of white space and thin line icon. So I want to tell you about the days off. Sound good on the plane above. I will be not able to get you the additional koa frames to add until after Kent return on 1/16.",
-    createAt: new Date(2020, 9, 20),
-    approvedBy: "Christophe",
-    approvedAt: new Date(2020, 9, 21),
-    status: "Pending",
-  };
+
+    const [timeOffs, setTimeOffs] = useState([]);
+    const [limiteRequest, setLimitedRequest] = useState(false);
+
+    useEffect(() => {
+      
+        timeCloudAPI().get(`users/${localStorage.getItem(USER_ID)}/time-off`)
+        .then(res => {
+          const temp = res.data;
+          temp.sort((a, b) => {
+            const startTimeA = new Date(a.timeOff.createAt)
+            const startTimeB = new Date(b.timeOff.createAt)
+            return startTimeB - startTimeA;
+          })
+          setTimeOffs(temp);
+        });
+    },[]);
+
+    const createRequest = () => {
+      if(countDateOff() === 12) setLimitedRequest(true);
+      else history.push({
+        pathname: "/create-request-time-off",
+        state: countDateOff()
+      });
+    }
 
   const rightHeader = () => {
     return (
-      <button onClick={() => history.push("/create-request-time-off")}>
+      <button onClick={createRequest}>
         Request time off
       </button>
     );
   };
 
+  const onDelete = (ele) => {
+    timeCloudAPI().delete(`time-off/${ele.id}`)
+    .then(res => {
+      setTimeOffs(timeOffs.filter(timeOff => timeOff.id !== ele.id))
+    })
+    ;
+  };
+
+  const countDateOff = () => {
+    let result = 0;
+    timeOffs.forEach(ele => {
+      result += countDate(new Date(ele.timeOff.startTime), new Date(ele.timeOff.endTime))
+    })
+    return result;
+  }
+
+const renderModalContent = () => {
+  return (
+    <div className="time_off__modal_content">
+      <p>You had used all 12 day off in this year?</p>
+    </div>
+  );
+};
+
+const onConfirm = () => {
+  setLimitedRequest(false)
+}
+
+const renderModalActions = () => {
+  return (
+    <div className="discussion__model_actions">
+      <button onClick={onConfirm}> OK </button>
+    </div>
+  );
+};
+
   return (
     <div className="time_off">
       <PageDesign title="Time Off" headerRight={rightHeader()}>
         <div className="time_off__limit">
-          <span>5</span> days used / <span>7</span> remaining
+          <span>{countDateOff()} </span> days used / <span> {12-countDateOff()} </span> remaining
         </div>
         <div className="time_off_requests">
-          <RequestTimeOff data={data} />
+          {
+              timeOffs?.map(ele => (
+                <RequestTimeOff
+                    key={v4()}
+                    data={ele}
+                    onDelete = {() => onDelete(ele)}
+                />
+              ))
+          }
         </div>
+        {
+          limiteRequest ?
+          <Modal
+            onCloseModal={() => setLimitedRequest(false)}
+            show={limiteRequest}
+            title="Limited!"
+            renderContent={() => renderModalContent()}
+            renderAction={() => renderModalActions()}
+            cssBody={{ minWidth: "35rem" }}
+          />
+          : ""
+        }
       </PageDesign>
     </div>
   );
