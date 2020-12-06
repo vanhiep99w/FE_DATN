@@ -17,6 +17,16 @@ export const require = (value) => {
   return !value ? "Field can't empty" : undefined;
 };
 
+export const checkDayRequestIsDayOff = (value) => {
+  if(value.getDay() === 0 || value.getDay() === 6) return "Can't not start or end at the day off";
+  return undefined;
+}
+
+export const checkDayRequestFail = (value) => {
+  if(value < new Date()) return "Can't request day in the past!";
+  return undefined;
+}
+
 export const number = (value) => {
   const regularEmail = /^[\d]+$/;
   return !regularEmail.test(value) ? "Invalid number" : undefined;

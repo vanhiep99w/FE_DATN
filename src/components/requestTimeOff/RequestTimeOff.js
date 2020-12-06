@@ -1,32 +1,41 @@
-import React, {userState, useEffect, useState} from 'react';
-import {months} from '../../utils/Utils';
+import React, {useEffect, useState} from 'react';
+import {months, status, countDate, checkDayOff, getTimeWriteDiscussion} from '../../utils/Utils';
 import './RequestTimeOff.css';
-import TimeOffActions from './timeOffActions/TimeOfActions';
+import TimeOffActions from './timeOffActions/TimeOffActions';
 import Avatar from '../../components/avatar/Avatar';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
+import timeCloudAPI from '../../apis/timeCloudAPI';
 import {connect} from 'react-redux';
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-const RequestTimeOff = (({data, user}) => {
+
+const RequestTimeOff = (({data, user, onDelete}) => {
 
     const [descriptionStatus, setDescriptionStatus] = useState(false);
 
     const countDayOff = () => {
-        return Math.floor((data.endOn.getTime()-data.startOn.getTime())/(1000 * 60 * 60 * 24)) + 1;
+        return countDate(new Date(data.timeOff.startTime), new Date(data.timeOff.endTime));
+        //return Math.floor(((new Date(data.timeOff.endTime)).getTime()-(new Date(data.timeOff.startTime)).getTime())/(1000 * 60 * 60 * 24)) + 1;
     }
-
+    console.log(checkDayOff(new Date(data.timeOff.startTime), new Date(data.timeOff.endTime)));
     const onClick = () => {
         setDescriptionStatus(!descriptionStatus);
     }
 
     const descriptionContent = (description) => {
-        if(description.length <= 150) return description;
+        if(description?.length <= 150) return description;
         else if(descriptionStatus) return description;
             else {
-                var summary = description.substring(0,150) + "...";
+                var summary = description?.substring(0,150) + "...";
             }
         return summary;
+    }
+
+    const statusTimeOffURL = () => {
+        if(data.status === 1) return "Waiting for approval";
+        else if(data.status === 2) return `${data.approver.name} approved ${getTimeWriteDiscussion(data.accept_at)}`;
+            else return `${data.approver.name} approved ${getTimeWriteDiscussion(data.accept_at)}`;
     }
 
     return (
@@ -37,23 +46,21 @@ const RequestTimeOff = (({data, user}) => {
         >
             <div className="request_time_off__left">
                 <div className="request_time_off__left__data">
-                    <p> {data.status} </p>
+                    <p style={{backgroundColor: status[data.status - 1].color}}> {status[data.status - 1].name} </p>
                     <div className="request_time_off__left__start">
-                        <div className="request_time_off__left__start__info">
-                            <div className="day_month">
-                                {`${days[data.startOn.getDay()]}, ${months[data.startOn.getMonth()]}`}
+                    <div className="day_month">
+                                {`${days[(new Date(data?.timeOff.startTime)).getDay()]}, ${months[(new Date(data?.timeOff.startTime)).getMonth()]}`}
                             </div>
                             <div className="date">
-                                {data.startOn.getDate()}
+                                {(new Date(data?.timeOff.startTime)).getDate()}
                             </div>
-                        </div>
                     </div>
                     <div className="request_time_off__left__end">
                         <div className="day_month">
-                            {`${days[data.endOn.getDay()]}, ${months[data.endOn.getMonth()]}`}
+                            {`${days[(new Date(data?.timeOff.endTime)).getDay()]}, ${months[(new Date(data?.timeOff.endTime)).getMonth()]}`}
                         </div>
                         <div className="date">
-                            {data.endOn.getDate()}
+                            {(new Date(data?.timeOff.endTime)).getDate()}
                         </div>
                     </div>
                     <div className="request_time_off__center">
@@ -64,9 +71,9 @@ const RequestTimeOff = (({data, user}) => {
             </div>
             <div className="request_time_off__right">
                 <div className="request_time_off__right__actions">
-                    <TimeOffActions />
+                    <TimeOffActions data = {data} onDelete = {onDelete} />
                 </div>
-                {descriptionContent(data.decription)}
+                <p style={{whiteSpace:"pre-line"}}> {descriptionContent(data.timeOff.description)} </p>
                 <div className="request_time_off__right__info">
                     <Avatar
                         avatar={user?.avatar}
@@ -78,7 +85,7 @@ const RequestTimeOff = (({data, user}) => {
                     > 
                         {`${user?.name}`}
                     </Avatar>
-                    <p> {" requested 5 minutes ago"} </p>
+                    <p> {` requested ${getTimeWriteDiscussion(data.timeOff.createAt)}`} </p>
                     <FiberManualRecordIcon
                         style={{
                             color: "#DDDDDD",
@@ -86,7 +93,7 @@ const RequestTimeOff = (({data, user}) => {
                             margin: "0 1rem"
                         }}
                     />
-                    <p> {"Waiting for approval"} </p>
+                    <p> {statusTimeOffURL()} </p>
                 </div>
             </div>
         </div>

@@ -3,15 +3,14 @@ import React, { useState, useCallback } from "react";
 import EventNoteIcon from "@material-ui/icons/EventNote";
 import DropDown2 from "../dropdown2/DropDown2";
 import Calendar from "../calendar/Calendar";
-import {connect} from 'react-redux';
-import {onSetEndTimeOff, onSetStartTimeOff} from '../../redux/actions/index';
+//import {connect} from 'react-redux';
+//import {onSetEndTimeOff, onSetStartTimeOff} from '../../redux/actions/index';
 
 const SelectCalendar = ({
   multipleSelect,
   value,
   onSelectDay,
   conditionDisable,
-  timeOffMode,
   onSetEndTimeOff,
   onSetStartTimeOff
 }) => {
@@ -20,10 +19,6 @@ const SelectCalendar = ({
     (selectedDays) => {
       if (!multipleSelect) setShowDD(false);
       onSelectDay(selectedDays);
-      if(timeOffMode === "1") {
-        onSetStartTimeOff(selectedDays);
-      }
-      if(timeOffMode === "2") onSetEndTimeOff(selectedDays);
     },
     [multipleSelect, onSelectDay]
   );
@@ -65,4 +60,4 @@ const SelectCalendar = ({
 //   }
 // }
 
-export default connect(null, {onSetEndTimeOff, onSetStartTimeOff})(SelectCalendar);
+export default SelectCalendar;

@@ -2,3 +2,29 @@
     display: flex;
     justify-content: flex-end;
 }
+
+.delete_time_off__model_actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.delete_time_off__model_actions>button {
+    padding: 1rem 2rem;
+    border: none;
+    margin-top: .5rem;
+    border-radius: .3rem;
+    cursor: pointer;
+    outline: none;
+    color: black;
+    font-size: 1.5rem;
+    font-weight: 550;
+}
+
+.delete_time_off__model_actions>button:nth-child(1) {
+    background-color: red;
+    margin-right: 1rem
+}
+
+.delete_time_off__model_actions>button:nth-child(2) {
+    
+}
