@@ -30,16 +30,17 @@ const RequestTimeOff = ({ data, user, onDelete }) => {
   };
 
   const descriptionContent = (description) => {
-    const arr = description.split("/n");
-    console.log(arr);
-    if (arr > 3) {
-      const result = `${arr[1]}/n${arr[2]}/n${arr[3]}...`;
-      return result;
-    } else {
-      if (description?.length >= 150)
-        return description.substring(0, 150) + "...";
+    if (descriptionStatus) return description;
+    else {
+      if (description.includes("\n")) {
+        var stringSplit = description.split("\n");
+        console.log(stringSplit);
+        return `${stringSplit[0]} \n...`;
+      } else {
+        if (description?.length <= 150) return description;
+        else return description?.substring(0, 150) + "...";
+      }
     }
-    return description;
   };
 
   const statusTimeOffURL = () => {
