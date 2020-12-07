@@ -23,12 +23,18 @@ const RequestTimeOff = (({data, user, onDelete}) => {
     }
 
     const descriptionContent = (description) => {
-        if(description?.length <= 150) return description;
-        else if(descriptionStatus) return description;
+        if(descriptionStatus) return description;
             else {
-                var summary = description?.substring(0,150) + "...";
+                if(description.includes("\n")) {
+                    var stringSplit = description.split("\n");
+                    console.log(stringSplit);
+                    return `${stringSplit[0]} \n...`;
+                }
+                else {
+                    if(description?.length <= 150) return description;
+                    else return description?.substring(0,150) + "...";
+                }
             }
-        return summary;
     }
 
     const statusTimeOffURL = () => {

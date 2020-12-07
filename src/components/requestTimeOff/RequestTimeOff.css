@@ -96,6 +96,7 @@
     line-height: 2.3rem;
     padding: 0 3rem 0 5rem;
     flex: 1;
+    align-self: flex-end;
 }
 
 .request_time_off__right__actions {
