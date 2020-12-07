@@ -20,7 +20,6 @@ const RequestTO = ({ requestInfo, children }) => {
   };
 
   const getDateStatus = (date) => {
-    console.log(date.getHours());
     if (date.getHours() === 12) return "Half";
     return "All";
   };

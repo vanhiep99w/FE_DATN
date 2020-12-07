@@ -49,7 +49,10 @@ const PendingRequest = ({
     onRejectTimeOff();
     changeBecomeReject(request.id);
   };
-  const onButtonApproveSendClickHandler = () => {};
+  const onButtonApproveSendClickHandler = () => {
+    onApproveTimeOff();
+    changeBecomeApprove(request.id, approveInput);
+  };
 
   const renderDDApproveContent = () => {
     return (
