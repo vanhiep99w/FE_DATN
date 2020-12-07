@@ -5,7 +5,7 @@ import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import TimeBalance from './timeBalance/TimeBalance';
 import timeCloudAPI from '../../apis/timeCloudAPI';
 import history from '../../history/index';
-import {countDate} from '../../utils/Utils';
+import {countDate, checkDayOff} from '../../utils/Utils';
 import {withRouter} from 'react-router-dom';
 import Modal from '../../components/modal/Modal';
 import ReportProblemIcon from '@material-ui/icons/ReportProblem';
@@ -174,8 +174,9 @@ const CreateRequestTimeOff = ((props) => {
 
     const conditionDisableCalendarEnd = (date) => {
         let daysLimit = 12 - props.history.location.state;
+        let dayOff = checkDayOff(startTime, new Date(startTime.getTime() + 86400000 * daysLimit))
         if(startTime) {
-            if(date - startTime > daysLimit * 86400000) return true;
+            if(date - startTime > (daysLimit + dayOff) * 86400000) return true;
             if (date < startTime) return true;
         }
         else {

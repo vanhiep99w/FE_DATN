@@ -15,7 +15,6 @@ const TimeOff = () => {
     const [limiteRequest, setLimitedRequest] = useState(false);
 
     useEffect(() => {
-      
         timeCloudAPI().get(`users/${localStorage.getItem(USER_ID)}/time-off`)
         .then(res => {
           const temp = res.data;
