@@ -74,9 +74,11 @@ const CreateRequestTimeOff = ((props) => {
     },[])
 
     useEffect(() => {
-        if(periodOfStartDay === "1" && startTime.getDate() === endTime.getDate()) {
-            setStartTime(new Date(startTime.setHours(12)));
-            setEndTime(new Date(endTime.setHours(12)));
+        if(endTime) {
+            if(periodOfStartDay === "1" && startTime.getDate() === endTime.getDate()) {
+                setStartTime(new Date(startTime.setHours(12)));
+                setEndTime(new Date(endTime.setHours(12)));
+            }
         }
         if(periodOfStartDay === "1") setStartTime(new Date(startTime.setHours(12)));
         if(periodOfEndDay === "1") setEndTime(new Date(endTime.setHours(12)));
@@ -174,8 +176,8 @@ const CreateRequestTimeOff = ((props) => {
 
     const conditionDisableCalendarEnd = (date) => {
         let daysLimit = 12 - props.history.location.state;
-        let dayOff = checkDayOff(startTime, new Date(startTime.getTime() + 86400000 * daysLimit))
         if(startTime) {
+            let dayOff = checkDayOff(startTime, new Date(startTime.getTime() + 86400000 * daysLimit))
             if(date - startTime > (daysLimit + dayOff) * 86400000) return true;
             if (date < startTime) return true;
         }
