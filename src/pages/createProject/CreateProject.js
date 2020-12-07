@@ -8,13 +8,13 @@ import timeCloudAPI from "../../apis/timeCloudAPI";
 import history from "../../history";
 import { withRouter } from "react-router-dom";
 import Spinner from "../../components/loading/spinner/Spinner";
-import { fetchMembers } from "../../redux/actions";
+
 import { connect } from "react-redux";
 import { randomNumber, randomColorArray } from "../../utils/Utils";
 import { USER_ID } from "../../utils/localStorageContact";
 import Modal from "../../components/modal/Modal";
 
-const CreateProject = ({ match, fetchMembers, members }) => {
+const CreateProject = ({ match, members }) => {
   const [selectedMembers, setSelectedMembers] = useState([]);
   const [selectedManager, setSelectedManager] = useState(null);
   const [createdTasks, setCreatedTasks] = useState([]);
@@ -35,11 +35,6 @@ const CreateProject = ({ match, fetchMembers, members }) => {
   const [changedMembers, setChangedMembers] = useState([]);
   const [changedTasks, setChangedTasks] = useState([]);
   const [changedListTaskMember, setChangedListTaskMember] = useState([]);
-
-  // useEffect(() => {
-  //   fetchMembers(52);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -388,6 +383,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { fetchMembers })(
-  withRouter(CreateProject)
-);
+export default connect(mapStateToProps)(withRouter(CreateProject));

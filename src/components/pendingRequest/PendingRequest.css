@@ -1,45 +1,11 @@
-.pending_request{
-  cursor: pointer;
-  padding: 2rem;
-  
-}
 
-.pending_request:hover{
-  background-color: #F3F5F8;
-}
-.pending_request__header{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.pending_request__user_info{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.pending_request__user_info>p:first-child{
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #363636;
-  text-transform: capitalize;
-}
-.pending_request__user_info>p:nth-last-of-type(2){
-  font-size: 1.65rem;
-  font-weight: 400;
-  color: #363636;
-}
-.pending_request__user_info>p:nth-last-of-type(2)>span{
-  color: #7B7C7C;
-  margin-left: .5rem;
-}
-.pending_request__user_info>p:last-child{
-  color: #7B7C7C;
-  font-size: 1.5rem;
-}
 .pending_request__action{
-  
+  display: flex;
 }
-.pending_request__action>button{
+.pending_request__action > *{
+  position: relative;
+}
+.pending_request__action button{
   outline: none;
   border: none;
   font-size: 1.8rem;
@@ -52,36 +18,40 @@
   background-color: white;
   cursor: pointer;
 }
-.pending_request__content{
-  display: none;
-  padding: 2rem;
-  padding-left: 7.5rem;
+.pending_request__action .approve_active{
+  background-color: var(--color-approve);
+  color: white;
+  border-color: var(--color-approve);
 }
-.pending_request__description{
-  white-space: pre-line;
-  font-size: 1.7rem;
-  font-weight: 500;
-  color: #373737;
-  line-height: 2rem;
-}
-.pending_request__content.show{
-  display: inherit;
-}
-.pending_request__time>p:first-child,.pending_request__time>p:last-child{
-  color: #6E6F6F;
-  font-size: 1.4rem;
-  font-weight: 500;
-  margin-top: 2.5rem;
+.pending_request__action .reject_active{
+  background-color: var(--color-reject);
+  color: white;
+  border-color: var(--color-reject);
 }
 
-.pending_request__time>p:nth-of-type(2){
-  color: #373737;
+.pending_request__action .disable{
+  background-color: #CCCCCC !important;
+  color: #A39999 !important;
+  border-color: #CCCCCC !important;
+  cursor: initial;
+}
+
+.pending_request__action label{
+  font-size: 1.6rem;
+  font-weight: 700;
+  padding: .5rem 0;
+}
+.pending_request__action textarea{
+  border: none;
+  outline: none;
+  margin-top: 1rem;
+  resize: none;
   font-size: 1.5rem;
   font-weight: 500;
-  margin-top: 1rem;
-  display: flex;
-  align-items: center;
 }
-.pending_request__time>p:nth-of-type(2)>.MuiSvgIcon-root{
-  margin:  0 2rem;
+.pending_request__dd_approve{
+  cursor: inherit;
+}
+.pending_request__dd_reject{
+  cursor: inherit;
 }

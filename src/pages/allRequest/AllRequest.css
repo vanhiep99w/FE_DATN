@@ -1,0 +1,45 @@
+.all_request__title{
+  
+  
+}
+.all_request__title>a{
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #797979;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  margin-bottom: .5rem;
+}
+.all_request__title>a>.MuiSvgIcon-root{
+  font-size: 2rem;
+}
+.all_request__title__right{
+  position: relative;
+}
+.all_request__title__right p{
+  
+  color: #828282;
+  padding: 1rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+}
+.all_request__title__right>p{
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #EEEEEE;
+}
+.all_request__title__right>p>.MuiSvgIcon-root{
+  font-size: 2rem;
+  
+}
+
+.all_request__dd_type>p:hover{
+  background-color: #EEEEEE;
+}

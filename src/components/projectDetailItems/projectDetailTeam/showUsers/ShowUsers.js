@@ -31,17 +31,20 @@ class ShowUsers extends React.Component {
           }
         )
         .then((response) => {
-          timeCloudAPI().get(`projects/${this.props.project.id}/users/${this.props.user.id}/tasks-did`)
-          .then(res => {
-            this.setState({
-              tasks: [...response.data, ...res.data]
-            })
-          })
+          timeCloudAPI()
+            .get(
+              `projects/${this.props.project.id}/users/${this.props.user.id}/tasks-did`
+            )
+            .then((res) => {
+              this.setState({
+                tasks: [...response.data, ...res.data],
+              });
+            });
         });
     } else {
       // * fetch all in oldProject(isDoing = false)
       Promise.all(
-        this.props.unavailableTasks.map((ele) =>
+        this.props.unavailableTasks?.map((ele) =>
           timeCloudAPI().get(`tasks/${ele}`, {
             cancelToken: this.source.token,
           })

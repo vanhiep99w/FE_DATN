@@ -12,6 +12,7 @@
 
 .drop_down_2::-webkit-scrollbar {
   width: 3px;
+  
 }
 
 .drop_down_2::-webkit-scrollbar-track {
@@ -23,3 +24,4 @@
   background: #0066cc;
   border-radius: 5px;
 }
+

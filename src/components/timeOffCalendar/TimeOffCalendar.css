@@ -1,17 +1,10 @@
- .time_off_calendar{
-  --color-pending : rgba(234, 146, 69, .8);
-  --color-approve : rgba(46, 194, 165,.8);
-  --color-reject : rgba(226, 80, 80, .8);
-  --color-holiday : #C39BD3;
-  --color-last-week : #F1F1F1;
+.time_off_calendar{
+  
 }
 
 .time_off_calendar>table{
-
-
   margin-top: 1rem;
   margin-left: 1rem;
-
   border-collapse: collapse;
   table-layout: auto;
   box-sizing: border-box;
@@ -20,9 +13,7 @@
 .time_off_calendar>table *{
   box-sizing: inherit;
 }
-.time_off_calendar__header{
-
-}
+.time_off_calendar__header{}
 .time_off_calendar__header th:first-child{
   vertical-align: middle;
 }
@@ -31,9 +22,8 @@
   border-top: 4px solid #0066CC;
 }
 .time_off_calendar__header th:not(:first-child){
-  width: 6rem;
+  width: 5.5rem;
   height: 6rem;
-  
 }
 
 .time_off_calendar th,.time_off_calendar td{
@@ -63,16 +53,18 @@
   justify-content: center;
   padding: 0 1.5rem;
 }
+
+.time_off_calendar__search>.MuiSvgIcon-root{
+  font-size: 2.7rem;
+  color: #7a7a7a;
+}
+
 .time_off_calendar__search>input{
   border: none;
   outline: none;
   font-size: 1.6rem;
   font-weight: 500;
   padding: 0 .2rem;
-}
-.time_off_calendar__search>.MuiSvgIcon-root{
-  font-size: 3rem;
-  color: #898989;
 }
 .time_off_calendar__search>input::placeholder{
   font-size: 1.6rem;
@@ -81,7 +73,7 @@
   
 }
 .time_off_calendar__user{
-  height: 6rem;
+  height: 5.5rem;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -102,13 +94,14 @@
   text-transform: capitalize;
 }
 .time_off_calendar__user_info .primary_info>p:last-child{
-  font-size: 1.2rem;
-  color: #E67F24;
+  font-size: 1.1rem;
   border-radius: 1rem;
-  padding: .3rem .5rem;
-  background-color: #F7D8BC;
+  padding: .25rem .5rem;
   margin-left: .5rem;
+  font-weight: 600;
 }
+
+
 .time_off_calendar__user_info>p{
   color: #747474;
   font-size: 1.3rem;

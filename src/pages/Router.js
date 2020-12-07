@@ -52,6 +52,10 @@ const TimeOff = withAsyncComponent(() => {
   return import("../pages/timeOff/TimeOff");
 });
 
+const AllRequest = withAsyncComponent(() => {
+  return import("../pages/allRequest/AllRequest");
+});
+
 class Router extends React.Component {
   componentDidMount() {
     this.props.checkAuth();
@@ -80,6 +84,7 @@ class Router extends React.Component {
             path="/create-request-time-off"
             component={CreateRequestTimeOff}
           />
+          <Route path="/all-request" component={AllRequest} />
           <Route path="/discussion" component={Discussion}></Route>
           <Route component={NotFound} />
         </Switch>
@@ -88,10 +93,12 @@ class Router extends React.Component {
       routes = (
         <Switch>
           <Redirect from="/" exact to="/timer" />
-          <Route path="/time-off" component={TimeOff} />
+          {/* <Route path="/time-off" component={TimeOffAdmin} /> */}
+
+          {/* <Route path="/time-off" component={TimeOff} /> */}
           <Route path="/timer" component={Timer} />
           <Route path="/report" component={Report} />
-          <Route path="/time-off" component={TimeOff} />
+          <Route path="/all-request" component={AllRequest} />
           <Route
             path="/create-request-time-off"
             component={CreateRequestTimeOff}
@@ -103,14 +110,21 @@ class Router extends React.Component {
           />
           <Route path="/profile/:id" component={Profile} />
           <Route path="/discussion" component={Discussion} />
+          {user?.roles && <Route path="/time-off" component={TimeOff} />}
           {managedProjects.length && (
-            <Route
-              path="/projects"
-              exact
-              render={() => (
-                <Projects adminMode={true} managedProjects={managedProjects} />
-              )}
-            />
+            <>
+              <Route
+                path="/projects"
+                exact
+                render={() => (
+                  <Projects
+                    adminMode={true}
+                    managedProjects={managedProjects}
+                  />
+                )}
+              />
+              <Route path="/edit_project/:id" component={CreateProject} />
+            </>
           )}
           {managedProjects.length && (
             <Route path="/projects/:id" component={ProjectDetail} />
