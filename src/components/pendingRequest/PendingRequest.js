@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 import timeCloudAPI from "../../apis/timeCloudAPI";
 import DropDown2 from "../dropdown2/DropDown2";
 import RequestTO from "../requestTO/RequestTO";
+import { USER_ID } from "../../utils/localStorageContact";
 
 const PendingRequest = ({ request }) => {
   const [showDDApprove, setShowDDApprove] = useState(false);
@@ -22,6 +23,28 @@ const PendingRequest = ({ request }) => {
     setShowDDReject(false);
   };
 
+  const onRejectTimeOff = async () => {
+    const res = await timeCloudAPI().post(`status-time-off/${request.id}`, {
+      approverId: localStorage.getItem(USER_ID),
+      response: rejectInput,
+      status: 3,
+    });
+    return res.data;
+  };
+  const onApproveTimeOff = async () => {
+    const res = await timeCloudAPI().post(`status-time-off/${request.id}`, {
+      approverId: localStorage.getItem(USER_ID),
+      response: approveInput,
+      status: 2,
+    });
+    return res.data;
+  };
+
+  const onButtonRejectSendClickHandler = () => {
+    onRejectTimeOff();
+  };
+  const onButtonApproveSendClickHandler = () => {};
+
   const renderDDApproveContent = () => {
     return (
       <div className="pending_request__dd_approve">
@@ -35,7 +58,12 @@ const PendingRequest = ({ request }) => {
           onChange={(event) => setApproveInput(event.target.value)}
         />
         <div>
-          <button className="approve_active">Approve & Send</button>
+          <button
+            className="approve_active"
+            onClick={onButtonApproveSendClickHandler}
+          >
+            Approve & Send
+          </button>
           <button onClick={onApproveButtonCancelClick}>Cancel</button>
         </div>
       </div>
@@ -56,7 +84,12 @@ const PendingRequest = ({ request }) => {
         />
 
         <div>
-          <button className="reject_active">Reject & Send</button>
+          <button
+            className={rejectInput ? "reject_active" : "disable"}
+            onClick={onButtonRejectSendClickHandler}
+          >
+            Reject & Send
+          </button>
           <button onClick={onRejectButtonCancelClick}>Cancel</button>
         </div>
       </div>

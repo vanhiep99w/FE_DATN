@@ -8,21 +8,39 @@ import timeCloudAPI from "../../apis/timeCloudAPI";
 
 const TimeOffAdmin = () => {
   const [pendingRequest, setPendingRequest] = useState([]);
+  const [approveRequest, setApproveRequest] = useState([]);
   useEffect(() => {
+    fetchPendingRequest();
+    fetchApproveRequest();
+  }, []);
+  const fetchPendingRequest = () => {
     timeCloudAPI()
       .get("time-off/pending")
       .then((res) => {
         setPendingRequest(res.data);
       });
-  }, []);
+  };
+  const fetchApproveRequest = () => {
+    timeCloudAPI()
+      .get("time-off/approve")
+      .then((res) => {
+        setApproveRequest(res.data);
+      });
+  };
 
   return (
     <div className="time_off_admin">
       <PageDesign title="TimeOff">
         <h3>Pending Requests ({pendingRequest.length})</h3>
-        {pendingRequest.map((request) => {
-          return <PendingRequest request={request} key={request.id} />;
-        })}
+        {pendingRequest
+          .sort((a1, a2) => {
+            return (
+              new Date(a2.timeOff.createAt) - new Date(a1.timeOff.createAt)
+            );
+          })
+          .map((request) => {
+            return <PendingRequest request={request} key={request.id} />;
+          })}
         <h3>Time off calendar</h3>
         <TimeOffCalendar />
         <Link to="/all-request">Show pass Time off</Link>
