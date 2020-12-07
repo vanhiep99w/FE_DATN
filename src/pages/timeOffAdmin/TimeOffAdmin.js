@@ -13,6 +13,22 @@ const TimeOffAdmin = () => {
     fetchPendingRequest();
     fetchApproveRequest();
   }, []);
+
+  const changePendingBecomeApproveRequest = (requestId, response) => {
+    const temp = [...pendingRequest];
+    const index = temp.findIndex((ele) => ele.id === requestId);
+    setPendingRequest(temp);
+    const request = pendingRequest.splice(index, 1)[0];
+    request.response = response;
+    request.status = 2;
+    setApproveRequest([...approveRequest, request]);
+  };
+
+  const changePendingBecomeRejectRequest = (requestId) => {
+    const temp = [...pendingRequest];
+    temp.findIndex((ele) => ele.id === requestId);
+    setPendingRequest(temp);
+  };
   const fetchPendingRequest = () => {
     timeCloudAPI()
       .get("time-off/pending")
@@ -39,7 +55,14 @@ const TimeOffAdmin = () => {
             );
           })
           .map((request) => {
-            return <PendingRequest request={request} key={request.id} />;
+            return (
+              <PendingRequest
+                request={request}
+                key={request.id}
+                changeBecomeApprove={changePendingBecomeApproveRequest}
+                changeBecomeReject={changePendingBecomeRejectRequest}
+              />
+            );
           })}
         <h3>Time off calendar</h3>
         <TimeOffCalendar />

@@ -5,7 +5,12 @@ import DropDown2 from "../dropdown2/DropDown2";
 import RequestTO from "../requestTO/RequestTO";
 import { USER_ID } from "../../utils/localStorageContact";
 
-const PendingRequest = ({ request }) => {
+const PendingRequest = ({
+  request,
+  changeBecomeApprove,
+  changeBecomeReject,
+}) => {
+  console.log(request);
   const [showDDApprove, setShowDDApprove] = useState(false);
   const [showDDReject, setShowDDReject] = useState(false);
   const [approveInput, setApproveInput] = useState("");
@@ -42,6 +47,7 @@ const PendingRequest = ({ request }) => {
 
   const onButtonRejectSendClickHandler = () => {
     onRejectTimeOff();
+    changeBecomeReject(request.id);
   };
   const onButtonApproveSendClickHandler = () => {};
 
