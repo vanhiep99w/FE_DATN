@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   months,
   status,
@@ -10,7 +10,6 @@ import TimeOffActions from "./timeOffActions/TimeOffActions";
 import Avatar from "../../components/avatar/Avatar";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
-import timeCloudAPI from "../../apis/timeCloudAPI";
 import { connect } from "react-redux";
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -34,8 +33,12 @@ const RequestTimeOff = ({ data, user, onDelete }) => {
     else {
       if (description.includes("\n")) {
         var stringSplit = description.split("\n");
-        console.log(stringSplit);
-        return `${stringSplit[0]} \n...`;
+        const temp = 50 * stringSplit.length;
+        if (temp > 150) {
+          return `${stringSplit[0]}\n${stringSplit[1]}\n...`;
+        } else {
+          return description;
+        }
       } else {
         if (description?.length <= 150) return description;
         else return description?.substring(0, 150) + "...";
@@ -93,9 +96,8 @@ const RequestTimeOff = ({ data, user, onDelete }) => {
         </div>
       </div>
       <div className="request_time_off__center">
-        <p style={{ whiteSpace: "pre-line" }}>
-          {" "}
-          {descriptionContent(data.timeOff.description)}{" "}
+        <p style={{ whiteSpace: "pre-line", marginTop: "1rem" }}>
+          {descriptionContent(data.timeOff.description)}
         </p>
         <div className="request_time_off__center__info">
           <Avatar

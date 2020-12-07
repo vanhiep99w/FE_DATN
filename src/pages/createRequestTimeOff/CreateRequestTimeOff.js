@@ -201,20 +201,18 @@ const CreateRequestTimeOff = (props) => {
   };
 
   const conditionDisableCalendarEnd = (date) => {
+    let daysLimit = 12 - props.history.location.state;
+    let dayOff = checkDayOff(
+      startTime,
+      new Date(startTime.getTime() + 86400000 * daysLimit)
+    );
     if (startTime) {
-      let daysLimit = 12 - props.history.location.state;
-      let dayOff = checkDayOff(
-        startTime,
-        new Date(startTime.getTime() + 86400000 * daysLimit)
-      );
-      if (startTime) {
-        if (date - startTime > (daysLimit + dayOff) * 86400000) return true;
-        if (date < startTime) return true;
-      } else {
-        if (date < new Date() - 86400000) return true;
-      }
-      return false;
+      if (date - startTime > (daysLimit + dayOff) * 86400000) return true;
+      if (date < startTime) return true;
+    } else {
+      if (date < new Date() - 86400000) return true;
     }
+    return false;
   };
 
   return (

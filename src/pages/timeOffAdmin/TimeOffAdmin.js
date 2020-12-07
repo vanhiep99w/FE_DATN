@@ -64,7 +64,10 @@ const TimeOffAdmin = () => {
             );
           })}
         <h3>Time off calendar</h3>
-        <TimeOffCalendar />
+        <TimeOffCalendar
+          _pendingRequest={pendingRequest}
+          _approveRequest={approveRequest}
+        />
         <Link to="/all-request">Show pass Time off</Link>
       </PageDesign>
       <div className="time_off_admin__footer">
