@@ -27,12 +27,12 @@
   --color-last-week : #F1F1F1;
 }
 
-.status_approve{
+.status_approved{
   background-color: #BAEAE1;
   color : #20BE9F;
 }
 
-.status_reject{
+.status_rejected{
   background-color: #F5C6C6;
   color : #E35252;
 }
