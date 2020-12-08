@@ -9,6 +9,7 @@ import timeCloudAPI from "../../apis/timeCloudAPI";
 const TimeOffAdmin = () => {
   const [pendingRequest, setPendingRequest] = useState([]);
   const [approveRequest, setApproveRequest] = useState([]);
+
   useEffect(() => {
     fetchPendingRequest();
     fetchApproveRequest();
@@ -17,17 +18,15 @@ const TimeOffAdmin = () => {
   const changePendingBecomeApproveRequest = (requestId, response) => {
     const temp = [...pendingRequest];
     const index = temp.findIndex((ele) => ele.id === requestId);
+    const request = temp.splice(index, 1)[0];
     setPendingRequest(temp);
-    const request = pendingRequest.splice(index, 1)[0];
     request.response = response;
     request.status = 2;
     setApproveRequest([...approveRequest, request]);
   };
 
   const changePendingBecomeRejectRequest = (requestId) => {
-    const temp = [...pendingRequest];
-    temp.findIndex((ele) => ele.id === requestId);
-    setPendingRequest(temp);
+    setPendingRequest(pendingRequest.filter((ele) => ele.id !== requestId));
   };
   const fetchPendingRequest = () => {
     timeCloudAPI()
@@ -65,7 +64,10 @@ const TimeOffAdmin = () => {
             );
           })}
         <h3>Time off calendar</h3>
-        <TimeOffCalendar />
+        <TimeOffCalendar
+          _pendingRequest={pendingRequest}
+          _approveRequest={approveRequest}
+        />
         <Link to="/all-request">Show pass Time off</Link>
       </PageDesign>
       <div className="time_off_admin__footer">

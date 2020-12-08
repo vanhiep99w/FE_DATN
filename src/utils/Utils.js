@@ -85,10 +85,9 @@ export const checkDayOff = (start, end) => {
 
 export const countDate = (start, end) => {
   let result = checkDayOff(start, end);
-  console.log(result);
-  if(start.getTime() === end.getTime()) return 0.5;
-  if(end.getTime() - start.getTime() === 86400000) return 1;
-  if(end.getTime() - start.getTime() === 129600000) return 1.5;
+  if (start.getTime() === end.getTime()) return 0.5;
+  if (end.getTime() - start.getTime() === 86400000) return 1;
+  if (end.getTime() - start.getTime() === 129600000) return 1.5;
   return (end.getTime() - start.getTime() + 86400000) / 86400000 - result;
 };
 
