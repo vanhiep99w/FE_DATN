@@ -127,6 +127,16 @@ const CreateRequestTimeOff = (props) => {
     }
   };
 
+    useEffect(() => {
+        if(endTime) {
+            if(periodOfStartDay === "1" && startTime.getDate() === endTime.getDate()) {
+                setStartTime(new Date(startTime.setHours(12)));
+                setEndTime(new Date(endTime.setHours(12)));
+            }
+        }
+        if(periodOfStartDay === "1") setStartTime(new Date(startTime.setHours(12)));
+        if(periodOfEndDay === "1") setEndTime(new Date(endTime.setHours(12)));
+    },[periodOfStartDay, periodOfEndDay]);
   const onSetEndTime = (selectedDays) => {
     if (selectedDays) {
       setEndTime(selectedDays[0]);
