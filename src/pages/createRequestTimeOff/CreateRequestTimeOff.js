@@ -52,7 +52,7 @@ const CreateRequestTimeOff = (props) => {
     if (description !== "")
       setDescriptionValidation(validate([require], description));
   }, [startTime, endTime, description, dayRequest]);
-  console.log(startTime);
+  console.log(startTime, endTime);
   useEffect(() => {
     if (
       startValidation === undefined &&
@@ -95,18 +95,34 @@ const CreateRequestTimeOff = (props) => {
   }, [props.match.params.id]);
 
   useEffect(() => {
-    if (periodOfStartDay === "1" && startTime.getDate() === endTime.getDate()) {
-      setStartTime(new Date(startTime.setHours(12)));
-      setEndTime(new Date(endTime.setHours(12)));
+    if (endTime && startTime) {
+      if (
+        periodOfStartDay === "1" &&
+        startTime.getDate() === endTime.getDate()
+      ) {
+        setStartTime(new Date(startTime.setHours(12)));
+        setEndTime(new Date(endTime.setHours(12)));
+      }
     }
-    if (periodOfStartDay === "1")
-      setStartTime(new Date(startTime.setHours(12)));
-    if (periodOfEndDay === "1") setEndTime(new Date(endTime.setHours(12)));
-  }, [periodOfStartDay, periodOfEndDay, startTime, endTime]);
+    if (startTime) {
+      if (periodOfStartDay === "1")
+        setStartTime(new Date(startTime.setHours(12)));
+      if (periodOfStartDay === "0")
+        setStartTime(new Date(startTime.setHours(0)));
+    }
+    if (endTime) {
+      if (periodOfEndDay === "1") setEndTime(new Date(endTime.setHours(12)));
+      if (periodOfEndDay === "0") setEndTime(new Date(endTime.setHours(0)));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [periodOfStartDay, periodOfEndDay]);
 
   const onSetStartTime = (selectedDays) => {
     if (selectedDays) {
-      setStartTime(selectedDays[0]);
+      if (periodOfStartDay === "1") {
+        let temp = new Date(selectedDays[0].setHours(12));
+        setStartTime(temp);
+      } else setStartTime(selectedDays[0]);
     }
   };
 
@@ -202,11 +218,11 @@ const CreateRequestTimeOff = (props) => {
 
   const conditionDisableCalendarEnd = (date) => {
     let daysLimit = 12 - props.history.location.state;
-    let dayOff = checkDayOff(
-      startTime,
-      new Date(startTime.getTime() + 86400000 * daysLimit)
-    );
     if (startTime) {
+      let dayOff = checkDayOff(
+        startTime,
+        new Date(startTime.getTime() + 86400000 * daysLimit)
+      );
       if (date - startTime > (daysLimit + dayOff) * 86400000) return true;
       if (date < startTime) return true;
     } else {

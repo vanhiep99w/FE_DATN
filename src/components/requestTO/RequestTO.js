@@ -29,7 +29,11 @@ const RequestTO = ({ requestInfo, children }) => {
         className="request_to__header"
         onClick={() => setShowContent(!showContent)}
       >
-        <Avatar avatarSize="6.5rem" css={{ alignItems: "stretch" }}>
+        <Avatar
+          avatarSize="6.5rem"
+          css={{ alignItems: "stretch" }}
+          avatar={requestInfo.timeOff.user.avatar}
+        >
           <div className="request_to__user_info">
             <div className="request_to__user_info__head">
               <p>
