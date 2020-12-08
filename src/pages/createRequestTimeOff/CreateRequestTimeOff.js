@@ -92,7 +92,8 @@ const CreateRequestTimeOff = (props) => {
           setDescription(res.data.description);
         });
     }
-  }, [props.match.params.id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (endTime && startTime) {

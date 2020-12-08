@@ -4,6 +4,7 @@ import Checkbox from "../../../components/checkbox/Checkbox";
 import SelectItem from "../../../components/selectItem/SelectItem";
 import UserInfo from "../../../components/userInfo/UserInfo";
 import React, { useState, useEffect } from "react";
+import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import {
   onItemChangedHandler,
   onListChangedHandler,
@@ -11,7 +12,6 @@ import {
 import { connect } from "react-redux";
 import MembersSearch from "./membersSearch/MembersSearch";
 import history from "../../../history/index";
-import { colors } from "@material-ui/core";
 
 const TeamMembers = ({
   selectedMembers,
@@ -26,7 +26,7 @@ const TeamMembers = ({
   const columns = {
     people: {
       key: "action",
-      width: "80%",
+      width: "50%",
       convertHeader: () => (
         <p
           style={{
@@ -52,6 +52,40 @@ const TeamMembers = ({
             }}
           />
         </SelectItem>
+      ),
+      cssData: {
+        textAlign: "center",
+      },
+    },
+
+    rate: {
+      key: "rate",
+      width: "30%",
+      convertHeader: () => (
+        <p
+          style={{
+            textAlign: "left",
+          }}
+        >
+          Rate
+        </p>
+      ),
+      convertData: (element) => (
+        <form
+          className="team_members__rate"
+          onSubmit={(event) => event.preventDefault()}
+        >
+          <label htmlFor={`rate_${element.id}`}>
+            CS
+            <AttachMoneyIcon />
+          </label>
+          <input
+            id={`rate_${element.id}`}
+            placeholder="Rate..."
+            maxLength={5}
+            type="number"
+          />
+        </form>
       ),
       cssData: {
         textAlign: "center",
