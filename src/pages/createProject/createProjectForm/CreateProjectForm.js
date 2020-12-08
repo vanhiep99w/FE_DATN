@@ -99,6 +99,23 @@ const CreateProjectForm = ({
           }
         />
       </div>
+      <div className="project_form_field">
+        <label htmlFor="budget">Budget</label>
+        <input
+          id="budget"
+          placeholder="budget"
+          type="text"
+          style={{ flex: ".3" }}
+          value={projectForm.budget}
+          onBlur={(e) => {
+            if (!touched.clientName)
+              setTouched({ ...touched, clientName: true });
+          }}
+          onChange={(event) =>
+            setProjectForm({ ...projectForm, budget: event.target.value })
+          }
+        />
+      </div>
     </form>
   );
 };

@@ -22,11 +22,12 @@ const CreateProject = ({ match, members }) => {
   const [projectForm, setProjectForm] = useState({
     projectName: "",
     clientName: "",
+    budget: "",
     projectColor: randomColorArray[randomNumber(randomColorArray.length)],
   });
   const [validate, setValidate] = useState(null);
   const [showModal, setShowModal] = useState(false);
-
+  console.log(projectForm);
   // * Edit mode state
   const [listTasks, setListTasks] = useState([]);
   const [listUsers, setListUsers] = useState([]);
