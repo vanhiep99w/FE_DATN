@@ -52,3 +52,36 @@
   cursor: pointer;
 }
 
+.team_members__rate{
+  font-family: 'Quicksand', sans-serif;
+  display: flex;
+  align-items: center;
+}
+.team_members__rate>label{
+  font-size: 1.6rem;
+  text-align: center;
+  line-height: 100%;
+  
+}
+.team_members__rate>label>.MuiSvgIcon-root{
+  vertical-align: bottom;
+  font-size: 1.7rem;
+}
+.team_members__rate>input{
+  border: none;
+  border-bottom: 1px solid #C2C2C2;
+  border-radius: 0px;
+  outline: none;
+  font-size: 1.5rem;
+  font-weight: 600;
+  max-width: 6rem;
+  padding: .4rem .5rem;
+}
+.team_members__rate>input::placeholder{
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #444444;
+}
+.team_members__rate>input::-webkit-inner-spin-button{
+  display: none;
+}
