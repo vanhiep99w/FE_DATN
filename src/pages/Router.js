@@ -83,14 +83,14 @@ class Router extends React.Component {
           <Route path="/create_project" component={CreateProject} />
           <Route path="/edit_project/:id" component={CreateProject} />
           <Route path="/projects" exact component={Projects} />
-          <Route path="/projects/:id" component={ProjectDetail} />
+          <Route path="/projects/:id" exact component={ProjectDetail} />
           <Route
             path="/create-request-time-off"
             component={CreateRequestTimeOff}
           />
           <Route path="/all-request" component={AllRequest} />
           <Route path="/discussion" component={Discussion}></Route>
-          <Route path="/payroll" component={Payroll}></Route>
+          <Route path="/projects/8/payroll" component={Payroll}></Route>
           <Route component={NotFound} />
         </Switch>
       );
