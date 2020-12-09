@@ -1,0 +1,41 @@
+.request-other__left{
+  align-self: flex-start;
+  position: relative;
+}
+.request-other__left>button{
+  outline: none;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+  padding: 0;
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.request-other__left>button:hover{
+  background-color: white;
+}
+
+.request-other__left>button>.MuiSvgIcon-root{
+  color: #5B626A;
+  font-size: 3rem;
+}
+
+.request-other__dd-content{
+
+}
+.request-other__dd-content>p{
+  white-space: nowrap;
+  font-size: 1.3rem;
+  font-weight: 600;
+  padding: 2rem 1rem;
+  cursor: pointer;
+}
+
+.request-other__dd-content>p:hover{
+  background-color: #f2f2f2;
+  border-radius: 2px;
+}

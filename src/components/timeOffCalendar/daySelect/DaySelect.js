@@ -40,22 +40,27 @@ const DaySelect = ({
   };
   return (
     <div className="day_select">
-      <div className="day_select__multiple">
-        <button onClick={onButtonPreClick}>
-          <NavigateBeforeIcon />
-        </button>
-        <span>{`${getDayInfo(firstDay)} - ${getDayInfo(lastDay)}`}</span>
-        <button onClick={onButtonNextClick}>
-          <NavigateNextIcon />
-        </button>
+      <div className="day_select__left">
+        <div className="day_select__multiple">
+          <button onClick={onButtonPreClick}>
+            <NavigateBeforeIcon />
+          </button>
+          <span>{`${getDayInfo(firstDay)} - ${getDayInfo(lastDay)}`}</span>
+          <button onClick={onButtonNextClick}>
+            <NavigateNextIcon />
+          </button>
+        </div>
+        <div className="day_select__single">
+          <button onClick={onSelectNow}>Today</button>
+          <SelectCalendar
+            multipleSelect={false}
+            value={[firstDay]}
+            onSelectDay={onSelectDayHandler}
+          />
+        </div>
       </div>
-      <div className="day_select__single">
-        <button onClick={onSelectNow}>Today</button>
-        <SelectCalendar
-          multipleSelect={false}
-          value={[firstDay]}
-          onSelectDay={onSelectDayHandler}
-        />
+      <div className="day_select__right">
+        <div>All projects</div>
       </div>
     </div>
   );

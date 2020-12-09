@@ -70,23 +70,38 @@ const TeamMembers = ({
           Rate
         </p>
       ),
-      convertData: (element) => (
-        <form
-          className="team_members__rate"
-          onSubmit={(event) => event.preventDefault()}
-        >
-          <label htmlFor={`rate_${element.id}`}>
-            CS
-            <AttachMoneyIcon />
-          </label>
-          <input
-            id={`rate_${element.id}`}
-            placeholder="Rate..."
-            maxLength={5}
-            type="number"
-          />
-        </form>
-      ),
+      convertData: (element) => {
+        console.log(element);
+        return (
+          <form
+            className="team_members__rate"
+            onSubmit={(event) => event.preventDefault()}
+          >
+            <label htmlFor={`rate_${element.id}`}>
+              CS
+              <AttachMoneyIcon />
+            </label>
+            <input
+              id={`rate_${element.id}`}
+              placeholder="Rate..."
+              maxLength={5}
+              type="number"
+              value={element.rate}
+              onChange={(event) => {
+                console.log(selectedMembers, element);
+                setSelectedMembers(
+                  selectedMembers.map((ele) => {
+                    if (ele.id === element.id) {
+                      return { ...ele, rate: +event.target.value };
+                    }
+                    return ele;
+                  })
+                );
+              }}
+            />
+          </form>
+        );
+      },
       cssData: {
         textAlign: "center",
       },

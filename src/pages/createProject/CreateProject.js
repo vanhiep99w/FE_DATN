@@ -27,7 +27,6 @@ const CreateProject = ({ match, members }) => {
   });
   const [validate, setValidate] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  console.log(projectForm);
   // * Edit mode state
   const [listTasks, setListTasks] = useState([]);
   const [listUsers, setListUsers] = useState([]);
@@ -152,18 +151,22 @@ const CreateProject = ({ match, members }) => {
   const onCreateProject = async () => {
     setIsSaving(true);
     try {
-      const { projectName, clientName, projectColor } = projectForm;
+      const { projectName, clientName, projectColor, budget } = projectForm;
       const {
         data: { id },
       } = await timeCloudAPI().post("companies/52/projects", {
         color: projectColor,
         clientName: clientName,
         name: projectName,
-        projectManagerId: selectedManager.id,
+        projectManagerId: selectedManager?.id,
+        budget: +budget,
       });
+      console.log(selectedMembers);
       await Promise.allSettled([
         ...selectedMembers.map((ele) =>
-          timeCloudAPI().post(`projects/${id}/users/${ele.id}`)
+          timeCloudAPI().post(`projects/${id}/users/${ele.id}`, {
+            rate: ele.rate,
+          })
         ),
         ...createdTasks.map((task) => {
           return saveTaskAndTaskMembers(task, id);

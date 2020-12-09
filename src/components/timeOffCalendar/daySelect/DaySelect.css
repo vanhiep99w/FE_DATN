@@ -1,10 +1,14 @@
 .day_select{
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   margin-bottom: 3rem;
 }
+.day_select__left{
+  display: flex;
+}
 .day_select__multiple{
+  
   display: flex; 
   align-items: center;
   justify-content: space-between;
@@ -49,4 +53,10 @@
   color: #7F7F7F;
   margin-right: 2rem;
   cursor: pointer;
+}
+.day_select__right{
+  
+}
+.day_select__right>div:first-child{
+  min-width: 5rem;
 }
