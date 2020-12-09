@@ -1,0 +1,20 @@
+.payroll {
+    display: flex;
+}
+
+.payroll_left {
+    width: 70%;
+}
+
+.payroll_right {
+    width: 30%;
+    font-size: large;
+    font-weight: 500;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.payroll_right p {
+    padding: 1rem 0;
+}

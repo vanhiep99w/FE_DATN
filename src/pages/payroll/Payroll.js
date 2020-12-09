@@ -38,7 +38,7 @@ const PayRoll = () => {
     textAlign: "left",
     fontWeight: "650",
     color: "black",
-    marginBottom: "2rem"
+    marginBottom: "2rem",
   }
     const columns = {
         members: {
@@ -54,7 +54,7 @@ const PayRoll = () => {
             fontWeight: "500"
           },
           convertData: (data) => (
-            <Avatar avatar={male} avatarSize="4rem"> {data.name} </Avatar>
+            <Avatar css={{alignItems: "center"}} avatar={male} avatarSize="4rem"> {data.name} </Avatar>
           ),
         },
         rate: {
@@ -110,12 +110,29 @@ const PayRoll = () => {
 
     return(
         <PageDesign title="Payroll" headerRight={headerRight()}>
-          <Table
-            columns={columns}
-            data={data}
-            skeletonLoading={data.length ? false : true}
-          />
-
+          <div className="payroll">
+            <div className="payroll_left">
+              <Table
+                columns={columns}
+                data={data}
+                skeletonLoading={data.length ? false : true}
+              />
+            </div>
+            <div className="payroll_right">
+                <div className="payroll_right__lable">
+                  <p>Created by:</p>
+                  <p>Members: </p>
+                  <p>Budget:</p>
+                  <p>Tracked: </p>
+                </div>
+                <div className="payroll_right__value">
+                  <p>Van hiep</p>
+                  <p>5</p>
+                  <p>1000000000</p>
+                  <p>500(h)</p>
+                </div>
+            </div>
+          </div>
         </PageDesign>
     )
 }

@@ -104,6 +104,13 @@ export const convertTime = (totalSecond) => {
   return convertedHour / 1000;
 };
 
+export const convertToHour = (second) => {
+  const hour = second / 3600;
+  const convertedHour = Math.round(hour * 10);
+  return convertedHour / 10;
+}
+
+
 export const ROLE_LIST = [
   { id: 1, name: "ADMIN", color: "2ECC71" },
   { id: 4, name: "DEV", color: "9B59B6" },

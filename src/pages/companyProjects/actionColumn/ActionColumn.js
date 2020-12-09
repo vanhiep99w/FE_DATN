@@ -1,9 +1,10 @@
 import "./ActionColumn.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/AssignmentTurnedIn";
 import Modal from "../../../components/modal/Modal";
 import timeCloudAPI from "../../../apis/timeCloudAPI";
+import { convertToHour } from "../../../utils/Utils";
 
 const styleCom = {
   fontSize: "3rem",
@@ -11,9 +12,47 @@ const styleCom = {
 
 const ActionColumn = ({ project, onEdit, deleteProject }) => {
   const [showModal, setShowModal] = useState(false);
+  const [projectUsers, setProjectUsers] = useState(null);
+  const [totalTime, setTotalTime] = useState(null);
   const onModalClose = () => {
     setShowModal(false);
   };
+
+
+  useEffect(() => {
+    let data = [];
+    timeCloudAPI()
+      .get(`projects/${project.id}/users`)
+      .then((response) => {
+        setProjectUsers(response.data)
+        response.data.forEach(ele => {
+          timeCloudAPI()
+            .get(`projects/${project.id}/users/${ele.user.id}/total-times`)
+            .then((res) => {
+              data.push(convertToHour(res.data))
+            })
+          
+        })
+    });
+    setTotalTime(data);
+  },[]);
+  //console.log(projectUsers);
+  const calculateSalary = () => {
+    console.log(projectUsers);
+    console.log(totalTime);
+    console.log(billableRate());
+    // totalTime[index].map(ele => {
+    //   timeCloudAPI().
+    // })
+  }
+
+  const billableRate = () => {
+    let result = 0;
+    projectUsers.forEach((ele, index) => {
+      result += totalTime[index] * ele.rate;
+    })
+    return result;
+  }
 
   const renderModalAction = () => {
     return (
@@ -21,8 +60,9 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
         <button
           onClick={() => {
             setShowModal(false);
-            timeCloudAPI().delete(`projects/${project.id}`);
-            deleteProject(project);
+            calculateSalary();
+            // timeCloudAPI().delete(`projects/${project.id}`);
+            // deleteProject(project);
           }}
         >
           Yes
