@@ -56,6 +56,10 @@ const AllRequest = withAsyncComponent(() => {
   return import("../pages/allRequest/AllRequest");
 });
 
+const Payroll = withAsyncComponent(() => {
+  return import("../pages/payroll/Payroll");
+});
+
 class Router extends React.Component {
   componentDidMount() {
     this.props.checkAuth();
@@ -86,6 +90,7 @@ class Router extends React.Component {
           />
           <Route path="/all-request" component={AllRequest} />
           <Route path="/discussion" component={Discussion}></Route>
+          <Route path="/payroll" component={Payroll}></Route>
           <Route component={NotFound} />
         </Switch>
       );
