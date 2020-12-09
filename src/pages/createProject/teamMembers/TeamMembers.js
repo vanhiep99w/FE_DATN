@@ -71,7 +71,6 @@ const TeamMembers = ({
         </p>
       ),
       convertData: (element) => {
-        console.log(element);
         return (
           <form
             className="team_members__rate"

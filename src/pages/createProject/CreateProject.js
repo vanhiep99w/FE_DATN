@@ -95,7 +95,9 @@ const CreateProject = ({ match, members }) => {
                   ele.isDoing &&
                   ele.user.id !== parseInt(localStorage.getItem(USER_ID))
               )
-              .map((ele) => ele.user)
+              .map((ele) => {
+                return { ...ele.user, rate: ele.rate };
+              })
           );
         });
     }
@@ -103,12 +105,13 @@ const CreateProject = ({ match, members }) => {
 
   useEffect(() => {
     if (editingMode.current && members.length) {
-      const temp = listUsers.map((user) =>
-        members.find(
+      const temp = listUsers.map((user) => {
+        const temp = members.find(
           (member) =>
             member.id === user.id && user.id !== localStorage.getItem(USER_ID)
-        )
-      );
+        );
+        return { ...temp, rate: user.rate };
+      });
       setSelectedMembers(temp);
     }
   }, [listUsers, members]);
@@ -124,6 +127,7 @@ const CreateProject = ({ match, members }) => {
             projectName: data.name,
             clientName: data.clientName,
             projectColor: data.color,
+            budget: data.budget,
           });
           setSelectedManager(data.projectManager);
         });
@@ -256,7 +260,9 @@ const CreateProject = ({ match, members }) => {
     );
     arrRequest.push(
       ...addedMembers.map((mem) =>
-        timeCloudAPI().post(`projects/${id}/users/${mem.id}`)
+        timeCloudAPI().post(`projects/${id}/users/${mem.id}`, {
+          rate: mem.rate,
+        })
       )
     );
 
