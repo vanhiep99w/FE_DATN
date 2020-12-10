@@ -1,38 +1,30 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './Payroll.css';
 import PageDesign from '../../components/pageDesign/PageDesign';
 import Table from '../../components/table/Table';
 import Avatar from '../../components/avatar/Avatar';
 import male from '../../assets/images/male.png';
 
-const PayRoll = () => {
-
-  const data = [
-    {
-      name: "Son",
-      rate: 1,
-      salary: 10000000,
-      tracked: 30
-    },
-    {
-      name: "Hiep",
-      rate: 1,
-      salary: 10000000,
-      tracked: 35
-    },
-    {
-      name: "Quan",
-      rate: 1,
-      salary: 10000000,
-      tracked: 33
-    },
-    {
-      name: "Hong",
-      rate: 1.2,
-      salary: 15000000,
-      tracked: 40
-    }
-  ]
+const PayRoll = (props) => {
+  const [data, setData] = useState(null);
+  
+  useEffect(() => {
+    let result = [];
+    const salary = props.history.location.state.salary;
+    const tracked = props.history.location.state.time;
+    props.history.location.state.user.forEach((ele, index) => {
+      let temp = {
+        name: ele.user.name,
+        email:ele.user.email,
+        avatar: ele.user.avatar,
+        rate: ele.rate,
+        tracked: tracked[index],
+        salary: salary[index]
+      }
+      result.push(temp);
+    });
+    setData(result);
+  },[])
 
   const cssHeader = {
     textAlign: "left",
@@ -44,7 +36,7 @@ const PayRoll = () => {
         members: {
           key: "members",
           label: "members",
-          width: "30%",
+          width: "40%",
           cssHeader: cssHeader,
           cssData: {
             textTransform: "capitalize",
@@ -54,7 +46,13 @@ const PayRoll = () => {
             fontWeight: "500"
           },
           convertData: (data) => (
-            <Avatar css={{alignItems: "center"}} avatar={male} avatarSize="4rem"> {data.name} </Avatar>
+            <Avatar css={{alignItems: "center"}} avatar={data.avatar} avatarSize="4rem">
+              <div className="payroll__user_info">
+                <p> {data.name} </p>
+                <p> {data.email} </p>
+              </div>
+               
+            </Avatar>
           ),
         },
         rate: {
@@ -73,7 +71,7 @@ const PayRoll = () => {
         tracked: {
           key: "tracked",
           label: "Tracked(h)",
-          width: "30%",
+          width: "20%",
           cssHeader: cssHeader,
           cssData: {
             verticalAlign: "middle",
@@ -105,18 +103,19 @@ const PayRoll = () => {
                         fontWeight: "500",
                         color: "#0066CC",
                     }}
-                > Facebook </p>
+                > {props.history.location.state.project.name} </p>
     }
 
     return(
         <PageDesign title="Payroll" headerRight={headerRight()}>
           <div className="payroll">
             <div className="payroll_left">
-              <Table
-                columns={columns}
-                data={data}
-                skeletonLoading={data.length ? false : true}
-              />
+              {data ? <Table
+                        columns={columns}
+                        data={data}
+                        skeletonLoading={data?.length ? false : true}
+                      /> 
+                    : null}
             </div>
             <div className="payroll_right">
                 <div className="payroll_right__lable">
@@ -127,8 +126,8 @@ const PayRoll = () => {
                 </div>
                 <div className="payroll_right__value">
                   <p>Van hiep</p>
-                  <p>5</p>
-                  <p>1000000000</p>
+                  <p> {props.history.location.state.user.length} </p>
+                  <p> {props.history.location.state.project.budget} </p>
                   <p>500(h)</p>
                 </div>
             </div>

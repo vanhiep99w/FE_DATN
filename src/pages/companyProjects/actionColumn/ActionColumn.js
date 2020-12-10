@@ -5,7 +5,8 @@ import DeleteIcon from "@material-ui/icons/AssignmentTurnedIn";
 import Modal from "../../../components/modal/Modal";
 import timeCloudAPI from "../../../apis/timeCloudAPI";
 import { convertToHour } from "../../../utils/Utils";
-
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import history from '../../../history/index';
 const styleCom = {
   fontSize: "3rem",
 };
@@ -14,6 +15,7 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
   const [showModal, setShowModal] = useState(false);
   const [projectUsers, setProjectUsers] = useState(null);
   const [totalTime, setTotalTime] = useState(null);
+  const [salary, setSalary] = useState(null);
   const onModalClose = () => {
     setShowModal(false);
   };
@@ -36,14 +38,15 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
     });
     setTotalTime(data);
   },[]);
-  //console.log(projectUsers);
   const calculateSalary = () => {
-    console.log(projectUsers);
-    console.log(totalTime);
-    console.log(billableRate());
-    // totalTime[index].map(ele => {
-    //   timeCloudAPI().
-    // })
+    let salary = [];
+    let rate = Math.round(project.budget / billableRate());
+    projectUsers.forEach((ele, index) => {
+      salary.push(Math.round(totalTime[index] * ele.rate * rate));
+      console.log(Math.round(totalTime[index] * ele.rate * rate));
+    });
+    console.log(salary);
+    setSalary(salary);
   }
 
   const billableRate = () => {
@@ -59,6 +62,7 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
       <div className="action_column__button">
         <button
           onClick={() => {
+            console.log(project);
             setShowModal(false);
             calculateSalary();
             // timeCloudAPI().delete(`projects/${project.id}`);
@@ -79,6 +83,22 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
   };
   return (
     <>
+      <AttachMoneyIcon
+        style={{ ...styleCom, marginRight: "5px", color: "#dcc41c" }}
+        className="projects__icon projects__icon__edit"
+        onClick= {(e) => {
+          e.stopPropagation();
+          history.push({
+            pathname: `projects/${project.id}/payroll`,
+            state: {
+              project: project,
+              salary: salary,
+              user: projectUsers,
+              time: totalTime
+            }
+          })
+        }}
+      />
       <EditIcon
         style={{ ...styleCom, marginRight: "5px" }}
         className="projects__icon projects__icon__edit"

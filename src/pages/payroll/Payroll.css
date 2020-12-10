@@ -3,18 +3,24 @@
 }
 
 .payroll_left {
-    width: 70%;
+    min-width: 70%;
 }
 
 .payroll_right {
-    width: 30%;
+    min-width: 30%;
     font-size: large;
     font-weight: 500;
-    padding: 1rem 2rem;
+    padding: 1rem 3rem;
     display: flex;
     justify-content: space-between;
 }
 
 .payroll_right p {
     padding: 1rem 0;
+}
+
+.payroll__user_info>p:nth-child(2) {
+    font-size: small;
+    text-transform: lowercase;
+    color: #a5a5a5;
 }

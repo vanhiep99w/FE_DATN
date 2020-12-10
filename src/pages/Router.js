@@ -90,7 +90,7 @@ class Router extends React.Component {
           />
           <Route path="/all-request" component={AllRequest} />
           <Route path="/discussion" component={Discussion}></Route>
-          <Route path="/projects/8/payroll" component={Payroll}></Route>
+          <Route path="/projects/:id/payroll" component={Payroll}></Route>
           <Route component={NotFound} />
         </Switch>
       );
