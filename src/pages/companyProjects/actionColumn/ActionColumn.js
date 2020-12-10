@@ -15,7 +15,6 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
   const [showModal, setShowModal] = useState(false);
   const [projectUsers, setProjectUsers] = useState(null);
   const [totalTime, setTotalTime] = useState(null);
-  const [salary, setSalary] = useState(null);
   const onModalClose = () => {
     setShowModal(false);
   };
@@ -25,6 +24,7 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
     timeCloudAPI()
       .get(`projects/${project.id}/users`)
       .then((response) => {
+        console.log(response.data);
         setProjectUsers(response.data);
         response.data.forEach((ele) => {
           timeCloudAPI()
@@ -36,18 +36,15 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
       });
     setTotalTime(data);
   }, [project.id]);
+
   const calculateSalary = () => {
-    let salary = [];
-    let rate = Math.round(project.budget / billableRate());
+    let rate = Math.round((project.budget / billableRate()) * 10) / 10;
+    console.log(rate);
     projectUsers.forEach((ele, index) => {
       timeCloudAPI().put(`projects/${project.id}/users/${ele.user.id}`, {
         salary: Math.round(totalTime[index] * ele.rate * rate)
       })
-      console.log(totalTime[index], ele.rate, rate)
-      salary.push(Math.round(totalTime[index] * ele.rate * rate));
     });
-    console.log(salary);
-    setSalary(salary);
   };
 
   const billableRate = () => {
@@ -55,7 +52,8 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
     projectUsers.forEach((ele, index) => {
       result += totalTime[index] * ele.rate;
     });
-    return result;
+    console.log(result);
+    return Math.round(result * 10) / 10;
   };
 
   const renderModalAction = () => {
@@ -104,15 +102,7 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
         className="projects__icon projects__icon__edit"
         onClick={(e) => {
           e.stopPropagation();
-          history.push({
-            pathname: `projects/${project.id}/payroll`,
-            state: {
-              project: project,
-              salary: salary,
-              user: projectUsers,
-              time: totalTime,
-            },
-          });
+          history.push(`projects/${project.id}/payroll`);
         }}
       />
       <EditIcon
