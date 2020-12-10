@@ -1,3 +1,8 @@
+.action_column{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
 .action_column__button{
   display: flex;
   align-items: center;
@@ -7,13 +12,15 @@
 .action_column__button>button{
   outline: none;
   border: none;
-  padding: .7rem 2rem;
+  padding: .8rem 2.3rem;
   font-size: 1.8rem;
   font-weight: 550;
-  margin-left: 1rem;
+  margin-left: 1.5rem;
   cursor: pointer;
   text-align: center;
   border-radius: .5rem;
+  color: white;
+  
 }
 
 .action_column__button>button:nth-child(1){
@@ -24,5 +31,13 @@
 }
 
 .action_column__button>button:hover{
-  background-color: ;
+  
+}
+.action_column__modal_content{
+  padding: 2rem;  
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+.projects__action-column{
+  display: none;
 }

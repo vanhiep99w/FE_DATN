@@ -63,7 +63,8 @@
 
 .projects__icon {
     transition: all .5s !important;
-    
+    color: #898989;
+    background-color: white;
     border-radius: 50%;
 }
 .projects__icon:hover{
@@ -71,12 +72,12 @@
     transform: translateX(.5rem);
 }
 
-.projects__icon__delete{
+/* .projects__icon__delete{
     color: var(--color-error);
 }
 .projects__icon__edit{
     color: var(--color-dark-primary);
-}
+} */
 
 @keyframes leftMove{
     0%{

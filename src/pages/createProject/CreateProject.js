@@ -193,6 +193,7 @@ const CreateProject = ({ match, members }) => {
         name: projectForm.projectName,
         color: projectForm.projectColor,
         projectManagerId: selectedManager.id,
+        budget: projectForm.budget,
       })
     );
 
