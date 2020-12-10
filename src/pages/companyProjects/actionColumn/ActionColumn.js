@@ -102,36 +102,13 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
               pathname: `projects/${project.id}/payroll`,
               state: {
                 project: project,
-                salary: salary,
+                salary: null,
                 user: projectUsers,
                 time: totalTime,
               },
             });
           }}
         />
-<<<<<<< HEAD
-      )}
-      <AttachMoneyIcon
-        style={{
-          ...styleCom,
-          marginRight: "5px",
-          color: "#898989",
-        }}
-        className="projects__icon projects__icon__edit"
-        onClick={(e) => {
-          e.stopPropagation();
-          history.push(`projects/${project.id}/payroll`);
-        }}
-      />
-      <EditIcon
-        style={{ ...styleCom, marginRight: "5px" }}
-        className="projects__icon projects__icon__edit"
-        onClick={(e) => {
-          e.stopPropagation();
-          onEdit(project);
-        }}
-      />
-=======
       </span>
 
       <span className="projects__icon">
@@ -143,7 +120,6 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
           }}
         />
       </span>
->>>>>>> develop
 
       <Modal
         show={showModal}
