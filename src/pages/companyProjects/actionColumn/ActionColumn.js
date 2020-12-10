@@ -41,9 +41,9 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
     let rate = Math.round(project.budget / billableRate());
     projectUsers.forEach((ele, index) => {
       timeCloudAPI().put(`projects/${project.id}/users/${ele.user.id}`, {
-        salary: Math.round(totalTime[index] * ele.rate * rate)
-      })
-      console.log(totalTime[index], ele.rate, rate)
+        salary: Math.round(totalTime[index] * ele.rate * rate),
+      });
+      console.log(totalTime[index], ele.rate, rate);
       salary.push(Math.round(totalTime[index] * ele.rate * rate));
     });
     console.log(salary);
@@ -66,7 +66,9 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
             console.log(project);
             setShowModal(false);
             calculateSalary();
-            timeCloudAPI().delete(`projects/${project.id}`);
+            timeCloudAPI().put(
+              `projects/change-status/${project.id}?done=true`
+            );
             deleteProject(project);
           }}
         >
