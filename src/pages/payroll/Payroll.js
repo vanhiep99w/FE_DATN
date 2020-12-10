@@ -10,36 +10,42 @@ const PayRoll = (props) => {
   const [project, setProject] = useState(null);
   const [totalTimeProject, setTotalTimeProject] = useState(0);
   const [user, setUser] = useState(null);
-  console.log(props);
+  // console.log(props);
+
   useEffect(() => {
-    let result = [];
-    console.log(props.match.params);
-    timeCloudAPI().get(`projects/${props.match.params.id}/total-times`)
-      .then(res => {
-        setTotalTimeProject(res.data)
-    });
-    timeCloudAPI().get(`projects/${props.match.params.id}`)
-    .then(res => {
-      setProject(res.data);
-    });
-    timeCloudAPI().get(`projects/${props.match.params.id}/users`)
-    .then(res => {
-      setUser(res.data);
-      res.data.forEach((ele, index) => {
-        timeCloudAPI().get(`projects/${props.match.params.id}/users/${ele.user.id}/total-times`)
-        .then(res => {
-          let temp = {
-            user: ele,
-            time: res.data
-          }
-          result.push(temp);
-        })
-      })
-    })
-    console.log(result);
-    setData(result);
-  },[])
-  console.log(data[0]);
+    timeCloudAPI()
+      .get(`projects/${props.match.params.id}/total-times`)
+      .then((res) => {
+        setTotalTimeProject(res.data);
+      });
+    timeCloudAPI()
+      .get(`projects/${props.match.params.id}`)
+      .then((res) => {
+        setProject(res.data);
+      });
+    timeCloudAPI()
+      .get(`projects/${props.match.params.id}/users`)
+      .then((res) => {
+        Promise.all(
+          res.data.map((ele) => {
+            return timeCloudAPI().get(
+              `projects/${props.match.params.id}/users/${ele.user.id}/total-times`
+            );
+          })
+        ).then((res1) => {
+          setData(
+            res1.map((item, index) => {
+              return {
+                user: res.data[index],
+                time: item.data,
+              };
+            })
+          );
+        });
+      });
+  });
+
+  console.log(data);
   const cssHeader = {
     textAlign: "left",
     fontWeight: "650",
@@ -116,15 +122,20 @@ const PayRoll = (props) => {
         },
       };
 
-    const headerRight = () => {
-        return <p 
-                    style={{
-                        fontSize: "3rem",
-                        fontWeight: "500",
-                        color: "#0066CC",
-                    }}
-                > {project?.name} </p>
-    }
+  const headerRight = () => {
+    return (
+      <p
+        style={{
+          fontSize: "3rem",
+          fontWeight: "500",
+          color: "#0066CC",
+        }}
+      >
+        {" "}
+        {project?.name}{" "}
+      </p>
+    );
+  };
 
     return(
         <PageDesign title="Payroll" headerRight={headerRight()}>
@@ -146,14 +157,14 @@ const PayRoll = (props) => {
                 </div>
                 <div className="payroll_right__value">
                   <p>Van hiep</p>
-                  <p> {user?.length} </p>
+                  <p> {data?.length} </p>
                   <p> {project?.budget} </p>
                   <p> {convertToHour(totalTimeProject)} </p>
                 </div>
             </div>
           </div>
-        </PageDesign>
-    )
-}
+    </PageDesign>
+  );
+};
 
 export default PayRoll;
