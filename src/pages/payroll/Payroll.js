@@ -3,9 +3,8 @@ import './Payroll.css';
 import PageDesign from '../../components/pageDesign/PageDesign';
 import Table from '../../components/table/Table';
 import Avatar from '../../components/avatar/Avatar';
-import male from '../../assets/images/male.png';
 import timeCloudAPI from '../../apis/timeCloudAPI';
-
+import { convertToHour } from "../../utils/Utils";
 const PayRoll = (props) => {
   const [data, setData] = useState([]);
   const [project, setProject] = useState(null);
@@ -95,7 +94,7 @@ const PayRoll = (props) => {
             fontWeight: "500"
           },
           convertData: (data) => {
-            if(project.done) return data.time;
+            if(project.done) return convertToHour(data.time);
             else return "?";
           },
         },
@@ -149,7 +148,7 @@ const PayRoll = (props) => {
                   <p>Van hiep</p>
                   <p> {user?.length} </p>
                   <p> {project?.budget} </p>
-                  <p> {totalTimeProject} </p>
+                  <p> {convertToHour(totalTimeProject)} </p>
                 </div>
             </div>
           </div>
