@@ -83,6 +83,10 @@ export const checkDayOff = (start, end) => {
   return result;
 };
 
+export const getMouthAndDate = (date) => {
+  return `${months[date.getMonth()]} ${date.getDate()}`;
+};
+
 export const countDate = (start, end) => {
   let result = checkDayOff(start, end);
   if (start.getTime() === end.getTime()) return 0.5;

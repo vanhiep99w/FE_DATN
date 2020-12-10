@@ -1,10 +1,6 @@
 import "./TimeOffCalendar.css";
 import React, { useState, useEffect } from "react";
-import {
-  equalDates,
-  getDaysFromSelectedDay,
-  getStringDayInWeek,
-} from "../../utils/Utils";
+import { getDaysFromSelectedDay, getStringDayInWeek } from "../../utils/Utils";
 import SearchIcon from "@material-ui/icons/Search";
 import Avatar from "../avatar/Avatar";
 import { connect } from "react-redux";
@@ -27,7 +23,6 @@ const TimeOffCalendar = ({ members, _pendingRequest, _approveRequest }) => {
   useEffect(() => {
     setApproveRequest(_approveRequest);
   }, [_approveRequest]);
-  console.log("-------", pendingRequest, approveRequest);
 
   const onChangeSelectDays = (selectedDay) => {
     setSelectedDays(getDaysFromSelectedDay(15, selectedDay));
@@ -36,35 +31,24 @@ const TimeOffCalendar = ({ members, _pendingRequest, _approveRequest }) => {
   useEffect(() => {
     setCurrentMembers([...members]);
   }, [members]);
-  const randomStatus = (day) => {
-    if (day.getDay() === 6 || day.getDay() === 0) {
-      return "last_of_week";
-    }
-    const random = Math.random();
-    if (random < 0.07) return "pending";
-    if (random < 0.14) return "approve";
-    if (random < 0.21) return "reject";
-    return "";
-  };
+  console.log(selectedDays);
 
-  console.log("=============================");
   const checkDateBetween = (date, startDate, endDate) => {
     const temp1 = new Date(date);
     const temp2 = new Date(startDate);
     const temp3 = new Date(endDate);
-    console.log(
-      "++++++++++",
-      temp1.getDate(),
-      temp2.getDate(),
-      temp3.getDate()
-    );
-    if (
-      temp1.getDate() - temp2.getDate() >= 0 &&
-      temp3.getDate() - temp1.getDate() >= 0
-    ) {
+    if (temp3.getHours() === 0) {
+      temp3.setHours(23);
+    }
+
+    if (temp1 - temp2 >= 0 && temp3 - temp1 >= 0) {
       return true;
     }
     return false;
+  };
+
+  const checkHavePendingRequest = (member) => {
+    return pendingRequest.some((ele) => ele.timeOff.user.id === member.id);
   };
 
   const checkDayOffMember = (day, member) => {
@@ -148,7 +132,9 @@ const TimeOffCalendar = ({ members, _pendingRequest, _approveRequest }) => {
                       <div className="time_off_calendar__user_info">
                         <div className="primary_info">
                           <p>{memberInfo.name}</p>
-                          <p className="status_rejected">Pending</p>
+                          {checkHavePendingRequest(member) ? (
+                            <span className="status_rejected">Pending</span>
+                          ) : null}
                         </div>
                         <p>Developer</p>
                       </div>
