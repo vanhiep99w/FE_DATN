@@ -89,8 +89,9 @@ export const getMouthAndDate = (date) => {
 
 export const countDate = (start, end) => {
   let result = checkDayOff(start, end);
+  console.log(start, end);
   if (start.getTime() === end.getTime()) return 0.5;
-  if (end.getTime() - start.getTime() === 86400000) return 1;
+  if (end.getTime() - start.getTime() === 43200000) return 1;
   if (end.getTime() - start.getTime() === 129600000) return 1.5;
   return (end.getTime() - start.getTime() + 86400000) / 86400000 - result;
 };
@@ -107,6 +108,13 @@ export const convertTime = (totalSecond) => {
   const convertedHour = Math.floor(hour * 1000);
   return convertedHour / 1000;
 };
+
+export const convertToHour = (second) => {
+  const hour = second / 3600;
+  const convertedHour = Math.round(hour * 10);
+  return convertedHour / 10;
+}
+
 
 export const ROLE_LIST = [
   { id: 1, name: "ADMIN", color: "2ECC71" },
