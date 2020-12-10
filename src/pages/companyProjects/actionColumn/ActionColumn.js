@@ -7,9 +7,6 @@ import timeCloudAPI from "../../../apis/timeCloudAPI";
 import { convertToHour } from "../../../utils/Utils";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import history from "../../../history/index";
-const styleCom = {
-  fontSize: "3rem",
-};
 
 const ActionColumn = ({ project, onEdit, deleteProject }) => {
   const [showModal, setShowModal] = useState(false);
@@ -64,7 +61,9 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
             console.log(project);
             setShowModal(false);
             calculateSalary();
-            timeCloudAPI().delete(`projects/${project.id}`);
+            timeCloudAPI().put(
+              `projects/change-status/${project.id}?done=true`
+            );
             deleteProject(project);
           }}
         >
@@ -83,15 +82,34 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
   return (
     <div className="visible_hover action_column">
       {!project.done && (
-        <DeleteIcon
-          style={{ ...styleCom }}
-          className=" projects__icon projects__icon__delete"
+        <span className="projects__icon">
+          <DeleteIcon
+            className="projects__icon__item"
+            onClick={(e) => {
+              e.stopPropagation();
+              // onDelete(project.id);
+              setShowModal(true);
+            }}
+          />
+        </span>
+      )}
+      <span className="projects__icon">
+        <AttachMoneyIcon
+          className="projects__icon__item"
           onClick={(e) => {
             e.stopPropagation();
-            // onDelete(project.id);
-            setShowModal(true);
+            history.push({
+              pathname: `projects/${project.id}/payroll`,
+              state: {
+                project: project,
+                salary: salary,
+                user: projectUsers,
+                time: totalTime,
+              },
+            });
           }}
         />
+<<<<<<< HEAD
       )}
       <AttachMoneyIcon
         style={{
@@ -113,6 +131,19 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
           onEdit(project);
         }}
       />
+=======
+      </span>
+
+      <span className="projects__icon">
+        <EditIcon
+          className="projects__icon__item"
+          onClick={(e) => {
+            e.stopPropagation();
+            onEdit(project);
+          }}
+        />
+      </span>
+>>>>>>> develop
 
       <Modal
         show={showModal}

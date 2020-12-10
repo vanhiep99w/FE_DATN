@@ -55,7 +55,7 @@ const Header = ({ user, logout, managedProjects }) => {
         Manage
       </NavLink>
       <NavLink to="/projects" activeClassName="header__feature__active">
-        Project
+        Projects
       </NavLink>
       <NavLink to="/discussion" activeClassName="header__feature__active">
         Discussion
