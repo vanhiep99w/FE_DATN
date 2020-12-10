@@ -5,6 +5,7 @@ import SelectCalendar from "../../selectCalendar/SelectCalendar";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import { months, equalDates } from "../../../utils/Utils";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 
 const DaySelect = ({
   onChangeSelectDays,
@@ -60,7 +61,10 @@ const DaySelect = ({
         </div>
       </div>
       <div className="day_select__right">
-        <div>All projects</div>
+        <span>Project:</span>
+        <span>
+          All projects <ArrowDropDownIcon />{" "}
+        </span>
       </div>
     </div>
   );

@@ -39,3 +39,118 @@
   background-color: #f2f2f2;
   border-radius: 2px;
 }
+.request-other__user-info{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.request-other__user-info>p:first-child{
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+.request-other__user-info>p:last-child{
+  font-size: 1.3rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.request-other__modal>div:not(:last-child){
+  border-bottom: 1px solid #7f7f7f;
+  
+}
+.request-other__modal-content{
+  display: flex;
+  padding: 1rem 0;
+}
+.request-other__modal-content label{
+  display: block;
+  text-align: left;
+  margin-bottom: .5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.request-other__modal-content__left{
+  /* border-right: 1px solid #7f7f7f; */
+  margin-right: 1rem;
+}
+.request-other__modal-content textarea{
+  outline: none;
+  border: none;
+  resize: none;
+  box-shadow: 1px 2px 7px rgba(0,0,0,.3);
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  border-radius: .5rem;
+}
+.request-other__modal-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  padding-bottom: 1rem;
+}
+.request-other__modal-header__right{
+  
+}
+.request-other__modal-header__right>span{
+  padding: .7rem;
+  border-radius: 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.request-other__modal-header__right>span>.MuiSvgIcon-root{
+  font-size: 2rem;
+  vertical-align: middle;
+}
+.request-other__modal-header__center{
+  
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  font-weight: 600;
+
+}
+.request-other__modal-header__center>p>.MuiSvgIcon-root{
+  vertical-align: bottom;
+  margin: 0 .5rem;
+  font-size: 1.6rem;
+}
+.request-other__modal-action{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .5rem 0;
+  background-color: #f8f8f8;
+  padding: .5rem;
+}
+.request-other__modal-action button{
+  font-size: 1.8rem;
+  font-weight: 600;
+  padding: 1rem;
+  border-radius: .5rem;
+  outline: none;
+  border: none;
+  box-shadow: 1px 2px 2px rgba(0,0,0,.3);
+  cursor: pointer;
+
+}
+
+.request-other__modal-action__right>button:first-child{
+  background-color: var(--color-button);
+  margin-right: 1rem;
+  color: white;
+}
+.request-other__modal-action__left>button{
+  background-color: var(--color-error);
+  color: white;
+  min-width: 18.5rem;
+  text-align: center;
+  display: inline-block;
+}

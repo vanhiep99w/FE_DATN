@@ -47,7 +47,7 @@ const PendingRequest = ({
 
   const onButtonRejectSendClickHandler = () => {
     onRejectTimeOff();
-    changeBecomeReject(request.id);
+    changeBecomeReject(request.id, rejectInput);
   };
   const onButtonApproveSendClickHandler = () => {
     onApproveTimeOff();

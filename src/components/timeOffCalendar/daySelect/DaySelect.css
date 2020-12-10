@@ -55,8 +55,30 @@
   cursor: pointer;
 }
 .day_select__right{
-  
+  display: flex;
+  text-align: center;
+  justify-content: center;
 }
-.day_select__right>div:first-child{
-  min-width: 5rem;
+.day_select__right>span{
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #6E6E6E;
+  padding: 1.2rem;
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #363636;
+}
+.day_select__right>span:last-child{
+
+  background-color: #EEEEEE;
+  border-radius: 2rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.day_select__right>span>.MuiSvgIcon-root{
+  font-size: 2rem;
+  color: #6C6C6C;
 }

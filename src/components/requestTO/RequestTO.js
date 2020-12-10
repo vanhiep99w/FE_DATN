@@ -5,18 +5,14 @@ import Avatar from "../avatar/Avatar";
 import {
   status,
   countDate,
-  months,
   getTimeWriteDiscussion,
+  getMouthAndDate,
 } from "../../utils/Utils";
 
 const RequestTO = ({ requestInfo, children }) => {
   const [showContent, setShowContent] = useState(false);
   const getStatusClass = () => {
     return `status_${status[requestInfo.status - 1].name.toLocaleLowerCase()}`;
-  };
-
-  const getMouthAndDate = (date) => {
-    return `${months[date.getMonth()]} ${date.getDate()}`;
   };
 
   const getDateStatus = (date) => {

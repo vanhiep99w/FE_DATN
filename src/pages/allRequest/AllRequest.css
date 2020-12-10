@@ -17,6 +17,7 @@
 }
 .all_request__title__right{
   position: relative;
+  
 }
 .all_request__title__right p{
   
@@ -27,6 +28,7 @@
   cursor: pointer;
   white-space: nowrap;
   user-select: none;
+
 }
 .all_request__title__right>p{
   border-radius: 2rem;
@@ -34,7 +36,9 @@
   align-items: center;
   justify-content: center;
   background-color: #EEEEEE;
+  min-width: 13rem;
 }
+
 .all_request__title__right>p>.MuiSvgIcon-root{
   font-size: 2rem;
   
@@ -42,4 +46,4 @@
 
 .all_request__dd_type>p:hover{
   background-color: #EEEEEE;
-}
+} 
