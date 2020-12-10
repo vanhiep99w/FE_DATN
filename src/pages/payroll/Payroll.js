@@ -4,28 +4,43 @@ import PageDesign from '../../components/pageDesign/PageDesign';
 import Table from '../../components/table/Table';
 import Avatar from '../../components/avatar/Avatar';
 import male from '../../assets/images/male.png';
+import timeCloudAPI from '../../apis/timeCloudAPI';
 
 const PayRoll = (props) => {
-  const [data, setData] = useState(null);
-  
+  const [data, setData] = useState([]);
+  const [project, setProject] = useState(null);
+  const [totalTimeProject, setTotalTimeProject] = useState(0);
+  const [user, setUser] = useState(null);
+  console.log(props);
   useEffect(() => {
     let result = [];
-    const salary = props.history.location.state.salary;
-    const tracked = props.history.location.state.time;
-    props.history.location.state.user.forEach((ele, index) => {
-      let temp = {
-        name: ele.user.name,
-        email:ele.user.email,
-        avatar: ele.user.avatar,
-        rate: ele.rate,
-        tracked: tracked[index],
-        salary: salary[index]
-      }
-      result.push(temp);
+    console.log(props.match.params);
+    timeCloudAPI().get(`projects/${props.match.params.id}/total-times`)
+      .then(res => {
+        setTotalTimeProject(res.data)
     });
+    timeCloudAPI().get(`projects/${props.match.params.id}`)
+    .then(res => {
+      setProject(res.data);
+    });
+    timeCloudAPI().get(`projects/${props.match.params.id}/users`)
+    .then(res => {
+      setUser(res.data);
+      res.data.forEach((ele, index) => {
+        timeCloudAPI().get(`projects/${props.match.params.id}/users/${ele.user.id}/total-times`)
+        .then(res => {
+          let temp = {
+            user: ele,
+            time: res.data
+          }
+          result.push(temp);
+        })
+      })
+    })
+    console.log(result);
     setData(result);
   },[])
-
+  console.log(data[0]);
   const cssHeader = {
     textAlign: "left",
     fontWeight: "650",
@@ -46,10 +61,10 @@ const PayRoll = (props) => {
             fontWeight: "500"
           },
           convertData: (data) => (
-            <Avatar css={{alignItems: "center"}} avatar={data.avatar} avatarSize="4rem">
+            <Avatar css={{alignItems: "center"}} avatar={data.user.user.avatar} avatarSize="4rem">
               <div className="payroll__user_info">
-                <p> {data.name} </p>
-                <p> {data.email} </p>
+                <p> {data.user.user.name} </p>
+                <p> {data.user.user.email} </p>
               </div>
                
             </Avatar>
@@ -66,7 +81,7 @@ const PayRoll = (props) => {
             fontSize: "2rem",
             fontWeight: "500"
           },
-          convertData: (data) => data.rate,
+          convertData: (data) => data.user.rate,
         },
         tracked: {
           key: "tracked",
@@ -79,7 +94,10 @@ const PayRoll = (props) => {
             fontSize: "2rem",
             fontWeight: "500"
           },
-          convertData: (data) => data.tracked,
+          convertData: (data) => {
+            if(project.done) return data.time;
+            else return "?";
+          },
         },
         salary: {
           key: "salary",
@@ -92,7 +110,10 @@ const PayRoll = (props) => {
             fontSize: "2rem",
             fontWeight: "500"
           },
-          convertData: (data) => data.salary,
+          convertData: (data) => {
+            if(project.done) return data.user.salary;
+            else return "?";
+          },
         },
       };
 
@@ -103,7 +124,7 @@ const PayRoll = (props) => {
                         fontWeight: "500",
                         color: "#0066CC",
                     }}
-                > {props.history.location.state.project.name} </p>
+                > {project?.name} </p>
     }
 
     return(
@@ -113,7 +134,7 @@ const PayRoll = (props) => {
               {data ? <Table
                         columns={columns}
                         data={data}
-                        skeletonLoading={data?.length ? false : true}
+                        skeletonLoading={data ? false : true}
                       /> 
                     : null}
             </div>
@@ -126,9 +147,9 @@ const PayRoll = (props) => {
                 </div>
                 <div className="payroll_right__value">
                   <p>Van hiep</p>
-                  <p> {props.history.location.state.user.length} </p>
-                  <p> {props.history.location.state.project.budget} </p>
-                  <p>500(h)</p>
+                  <p> {user?.length} </p>
+                  <p> {project?.budget} </p>
+                  <p> {totalTimeProject} </p>
                 </div>
             </div>
           </div>
