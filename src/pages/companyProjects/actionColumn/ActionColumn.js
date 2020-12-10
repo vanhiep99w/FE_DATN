@@ -5,8 +5,8 @@ import DeleteIcon from "@material-ui/icons/AssignmentTurnedIn";
 import Modal from "../../../components/modal/Modal";
 import timeCloudAPI from "../../../apis/timeCloudAPI";
 import { convertToHour } from "../../../utils/Utils";
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import history from '../../../history/index';
+import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
+import history from "../../../history/index";
 const styleCom = {
   fontSize: "3rem",
 };
@@ -20,24 +20,22 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
     setShowModal(false);
   };
 
-
   useEffect(() => {
     let data = [];
     timeCloudAPI()
       .get(`projects/${project.id}/users`)
       .then((response) => {
-        setProjectUsers(response.data)
-        response.data.forEach(ele => {
+        setProjectUsers(response.data);
+        response.data.forEach((ele) => {
           timeCloudAPI()
             .get(`projects/${project.id}/users/${ele.user.id}/total-times`)
             .then((res) => {
-              data.push(convertToHour(res.data))
-            })
-          
-        })
-    });
+              data.push(convertToHour(res.data));
+            });
+        });
+      });
     setTotalTime(data);
-  },[]);
+  }, [project.id]);
   const calculateSalary = () => {
     let salary = [];
     let rate = Math.round(project.budget / billableRate());
@@ -50,15 +48,15 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
     });
     console.log(salary);
     setSalary(salary);
-  }
+  };
 
   const billableRate = () => {
     let result = 0;
     projectUsers.forEach((ele, index) => {
       result += totalTime[index] * ele.rate;
-    })
+    });
     return result;
-  }
+  };
 
   const renderModalAction = () => {
     return (
@@ -85,31 +83,7 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
     );
   };
   return (
-    <>
-      <AttachMoneyIcon
-        style={{ ...styleCom, marginRight: "5px", color: "#dcc41c" }}
-        className="projects__icon projects__icon__edit"
-        onClick= {(e) => {
-          e.stopPropagation();
-          history.push({
-            pathname: `projects/${project.id}/payroll`,
-            state: {
-              project: project,
-              salary: salary,
-              user: projectUsers,
-              time: totalTime
-            }
-          })
-        }}
-      />
-      <EditIcon
-        style={{ ...styleCom, marginRight: "5px" }}
-        className="projects__icon projects__icon__edit"
-        onClick={(e) => {
-          e.stopPropagation();
-          onEdit(project);
-        }}
-      />
+    <div className="visible_hover action_column">
       {!project.done && (
         <DeleteIcon
           style={{ ...styleCom }}
@@ -121,15 +95,49 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
           }}
         />
       )}
+      <AttachMoneyIcon
+        style={{
+          ...styleCom,
+          marginRight: "5px",
+          color: "#898989",
+        }}
+        className="projects__icon projects__icon__edit"
+        onClick={(e) => {
+          e.stopPropagation();
+          history.push({
+            pathname: `projects/${project.id}/payroll`,
+            state: {
+              project: project,
+              salary: salary,
+              user: projectUsers,
+              time: totalTime,
+            },
+          });
+        }}
+      />
+      <EditIcon
+        style={{ ...styleCom, marginRight: "5px" }}
+        className="projects__icon projects__icon__edit"
+        onClick={(e) => {
+          e.stopPropagation();
+          onEdit(project);
+        }}
+      />
 
       <Modal
         show={showModal}
         title="Finish project!"
-        renderContent={() => `Are you sure to finish ${project.name}?`}
+        renderContent={() => {
+          return (
+            <p className="action_column__modal_content">
+              Are you sure to finish "{project.name}"?
+            </p>
+          );
+        }}
         renderAction={renderModalAction}
         onCloseModal={onModalClose}
       />
-    </>
+    </div>
   );
 };
 

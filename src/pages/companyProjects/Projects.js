@@ -25,12 +25,13 @@ class Projects extends React.Component {
       project: {
         key: "project",
         label: "project",
-        width: "20%",
-        cssHeader: this.cssHeader,
+        width: "18%",
+        cssHeader: { ...this.cssHeader, paddingLeft: "1rem" },
         cssData: {
           textTransform: "capitalize",
           verticalAlign: "middle",
           cursor: "pointer",
+          paddingLeft: "1rem",
         },
         convertData: (project) => (
           <Point
@@ -44,7 +45,7 @@ class Projects extends React.Component {
       client: {
         key: "client",
         label: "client",
-        width: "20%",
+        width: "25%",
         cssHeader: this.cssHeader,
         cssData: {
           verticalAlign: "middle",
@@ -55,7 +56,7 @@ class Projects extends React.Component {
       tracktime: {
         key: "tracktime",
         label: "Tracked Time (h)",
-        width: "20%",
+        width: "22%",
         cssHeader: this.cssHeader,
         cssData: {
           verticalAlign: "middle",
@@ -66,7 +67,7 @@ class Projects extends React.Component {
       members: {
         key: "members",
         label: "Members",
-        width: "30%",
+        width: "23%",
         cssHeader: this.cssHeader,
         cssData: {
           verticalAlign: "middle",
@@ -76,7 +77,7 @@ class Projects extends React.Component {
       },
       actions: {
         key: "actions",
-        label: "actions",
+
         width: "10%",
         cssHeader: this.cssHeader,
         cssData: {
@@ -164,7 +165,7 @@ class Projects extends React.Component {
       });
     }
     return (
-      <PageDesign title="Projects">
+      <PageDesign title="Projects" css={{ marginBottom: "10rem" }}>
         <div className="projects__content">
           <div className="projects__search">
             <input
