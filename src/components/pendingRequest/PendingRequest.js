@@ -29,7 +29,7 @@ const PendingRequest = ({
   };
 
   const onRejectTimeOff = async () => {
-    const res = await timeCloudAPI().post(`status-time-off/${request.id}`, {
+    const res = await timeCloudAPI().put(`status-time-off/${request.id}`, {
       approverId: localStorage.getItem(USER_ID),
       response: rejectInput,
       status: 3,
@@ -37,7 +37,7 @@ const PendingRequest = ({
     return res.data;
   };
   const onApproveTimeOff = async () => {
-    const res = await timeCloudAPI().post(`status-time-off/${request.id}`, {
+    const res = await timeCloudAPI().put(`status-time-off/${request.id}`, {
       approverId: localStorage.getItem(USER_ID),
       response: approveInput,
       status: 2,
