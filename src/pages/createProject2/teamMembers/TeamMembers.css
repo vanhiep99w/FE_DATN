@@ -153,5 +153,43 @@
   
 }
 
+.team-members__modal-content{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+}
+.team-members__modal-content__left>.MuiSvgIcon-root{
+  color: #F9AF00;
+  font-size: 7rem;
+
+}
+.team-members__modal-content__right{
+  margin-left: 2rem;
+  text-align: left;
+}
+
+.team-members__modal-content__right>p{
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.team-members__modal-action{
+  text-align: right;
+  padding-top: 1rem;
+}
+.team-members__modal-action>button{
+  border: none;
+  outline: none;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  background-color: #EEEEEE;
+  color: #363636;
+  border: 1px solid #D0D0D0;
+  
+}
 
 

@@ -1,11 +1,13 @@
 import "./TeamMembers.css";
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Member from "./member/Member";
 import { action, change } from "../../../utils/UtilArr";
 import { USER_ID } from "../../../utils/localStorageContact";
 import SearchMembers from "../common/search-members/SearchMembers";
+import Modal from "../../../components/modal/Modal";
+import ReportProblemIcon from "@material-ui/icons/ReportProblem";
 
 const TeamMembers = ({
   teamMembers,
@@ -17,6 +19,8 @@ const TeamMembers = ({
   changedTeamMembers,
   setChangedTeamMembers,
 }) => {
+  const [showModal, setShowModal] = useState(false);
+
   const onSelectItemHandler = (member) => {
     const [arrChanged, item] = change(
       action.create,
@@ -28,8 +32,14 @@ const TeamMembers = ({
   };
 
   const onRemoveTeamMember = (member) => {
-    setTeamMembers(teamMembers.filter((ele) => ele.id !== member.id));
-    setChangedTeamMembers(change(action.delete, member, changedTeamMembers)[0]);
+    if (member.id === manager.id) {
+      setShowModal(true);
+    } else {
+      setTeamMembers(teamMembers.filter((ele) => ele.id !== member.id));
+      setChangedTeamMembers(
+        change(action.delete, member, changedTeamMembers)[0]
+      );
+    }
   };
 
   const onEditTeamMember = (member) => {
@@ -74,6 +84,28 @@ const TeamMembers = ({
       setChangedTeamMembers(temp);
       setTeamMembers([...members]);
     }
+  };
+
+  const renderContentModal = () => {
+    return (
+      <div className="team-members__modal-content">
+        <div className="team-members__modal-content__left">
+          <ReportProblemIcon />
+        </div>
+        <div className="team-members__modal-content__right">
+          <p>You are deleting a Project Manager. </p>
+          <p>Please select an alternate before delete. </p>
+        </div>
+      </div>
+    );
+  };
+
+  const renderActionModal = () => {
+    return (
+      <div className="team-members__modal-action">
+        <button onClick={() => setShowModal(false)}>Close</button>
+      </div>
+    );
   };
 
   return (
@@ -135,6 +167,13 @@ const TeamMembers = ({
           })}
         </tbody>
       </table>
+      <Modal
+        show={showModal}
+        onCloseModal={() => setShowModal(false)}
+        title="Warning"
+        renderContent={renderContentModal}
+        renderAction={renderActionModal}
+      />
     </div>
   );
 };
