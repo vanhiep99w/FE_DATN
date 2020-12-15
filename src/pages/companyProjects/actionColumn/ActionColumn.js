@@ -39,8 +39,8 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
     console.log(rate);
     projectUsers.forEach((ele, index) => {
       timeCloudAPI().put(`projects/${project.id}/users/${ele.user.id}`, {
-        salary: Math.round(totalTime[index] * ele.rate * rate)
-      })
+        salary: Math.round(totalTime[index] * ele.rate * rate),
+      });
     });
   };
 
@@ -74,7 +74,7 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
             setShowModal(false);
           }}
         >
-          No
+          Cancel
         </button>
       </div>
     );

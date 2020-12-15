@@ -76,7 +76,7 @@
 }
 
 .discussion__content::-webkit-scrollbar {
-  width: 3px;
+  width: 1rem;
   
 }
 
@@ -87,7 +87,7 @@
 
 /* Handle */
 .discussion__content::-webkit-scrollbar-thumb {
-  background: #635151;
+  background: #cfcfcf;
   border-radius: .5rem;
 }
 

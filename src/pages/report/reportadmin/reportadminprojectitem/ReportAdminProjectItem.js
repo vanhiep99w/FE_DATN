@@ -61,10 +61,14 @@ const ReportAdminUserItem = ({ project }) => {
           <div
             className="report_admin_project_isDone"
             style={{
-              height: "30px",
-              width: "65px",
+              height: "2rem",
+              width: "5rem",
               background: "rgb(204, 13, 13)",
               borderRadius: "15px 15px 15px 15px",
+              color: "white",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
             <h3>DONE</h3>

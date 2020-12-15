@@ -4,15 +4,15 @@ import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import PropTypes from "prop-types";
 
-const Checkbox = (props) => {
-  const {
-    id,
-    onCheckboxChanged = () => {},
-    showUnCheck = false,
-    css,
-    checked,
-    setPointerEvents,
-  } = props;
+const Checkbox = ({
+  id,
+  onCheckboxChanged = () => {},
+  showUnCheck = false,
+  css,
+  checked,
+  setPointerEvents,
+  children,
+}) => {
   const checkboxId = `checkbox${id}`;
 
   return (
@@ -37,7 +37,7 @@ const Checkbox = (props) => {
         {showUnCheck ? (
           <CheckBoxOutlineBlankIcon className="checkbox__un_check" />
         ) : null}
-        {props.children}
+        {children}
       </label>
     </div>
   );

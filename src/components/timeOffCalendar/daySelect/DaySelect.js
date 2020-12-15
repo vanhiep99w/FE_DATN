@@ -1,17 +1,32 @@
 import "./DaySelect.css";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import SelectCalendar from "../../selectCalendar/SelectCalendar";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import { months, equalDates } from "../../../utils/Utils";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import DropDown2 from "../../dropdown2/DropDown2";
+import { v4 } from "uuid";
 
 const DaySelect = ({
   onChangeSelectDays,
   firstDay = new Date(),
   lastDay = new Date(),
+  projects,
+  setCurrentMembers,
+  members,
 }) => {
+  const [listProjects, setListProjects] = useState(false);
+  const [projectSelected, setProjectSelected] = useState("");
+  const [showDDProject, setShowDDProject] = useState(false);
+
+  useEffect(() => {
+    const projectDefault = { id: v4(), name: "All project", default: true };
+    setListProjects([projectDefault, ...projects]);
+    setProjectSelected(projectDefault);
+  }, [projects]);
+
   const onButtonPreClick = () => {
     const temp = new Date(firstDay);
     temp.setDate(temp.getDate() - 15);
@@ -34,6 +49,36 @@ const DaySelect = ({
       temp.setDate(temp.getDate());
       onChangeSelectDays(temp);
     }
+  };
+
+  const onSelectProject = (project) => {
+    setProjectSelected(project);
+    if (project.default) {
+      setCurrentMembers(members);
+    } else {
+      setCurrentMembers(
+        members.filter((ele) =>
+          project.members.some((e) => e.user.id === ele.id)
+        )
+      );
+    }
+    setShowDDProject(false);
+  };
+
+  const renderContentDD = () => {
+    return (
+      <div className="day-select__dd">
+        {listProjects
+          .filter((ele) => ele.id !== projectSelected.id)
+          .map((ele) => {
+            return (
+              <p onClick={() => onSelectProject(ele)} key={ele.id}>
+                {ele.name}
+              </p>
+            );
+          })}
+      </div>
+    );
   };
 
   const getDayInfo = (day) => {
@@ -62,9 +107,17 @@ const DaySelect = ({
       </div>
       <div className="day_select__right">
         <span>Project:</span>
-        <span>
-          All projects <ArrowDropDownIcon />{" "}
-        </span>
+        <div className="day_select__right__dd">
+          <span onClick={() => setShowDDProject(!showDDProject)}>
+            {projectSelected.name} <ArrowDropDownIcon />{" "}
+          </span>
+          <DropDown2
+            isShow={showDDProject}
+            onCloseHandler={() => setShowDDProject(false)}
+            renderContent={renderContentDD}
+            css={{ transform: "translateY(102%) translateX(-5%)" }}
+          />
+        </div>
       </div>
     </div>
   );

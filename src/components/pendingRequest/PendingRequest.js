@@ -1,5 +1,5 @@
 import "./PendingRequest.css";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import timeCloudAPI from "../../apis/timeCloudAPI";
 import DropDown2 from "../dropdown2/DropDown2";
 import RequestTO from "../requestTO/RequestTO";
@@ -10,7 +10,6 @@ const PendingRequest = ({
   changeBecomeApprove,
   changeBecomeReject,
 }) => {
-  console.log(request);
   const [showDDApprove, setShowDDApprove] = useState(false);
   const [showDDReject, setShowDDReject] = useState(false);
   const [approveInput, setApproveInput] = useState("");

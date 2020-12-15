@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import PageDesign from "../../components/pageDesign/PageDesign";
 import SelectCalendar from "../../components/selectCalendar/SelectCalendar";
 import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
@@ -127,16 +127,21 @@ const CreateRequestTimeOff = (props) => {
     }
   };
 
-    useEffect(() => {
-        if(endTime) {
-            if(periodOfStartDay === "1" && startTime.getDate() === endTime.getDate()) {
-                setStartTime(new Date(startTime.setHours(12)));
-                setEndTime(new Date(endTime.setHours(12)));
-            }
-        }
-        if(periodOfStartDay === "1") setStartTime(new Date(startTime.setHours(12)));
-        if(periodOfEndDay === "1") setEndTime(new Date(endTime.setHours(12)));
-    },[periodOfStartDay, periodOfEndDay]);
+  useEffect(() => {
+    if (endTime) {
+      if (
+        periodOfStartDay === "1" &&
+        startTime.getDate() === endTime.getDate()
+      ) {
+        setStartTime(new Date(startTime.setHours(12)));
+        setEndTime(new Date(endTime.setHours(12)));
+      }
+    }
+    if (periodOfStartDay === "1")
+      setStartTime(new Date(startTime.setHours(12)));
+    if (periodOfEndDay === "1") setEndTime(new Date(endTime.setHours(12)));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [periodOfStartDay, periodOfEndDay]);
   const onSetEndTime = (selectedDays) => {
     if (selectedDays) {
       setEndTime(selectedDays[0]);

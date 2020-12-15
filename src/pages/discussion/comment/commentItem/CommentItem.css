@@ -41,16 +41,17 @@
 
 .comment_item__content__header>span:nth-child(1){
   
-  text-decoration: underline;
-  font-size: 1.7rem;
-  font-weight: 800;
+
+  font-size: 1.6rem;
+  font-weight: 600;
   margin-bottom: .5rem;
 }
 
 .comment_item__content__header>span:nth-child(2){
   margin-left: 1rem;
-  color: #AEAEAE;
-  font-size: 1.1rem;
+  color: #747474;
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 
 .comment_item__content>input {

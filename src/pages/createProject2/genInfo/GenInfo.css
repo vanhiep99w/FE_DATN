@@ -1,0 +1,54 @@
+.gen-info{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.gen-info__right{
+  position: relative;
+}
+
+.gen-info__right>input{
+  outline: none;
+  border: none;
+  padding: 0;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  cursor: pointer;
+}
+.gen-info__right>input:hover~button,.gen-info__right>button:hover {
+  display: inherit;
+}
+.gen-info__right>input::-webkit-color-swatch-wrapper{
+  padding: 0;
+  border: none;
+}
+.gen-info__right>input::-webkit-color-swatch{
+  border: none;
+  
+}
+.gen-info__right>label{
+  display: block;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #727272;
+  margin-top: .5rem;
+  cursor: pointer;
+}
+.gen-info__right>button{
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.gen-info__right>button>.MuiSvgIcon-root{
+  color: white;
+  font-size: 2rem;
+}

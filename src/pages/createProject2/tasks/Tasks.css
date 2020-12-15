@@ -1,0 +1,80 @@
+
+.tasks__table{
+  width: 100%;
+  table-layout: fixed;
+}
+
+.tasks__table-header>tr>th:nth-child(1){
+  width: var(--width-delete-item);
+}
+.tasks__table-header>tr>th:nth-child(2){
+  width: calc(var(--width-left) - var(--width-delete-item));
+}
+.tasks__table-header>tr>th:nth-child(3){
+  width: auto;
+}
+.tasks__table-header>tr>th:nth-child(4){
+  width: 10rem
+}
+.tasks__table-header>tr>th{
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #777777;
+  text-align: left;
+  padding: 1.5rem 0;
+}
+.tasks__table-body>tr>td:not(:first-child):not(:nth-of-type(2)){
+  border-bottom: 1px solid #EEEEEE;
+}
+.tasks__table-body>tr>td{
+  padding: 2rem 0;
+  vertical-align: top;
+}
+
+.tasks__delete-item>button{
+  outline: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.tasks__delete-item>button>.MuiSvgIcon-root{
+  color: #797979;
+  font-size: 1.4rem;
+}
+.tasks__name-task{
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #363636;
+  
+}
+.tasks__members{
+  margin-right: 5rem;
+  
+}
+.tasks__members>div:first-child{
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #363636;
+}
+.tasks__table-foot input{
+  margin-top: 2rem;
+  border: none;
+  outline: none;
+  background-color: #EEEEEE;
+  font-size: 1.4rem;
+  font-weight: 500;
+  padding: 1.2rem;
+  border-radius: 2.5rem;
+  padding-left: 2rem;
+  margin-right: 1rem;
+  width: 17rem;
+  color: var(--color-title-primary);
+}
+.tasks__table-foot input::placeholder{
+  color: #6D6D6D;
+  font-weight: 400;
+}

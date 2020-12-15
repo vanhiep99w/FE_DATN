@@ -1,0 +1,29 @@
+.double-button{
+
+}
+.double-button>button:first-child{
+  border-radius: 0;
+  border-top-left-radius: .3rem;
+  border-bottom-left-radius: .3rem;
+}
+.double-button>button:last-child{
+  border-radius: 0;
+  border-top-right-radius: .3rem;
+  border-bottom-right-radius: .3rem;
+}
+.double-button>button{
+  box-sizing: content-box;
+  border: 1px solid #DCDCDC;
+  outline: none;
+  cursor: pointer;
+  font-size: 1.55rem;
+  font-weight: 500;
+  padding: 1.5rem 1.3rem;
+  color: var(--color-title-primary);
+}
+
+.double-button .active{
+  background-color: var(--color-button);
+  border: 1px solid var(--color-button);
+  color: white;
+}

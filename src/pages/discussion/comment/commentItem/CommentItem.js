@@ -6,7 +6,13 @@ import timeCloudAPI from "../../../../apis/timeCloudAPI";
 import { getTimeWriteDiscussion } from "../../../../utils/Utils";
 import Modal from "../../../../components/modal/Modal";
 
-const CommentItem = ({ comment, user, onDeleteComment, discussion, project }) => {
+const CommentItem = ({
+  comment,
+  user,
+  onDeleteComment,
+  discussion,
+  project,
+}) => {
   const [editStatus, setEditStatus] = useState(false);
   const [editCommentInput, setEditCommentInput] = useState(comment.content);
   const [showModalDelete, setShowModalDelete] = useState(false);
@@ -46,17 +52,16 @@ const CommentItem = ({ comment, user, onDeleteComment, discussion, project }) =>
 
   const checkUserIsAdmin = (roles) => {
     let check = false;
-    roles.forEach(role => {
-      if(role.name === "ADMIN") check = true;
-    })
+    roles.forEach((role) => {
+      if (role.name === "ADMIN") check = true;
+    });
     return check;
-  }
+  };
 
   const checkUserIsPM = () => {
-    if(project?.projectManager?.id === user?.id) return true;
+    if (project?.projectManager?.id === user?.id) return true;
     return false;
-
-  }
+  };
 
   const renderModalActions = () => {
     return (
@@ -84,7 +89,6 @@ const CommentItem = ({ comment, user, onDeleteComment, discussion, project }) =>
           <div className="comment_item__content__header">
             <span> {comment.user.name} </span>
             <span> {getTimeWriteDiscussion(comment.createAt)} </span>
-            <PublicIcon style={{ marginLeft: ".3rem", color: "#AEAEAE" }} />
             {comment.user.id === user.id ? (
               <div className="comment__actions">
                 <p className="comment__actions__edit" onClick={onEdit}>
@@ -99,18 +103,17 @@ const CommentItem = ({ comment, user, onDeleteComment, discussion, project }) =>
                   Delete{" "}
                 </p>
               </div>
-            ) :
-            (checkUserIsAdmin(user?.roles) || checkUserIsPM()) ?
-          <div className="content__button_actions">
-            <p
-              className="content__button__delete"
-              onClick={()=> setShowModalDelete(!showModalDelete)}
-            >
-              {" "}
-              Delete{" "}
-            </p>
-          </div>
-            : (
+            ) : checkUserIsAdmin(user?.roles) || checkUserIsPM() ? (
+              <div className="content__button_actions">
+                <p
+                  className="content__button__delete"
+                  onClick={() => setShowModalDelete(!showModalDelete)}
+                >
+                  {" "}
+                  Delete{" "}
+                </p>
+              </div>
+            ) : (
               ""
             )}
           </div>

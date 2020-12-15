@@ -9,13 +9,11 @@ import PendingRequest from "../../components/pendingRequest/PendingRequest";
 import timeCloudAPI from "../../apis/timeCloudAPI";
 import RequestOther from "../../components/requestOther/RequestOther";
 import Spinner from "../../components/loading/spinner/Spinner";
-import { checkDayRequestIsDayOff } from "../../utils/validationUtils";
 
 const types = ["All Request", "Pending", "Approve", "Reject"];
 
 const AllRequest = () => {
   const maxSize = 20;
-  const [page, setPage] = useState(0);
   const [selectedType, setSelectedType] = useState(types[0]);
   const [showDropDown, setShowDropDown] = useState(false);
   const [pendingRequest, setPendingRequest] = useState([]);
@@ -57,7 +55,7 @@ const AllRequest = () => {
     setLoading(true);
     await Promise.all([
       fetchPendingRequest(),
-      fetchNonPendingRequest(maxSize, page),
+      fetchNonPendingRequest(maxSize, 0),
     ]);
     setLoading(false);
   };

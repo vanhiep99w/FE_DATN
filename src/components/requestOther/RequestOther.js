@@ -155,6 +155,7 @@ const RequestOther = ({ requestInfo, onChangeStatus }) => {
         onCloseModal={onCloseModal}
         renderContent={renderContentModal}
         renderAction={renderActionModal}
+        closeWhenClickOutSide={false}
       />
     </RequestTO>
   );

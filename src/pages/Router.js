@@ -22,7 +22,7 @@ const Manage = withAsyncComponent(() => {
   return import("./manage/Manage");
 });
 const CreateProject = withAsyncComponent(() => {
-  return import("./createProject/CreateProject");
+  return import("./createProject2/CreateProject2");
 });
 const Report = withAsyncComponent(() => {
   return import("./report/Report");
