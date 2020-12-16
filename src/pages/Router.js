@@ -109,6 +109,7 @@ class Router extends React.Component {
             component={CreateRequestTimeOff}
             exact
           />
+          <Route path="/projects/:id/payroll" component={Payroll}></Route>
           <Route
             path="/create-request-time-off/:id"
             component={CreateRequestTimeOff}

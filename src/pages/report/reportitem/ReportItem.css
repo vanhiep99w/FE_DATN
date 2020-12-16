@@ -16,12 +16,12 @@
 .report_item__project_name>h2{
     padding-left: 1rem;
     font-weight: bold;
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin-top: 0.70rem;
 }
 
 .report_item__project_name>h3{
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin-top: 0.70rem;
     color: darkgray;
     padding-left: 0.5rem;
@@ -29,7 +29,7 @@
 }
 
 .report_item__project_name_isDone>h3{
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     margin-top: 0.70rem;
     font-weight: bold;
     color:white;
@@ -38,11 +38,45 @@
     padding-right: 0.8rem;
 }
 
-.report_item__project>p{
+.report_item__project__right>p{
     font-weight: bold;
     color: var(--color-button);
     font-size: 2rem;
     margin-top: 0.70rem;
+}
+
+.report_item__project__right {
+    display: flex;
+    width: 15rem;
+    justify-content: space-between;
+}
+
+.report_item__salary {
+    position: relative;
+}
+
+.report_item__salary>button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: #FFFFFF;
+}
+
+.report_item__salary__content {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    font-size: large;
+    width: 20rem;
+}
+
+.report_item__salary__left>p {
+    font-weight: 500;
+    padding-bottom: 1rem;
+}
+
+.report_item__salary__right>p {
+    padding-bottom: 1rem;
 }
 
 /* .toggle_item{

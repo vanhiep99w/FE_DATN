@@ -11,11 +11,15 @@ import Avatar from "../../components/avatar/Avatar";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
 import { connect } from "react-redux";
+import MessageIcon from '@material-ui/icons/Message';
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
+import DropDown2 from '../../components/dropdown2/DropDown2';
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const RequestTimeOff = ({ data, user, onDelete }) => {
   console.log(data);
   const [descriptionStatus, setDescriptionStatus] = useState(false);
+  const [responseStatus, setResponseStatus] = useState(false);
 
   const countDayOff = () => {
     return countDate(
@@ -57,6 +61,25 @@ const RequestTimeOff = ({ data, user, onDelete }) => {
         data.acceptAt
       )}`;
   };
+
+  const renderContent = () => {
+    return <div
+              className="response__content"
+              style={{
+                backgroundColor: descriptionStatus ? "#F6F8FD" : "#FFFFF"
+              }}
+          >
+      <ArrowDropUpIcon
+        style={{
+          color: "#2496F7",
+          fontSize: "3rem",
+        }}
+      />
+      <p> {data.response} </p>
+      
+    </div>
+  }
+
   return (
     <div
       className="request_time_off"
@@ -122,6 +145,35 @@ const RequestTimeOff = ({ data, user, onDelete }) => {
             }}
           />
           <p> {statusTimeOffURL()} </p>
+          <div className="request_time_off_response">
+            {
+              data.response ? 
+                <MessageIcon
+                  style={{
+                    fontSize: "2rem",
+                    color: "#2496F7",
+                    marginLeft: "1rem"
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setResponseStatus(!responseStatus)
+                  }}
+                />
+              : ""
+            }
+            <DropDown2
+              isShow= {responseStatus}
+              onCloseHandler={() => setResponseStatus(false)}
+              renderContent={() => renderContent()}
+              css={{
+                transform: "translateX(0%) translateY(102%)",
+                padding: "0",
+                overflow: "hidden",
+                boxShadow: "none"
+              }}
+            />
+          </div>
+          
         </div>
       </div>
 

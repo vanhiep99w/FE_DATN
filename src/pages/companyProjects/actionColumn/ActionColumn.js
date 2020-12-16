@@ -17,29 +17,34 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
   };
 
   useEffect(() => {
-    let data = [];
     timeCloudAPI()
       .get(`projects/${project.id}/users`)
       .then((response) => {
-        console.log(response.data);
         setProjectUsers(response.data);
-        response.data.forEach((ele) => {
-          timeCloudAPI()
-            .get(`projects/${project.id}/users/${ele.user.id}/total-times`)
-            .then((res) => {
-              data.push(convertToHour(res.data));
-            });
+        Promise.all(
+          response.data.map((ele) => {
+            return timeCloudAPI()
+              .get(`projects/${project.id}/users/${ele.user.id}/total-times`);
+          })
+        ).then((res) => {
+          setTotalTime(
+            res.map((ele, index) => {
+              return {
+                id: response.data[index].user.id,
+                time: convertToHour(ele.data)
+              }
+            })
+          )
         });
+       
       });
-    setTotalTime(data);
   }, [project.id]);
 
   const calculateSalary = () => {
     let rate = Math.round((project.budget / billableRate()) * 10) / 10;
-    console.log(rate);
     projectUsers.forEach((ele, index) => {
       timeCloudAPI().put(`projects/${project.id}/users/${ele.user.id}`, {
-        salary: Math.round(totalTime[index] * ele.rate * rate)
+        salary: Math.round(totalTime[index].time * ele.rate * rate)
       })
     });
   };
@@ -47,9 +52,9 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
   const billableRate = () => {
     let result = 0;
     projectUsers.forEach((ele, index) => {
-      result += totalTime[index] * ele.rate;
+      let temp = totalTime.filter(element => element.id === ele.user.id);
+      result += temp[0].time * ele.rate;
     });
-    console.log(result);
     return Math.round(result * 10) / 10;
   };
 

@@ -4,13 +4,11 @@ import PageDesign from '../../components/pageDesign/PageDesign';
 import Table from '../../components/table/Table';
 import Avatar from '../../components/avatar/Avatar';
 import timeCloudAPI from '../../apis/timeCloudAPI';
-import { convertToHour } from "../../utils/Utils";
+import { convertToHour, convertSalary } from "../../utils/Utils";
 const PayRoll = (props) => {
   const [data, setData] = useState([]);
   const [project, setProject] = useState(null);
   const [totalTimeProject, setTotalTimeProject] = useState(0);
-  const [user, setUser] = useState(null);
-  // console.log(props);
 
   useEffect(() => {
     timeCloudAPI()
@@ -43,9 +41,8 @@ const PayRoll = (props) => {
           );
         });
       });
-  });
+  },[]);
 
-  console.log(data);
   const cssHeader = {
     textAlign: "left",
     fontWeight: "650",
@@ -106,7 +103,7 @@ const PayRoll = (props) => {
         },
         salary: {
           key: "salary",
-          label: "salary",
+          label: "salary(dong)",
           width: "20%",
           cssHeader: cssHeader,
           cssData: {
@@ -116,12 +113,11 @@ const PayRoll = (props) => {
             fontWeight: "500"
           },
           convertData: (data) => {
-            if(project.done) return data.user.salary;
+            if(project.done) return convertSalary(data.user.salary);
             else return "?";
           },
         },
       };
-
   const headerRight = () => {
     return (
       <p
@@ -136,7 +132,6 @@ const PayRoll = (props) => {
       </p>
     );
   };
-
     return(
         <PageDesign title="Payroll" headerRight={headerRight()}>
           <div className="payroll">
@@ -158,8 +153,8 @@ const PayRoll = (props) => {
                 <div className="payroll_right__value">
                   <p>Van hiep</p>
                   <p> {data?.length} </p>
-                  <p> {project?.budget} </p>
-                  <p> {convertToHour(totalTimeProject)} </p>
+                  <p> {`${convertSalary(project?.budget)}(d)`} </p>
+                  <p> {`${convertToHour(totalTimeProject)}(h)`} </p>
                 </div>
             </div>
           </div>

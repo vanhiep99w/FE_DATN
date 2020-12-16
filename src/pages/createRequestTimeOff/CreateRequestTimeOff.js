@@ -34,7 +34,11 @@ const CreateRequestTimeOff = (props) => {
   const [limiteRequest, setLimitedRequest] = useState(false);
 
   useEffect(() => {
-    if (startTime && endTime) setDayRequest(countDate(startTime, endTime));
+    if (startTime && endTime) {
+      setDayRequest(countDate(startTime, endTime));
+      // if(periodOfStartDay === "1") setDayRequest(countDate(new Date(startTime.setHours(12)), endTime));
+      // if(periodOfEndDay === "1") setDayRequest(countDate(startTime, new Date(endTime.setHours(12))));
+    }
     if (startTime !== null)
       setStartValidation(
         validate(
@@ -52,6 +56,7 @@ const CreateRequestTimeOff = (props) => {
     if (description !== "")
       setDescriptionValidation(validate([require], description));
   }, [startTime, endTime, description, dayRequest]);
+  
   console.log(startTime, endTime);
   useEffect(() => {
     if (
@@ -97,25 +102,23 @@ const CreateRequestTimeOff = (props) => {
 
   useEffect(() => {
     if (endTime && startTime) {
-      if (
-        periodOfStartDay === "1" &&
-        startTime.getDate() === endTime.getDate()
-      ) {
-        setStartTime(new Date(startTime.setHours(12)));
-        setEndTime(new Date(endTime.setHours(12)));
+      if(startTime.getDate() === endTime.getDate()) {
+        if(periodOfStartDay === "1") {
+          setStartTime(new Date(startTime.setHours(12)));
+          setEndTime(new Date(endTime.setHours(12)));
+        }
+        else {
+          setStartTime(new Date(startTime.setHours(0)));
+          setEndTime(new Date(endTime.setHours(0)));
+        }
+      }
+      else {
+        if (periodOfStartDay === "1") setStartTime(new Date(startTime.setHours(12)));
+        else setStartTime(new Date(startTime.setHours(0)));
+        if (periodOfEndDay === "1") setEndTime(new Date(endTime.setHours(12)));
+        else setEndTime(new Date(endTime.setHours(0)));
       }
     }
-    if (startTime) {
-      if (periodOfStartDay === "1")
-        setStartTime(new Date(startTime.setHours(12)));
-      if (periodOfStartDay === "0")
-        setStartTime(new Date(startTime.setHours(0)));
-    }
-    if (endTime) {
-      if (periodOfEndDay === "1") setEndTime(new Date(endTime.setHours(12)));
-      if (periodOfEndDay === "0") setEndTime(new Date(endTime.setHours(0)));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [periodOfStartDay, periodOfEndDay]);
 
   const onSetStartTime = (selectedDays) => {
@@ -127,28 +130,18 @@ const CreateRequestTimeOff = (props) => {
     }
   };
 
-    useEffect(() => {
-        if(endTime) {
-            if(periodOfStartDay === "1" && startTime.getDate() === endTime.getDate()) {
-                setStartTime(new Date(startTime.setHours(12)));
-                setEndTime(new Date(endTime.setHours(12)));
-            }
-        }
-        if(periodOfStartDay === "1") setStartTime(new Date(startTime.setHours(12)));
-        if(periodOfEndDay === "1") setEndTime(new Date(endTime.setHours(12)));
-    },[periodOfStartDay, periodOfEndDay]);
   const onSetEndTime = (selectedDays) => {
     if (selectedDays) {
-      setEndTime(selectedDays[0]);
+      if(periodOfEndDay) {
+        if(periodOfEndDay === "1") setEndTime(new Date(selectedDays[0].setHours(12)));
+        else setEndTime(selectedDays[0]);
+      }
+      else setEndTime(selectedDays[0]);
     }
   };
 
   const viewOptionsEndTime = () => {
-    if (
-      startTime?.getTime() === endTime?.getTime() ||
-      !endTime ||
-      Math.ceil(startTime?.getTime() - endTime?.getTime() === 43200000)
-    )
+    if (startTime?.getDate() === endTime?.getDate())
       return false;
     return true;
   };
@@ -220,13 +213,21 @@ const CreateRequestTimeOff = (props) => {
 
   const conditionDisableCalendar = (date) => {
     if (endTime) {
+      let temp = 12 - props.history.location.state;
+      if(new Date() < endTime - (12 - temp) * 86400000) {
+        if(date < endTime - (12 - temp) * 86400000) return true;
+        else return false;
+      } else {
+        if(date < new Date() - 86400000) return true;
+        else return false;
+      }
       if (date < endTime) return true;
     } else {
       if (date < new Date() - 86400000) return true;
     }
     return false;
   };
-
+  console.log(props.history.location.state);
   const conditionDisableCalendarEnd = (date) => {
     let daysLimit = 12 - props.history.location.state;
     if (startTime) {
