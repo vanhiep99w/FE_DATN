@@ -29,6 +29,8 @@ class Discussion extends Component {
     currentPage: 0,
     showInputDiscussion: false,
     isSavingDiscussion: false,
+    loadingMore: false,
+    over: false,
   };
 
   contentRef = React.createRef();
@@ -137,7 +139,12 @@ class Discussion extends Component {
 
   onScrollContentHandler = (event) => {
     const { scrollHeight, offsetHeight, scrollTop } = event.currentTarget;
-    if (scrollHeight - Math.ceil(scrollTop) === offsetHeight) {
+
+    if (
+      scrollHeight - Math.ceil(scrollTop) === offsetHeight &&
+      !this.state.loadingMore
+    ) {
+      this.setState({ loadingMore: true });
       const { currentPage, discussions } = this.state;
       this.fetchDiscussions(currentPage + 1, 7).then((res) => {
         if (res.length) {
@@ -147,8 +154,11 @@ class Discussion extends Component {
           });
           this.contentRef.current.scroll({
             top: offsetHeight,
-            behavior: "smooth",
+            behavior: "auto",
           });
+          this.setState({ loadingMore: false });
+        } else {
+          this.setState({ over: true });
         }
       });
     }
@@ -293,17 +303,23 @@ class Discussion extends Component {
       showInputDiscussion,
       projectSelected,
       isSavingDiscussion,
+      loadingMore,
+      over,
     } = this.state;
     return (
-      <PageDesign title="Discussion" headerRight={this.renderFilter()}>
+      <PageDesign
+        title="Discussion"
+        headerRight={this.renderFilter()}
+        css={{ paddingBottom: "2rem" }}
+      >
         <div className="discussion">
           {isLoading ? (
             <>
-              <Skeleton countItem={5} direction="row" heightItem="4.3rem" />
-              <Skeleton countItem={2} direction="row" heightItem="4.3rem" />
-              <Skeleton countItem={4} direction="row" heightItem="4.3rem" />
-              <Skeleton countItem={1} direction="row" heightItem="4.3rem" />
-              <Skeleton countItem={2} direction="row" heightItem="4.3rem" />
+              <Skeleton countItem={5} direction="row" heightItem="6rem" />
+              <Skeleton countItem={2} direction="row" heightItem="6rem" />
+              <Skeleton countItem={4} direction="row" heightItem="6rem" />
+              <Skeleton countItem={1} direction="row" heightItem="6rem" />
+              <Skeleton countItem={2} direction="row" heightItem="6rem" />
             </>
           ) : (
             <div
@@ -333,6 +349,20 @@ class Discussion extends Component {
                   discuss...
                 </p>
               )}
+              {loadingMore &&
+                (over || (
+                  <div style={{ padding: "1rem" }}>
+                    <div
+                      style={{
+                        width: "5rem",
+                        height: "5rem",
+                        margin: "0 auto",
+                      }}
+                    >
+                      <Spinner />
+                    </div>
+                  </div>
+                ))}
             </div>
           )}
           {projectSelected?.id !== 0 && (

@@ -1,0 +1,32 @@
+.permissions{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.permissions__left>p{
+  font-size: 1.7rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: var(--color-title-primary);
+  width: var(--width-left);
+  
+}
+.permissions__center{
+  flex: 1;
+  padding-right: 5rem;
+}
+.permissions__center>p{
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+.permissions__center>p:first-child{
+  color: #363636;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.permissions__center>p:last-child{
+  color: #747474;
+  line-height: 2rem;
+}

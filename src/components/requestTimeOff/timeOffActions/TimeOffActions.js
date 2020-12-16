@@ -1,24 +1,24 @@
 import "./TimeOffActions.css";
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
-import history from '../../../history/index';
-import Modal from '../../../components/modal/Modal';
+import history from "../../../history/index";
+import Modal from "../../../components/modal/Modal";
 
-const TimeOffActions = ({onDelete, data}) => {
-
+const TimeOffActions = ({ onDelete, data }) => {
   const [deleteStatus, setDeleteStatus] = useState(false);
   const [deleteValiable, setDeleteValiable] = useState(true);
 
   useEffect(() => {
-    if(data.status === 2 || data.status === 3) setDeleteValiable(false);
-  },[])
+    if (data.status === 2 || data.status === 3) setDeleteValiable(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const onEdit = () => {
     history.push(`/create-request-time-off/${data.id}`);
-  }
+  };
   const onDeleteClick = () => {
     setDeleteStatus(true);
-  }
+  };
 
   const renderModalContent = () => {
     return (
@@ -30,7 +30,7 @@ const TimeOffActions = ({onDelete, data}) => {
 
   const onCancel = () => {
     setDeleteStatus(false);
-  }
+  };
 
   const renderModalActions = () => {
     return (
@@ -43,8 +43,7 @@ const TimeOffActions = ({onDelete, data}) => {
 
   return (
     <div className="time_off_actions">
-      {
-        deleteValiable ?
+      {deleteValiable ? (
         <div>
           <DeleteIcon
             style={{
@@ -68,20 +67,21 @@ const TimeOffActions = ({onDelete, data}) => {
             onClick={onEdit}
           />
         </div>
-        : ""
-      }
-      {
-          deleteStatus ?
-          <Modal
-            onCloseModal={() => setDeleteStatus(false)}
-            show={deleteStatus}
-            title="Delete!"
-            renderContent={() => renderModalContent()}
-            renderAction={() => renderModalActions()}
-            cssBody={{ minWidth: "35rem" }}
-          />
-          : ""
-        }
+      ) : (
+        ""
+      )}
+      {deleteStatus ? (
+        <Modal
+          onCloseModal={() => setDeleteStatus(false)}
+          show={deleteStatus}
+          title="Delete!"
+          renderContent={() => renderModalContent()}
+          renderAction={() => renderModalActions()}
+          cssBody={{ minWidth: "35rem" }}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 };

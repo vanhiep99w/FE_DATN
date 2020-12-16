@@ -1,0 +1,32 @@
+.cp_input{
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 4rem;
+}
+.cp_input>label{
+  font-size: 1.7rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: var(--color-title-primary);
+  width: var(--width-left);
+  display: inline-block;
+  
+}
+.cp_input>input{
+  
+  padding-bottom: 1.5rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #C2C2C2;
+  border-radius: 0;
+  color: var(--color-title-primary);
+}
+.cp_input>input::placeholder{
+  color: #CACACA;
+  font-weight: 400;
+}
+.cp_input>input::-webkit-inner-spin-button{
+  display: none;
+}

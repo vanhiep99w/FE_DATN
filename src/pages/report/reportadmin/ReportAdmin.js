@@ -34,7 +34,7 @@ const ReportAdmin = ({ members }) => {
   });
 
   return (
-    <PageDesign title="Report">
+    <PageDesign title="Report" css={{ paddingBottom: "10rem" }}>
       <div className="report_admin_user">
         <h1>People</h1>
         <div className="report_admin_user_header">

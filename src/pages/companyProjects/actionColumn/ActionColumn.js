@@ -79,7 +79,7 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
             setShowModal(false);
           }}
         >
-          No
+          Cancel
         </button>
       </div>
     );

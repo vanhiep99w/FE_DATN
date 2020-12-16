@@ -9,6 +9,7 @@ const DropDown2 = ({
   onScrollHandler = () => {},
   maxHeight,
   css,
+  closeWhenClickOutSite = true,
 }) => {
   const [show, setShow] = useState(false);
   const dropdownRef = useRef(null);
@@ -30,11 +31,15 @@ const DropDown2 = ({
   );
 
   useEffect(() => {
-    if (show) window.addEventListener("click", onClickHandler);
+    if (show && closeWhenClickOutSite) {
+      window.addEventListener("click", onClickHandler);
+    }
     return () => {
-      window.removeEventListener("click", onClickHandler);
+      if (closeWhenClickOutSite) {
+        window.removeEventListener("click", onClickHandler);
+      }
     };
-  }, [onClickHandler, show]);
+  }, [closeWhenClickOutSite, onClickHandler, show]);
   return (
     show && (
       <div

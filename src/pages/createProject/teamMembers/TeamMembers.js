@@ -87,7 +87,6 @@ const TeamMembers = ({
               type="number"
               value={element.rate}
               onChange={(event) => {
-                console.log(selectedMembers, element);
                 setSelectedMembers(
                   selectedMembers.map((ele) => {
                     if (ele.id === element.id) {

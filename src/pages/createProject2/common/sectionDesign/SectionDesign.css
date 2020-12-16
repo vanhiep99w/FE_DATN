@@ -1,0 +1,12 @@
+.section_design{
+  margin-bottom: 5rem;
+}
+.section_design>h2{
+  font-size: 2.7rem;
+  font-weight: 700;
+  color: var(--color-title-primary);
+  text-transform: capitalize;
+  border-bottom: 2px solid #EEEEEE;
+  padding-bottom: .7rem;
+  margin-bottom: 4rem;
+}

@@ -1,0 +1,22 @@
+
+.search-members{
+  position: relative;
+  
+}
+.search-members>input{
+  border: none;
+  outline: none;
+  background-color: #EEEEEE;
+  font-size: 1.4rem;
+  font-weight: 500;
+  padding: 1.2rem;
+  color: #363636;
+  border-radius: 2rem;
+  width: 18rem;
+  margin-right: 1rem;
+  box-sizing: border-box;
+}
+.search-members>input::placeholder{
+  color: #6E6E6E;
+  font-weight: 400;
+}

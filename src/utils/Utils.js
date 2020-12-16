@@ -150,8 +150,7 @@ export const convertToHour = (second) => {
   const hour = second / 3600;
   const convertedHour = Math.round(hour * 10);
   return convertedHour / 10;
-}
-
+};
 
 export const ROLE_LIST = [
   { id: 1, name: "ADMIN", color: "2ECC71" },
@@ -305,4 +304,10 @@ export const onListChangedHandler = (
     result = onItemChangedHandler(ele, result, key1, key2);
   });
   return result;
+};
+
+export const includesIgnoreCase = (stringParent, stringChild) => {
+  return stringParent
+    .toLocaleLowerCase()
+    .includes(stringChild.toLocaleLowerCase());
 };

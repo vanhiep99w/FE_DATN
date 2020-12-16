@@ -5,6 +5,8 @@ import SearchIcon from "@material-ui/icons/Search";
 import Avatar from "../avatar/Avatar";
 import { connect } from "react-redux";
 import DaySelect from "./daySelect/DaySelect";
+import timeCloudAPI from "../../apis/timeCloudAPI";
+import { USER_ID } from "../../utils/localStorageContact";
 
 const TimeOffCalendar = ({ members, _pendingRequest, _approveRequest }) => {
   const [currentMembers, setCurrentMembers] = useState([]);
@@ -12,10 +14,29 @@ const TimeOffCalendar = ({ members, _pendingRequest, _approveRequest }) => {
   const [searchInputValue, setSearchInputValue] = useState("");
   const [pendingRequest, setPendingRequest] = useState([]);
   const [approveRequest, setApproveRequest] = useState([]);
+  const [projects, setProjects] = useState([]);
   useEffect(() => {
     const now = new Date();
     setSelectedDays(getDaysFromSelectedDay(15, now));
+    fetchProjects();
   }, []);
+
+  const fetchProjects = async () => {
+    const res1 = await timeCloudAPI().get(
+      `users/${localStorage.getItem(USER_ID)}/project-user-available`
+    );
+    const temp = res1.data;
+    const res2 = await Promise.all(
+      temp.map((ele) => {
+        return timeCloudAPI().get(`projects/${ele.project.id}/users`);
+      })
+    );
+    setProjects(
+      temp.map((ele, index) => {
+        return { ...ele.project, members: res2[index].data };
+      })
+    );
+  };
 
   useEffect(() => {
     setPendingRequest(_pendingRequest);
@@ -31,7 +52,6 @@ const TimeOffCalendar = ({ members, _pendingRequest, _approveRequest }) => {
   useEffect(() => {
     setCurrentMembers([...members]);
   }, [members]);
-  console.log(selectedDays);
 
   const checkDateBetween = (date, startDate, endDate) => {
     const temp1 = new Date(date);
@@ -96,6 +116,9 @@ const TimeOffCalendar = ({ members, _pendingRequest, _approveRequest }) => {
         onChangeSelectDays={onChangeSelectDays}
         firstDay={selectedDays[0]}
         lastDay={selectedDays[selectedDays.length - 1]}
+        projects={projects}
+        setCurrentMembers={setCurrentMembers}
+        members={members}
       />
       <table>
         <thead className="time_off_calendar__header">

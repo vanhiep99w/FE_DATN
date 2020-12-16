@@ -7,7 +7,7 @@ import ReportItemTaskDid from "../../../pages/report/reportitem/reportitemtask/R
 import Dropdown2 from '../../../components/dropdown2/DropDown2';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
-const ReportItem = ({ project, user, isDoing}) => {
+const ReportItem = ({ project, user, isDoing }) => {
   const [tasks, setTasks] = useState([]);
   const [taskDids, setTaskDids] = useState([]);
   const [time, setTime] = useState([]);
@@ -48,7 +48,7 @@ const ReportItem = ({ project, user, isDoing}) => {
       isMounted = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -135,12 +135,16 @@ const ReportItem = ({ project, user, isDoing}) => {
         </div>
       </div>
       <div className="toggle_item">
-        {tasks.sort((task1,task2)=>(task1.name<=task2.name?-1:1)).map((task) => (
-          <ReportItemTask key={task.id} user={user} task={task} />
-        ))}
-        {taskDids.sort((task1,task2)=>(task1.name<=task2.name?-1:1)).map((task) => (
-          <ReportItemTaskDid key={task.id} user={user} task={task} />
-        ))}
+        {tasks
+          .sort((task1, task2) => (task1.name <= task2.name ? -1 : 1))
+          .map((task) => (
+            <ReportItemTask key={task.id} user={user} task={task} />
+          ))}
+        {taskDids
+          .sort((task1, task2) => (task1.name <= task2.name ? -1 : 1))
+          .map((task) => (
+            <ReportItemTaskDid key={task.id} user={user} task={task} />
+          ))}
       </div>
     </div>
   );

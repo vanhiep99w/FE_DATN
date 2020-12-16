@@ -25,7 +25,7 @@ class Projects extends React.Component {
       project: {
         key: "project",
         label: "project",
-        width: "18%",
+        width: "20%",
         cssHeader: { ...this.cssHeader, paddingLeft: "1rem" },
         cssData: {
           textTransform: "capitalize",
@@ -50,13 +50,14 @@ class Projects extends React.Component {
         cssData: {
           verticalAlign: "middle",
           cursor: "pointer",
+          minHeight: "3.7rem",
         },
         convertData: (project) => project.clientName,
       },
       tracktime: {
         key: "tracktime",
         label: "Tracked Time (h)",
-        width: "22%",
+        width: "20%",
         cssHeader: this.cssHeader,
         cssData: {
           verticalAlign: "middle",

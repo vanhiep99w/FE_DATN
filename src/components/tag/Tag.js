@@ -14,21 +14,19 @@ const Tag = ({
   return (
     <div className="tag" style={{ ...cssTag }}>
       {children}
-      <div>
-        {data.map((ele) => (
-          <div className="tag__item" key={ele.id}>
-            {convertData(ele)}
-            <button
-              onClick={() => {
-                setIsShow(!isShow);
-                onRemoveItem(ele.id);
-              }}
-            >
-              <CloseIcon />
-            </button>
-          </div>
-        ))}
-      </div>
+      {data.map((ele) => (
+        <span className="tag__item" key={ele.id}>
+          {convertData(ele)}
+          <button
+            onClick={() => {
+              setIsShow(!isShow);
+              onRemoveItem(ele.id, ele);
+            }}
+          >
+            <CloseIcon />
+          </button>
+        </span>
+      ))}
     </div>
   );
 };
@@ -42,6 +40,6 @@ Tag.propTypes = {
     }).isRequired
   ),
   convertData: PropTypes.func.isRequired,
-  onItemRemove: PropTypes.func,
+  onRemoveItem: PropTypes.func,
   cssTag: PropTypes.object,
 };

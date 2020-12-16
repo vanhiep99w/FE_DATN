@@ -56,7 +56,7 @@
 }
 .day_select__right{
   display: flex;
-  text-align: center;
+  align-items: center;
   justify-content: center;
 }
 .day_select__right>span{
@@ -70,15 +70,35 @@
   justify-content: center;
   color: #363636;
 }
-.day_select__right>span:last-child{
+.day_select__right__dd{
+  position: relative;
+}
+.day_select__right__dd>span{
 
   background-color: #EEEEEE;
   border-radius: 2rem;
   font-size: 1.6rem;
   font-weight: 500;
   cursor: pointer;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 11rem;
 }
-.day_select__right>span>.MuiSvgIcon-root{
+.day_select__right__dd>span>.MuiSvgIcon-root{
   font-size: 2rem;
   color: #6C6C6C;
+  
+}
+.day-select__dd>p{
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding: 1rem 2.5rem;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+}
+.day-select__dd>p:hover{
+  background-color: #EEEEEE;
 }

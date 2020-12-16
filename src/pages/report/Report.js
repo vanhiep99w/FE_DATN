@@ -91,7 +91,7 @@ const Report = () => {
   };
 
   return (
-    <PageDesign title="Report">
+    <PageDesign title="Report" css={{ paddingBottom: "10rem" }}>
       <div className="report_user">
         <div className="page_design__animate__left">
           <Avatar avatar={user?.avatar} avatarSize="10rem">

@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&display=swap');
+.create-project-2{
+ 
+  font-family: 'Montserrat', sans-serif;
+  margin-top: 5rem;
+  --color-title-primary : #363636;
+  --color-title-secondary : #515151;
+  --width-left: 25rem;
+  --width-delete-item : 4rem;
+  --margin: 10rem;
+  padding-bottom: 10rem;
+  padding-left: var(--margin);
+  padding-right: var(--margin);
+}
+.create-project-2__header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.create-project-2__header>h1{
+  font-size: 4rem;
+  font-weight: 800;
+  color:var(--color-title-primary);
+  margin-bottom: 5rem;
+}
+.create-project-2__loading{
+  width: 5rem;
+  height: 5rem;
+}
+.create-project-2__footer{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.create-project-2__footer__left{
+  width: 5rem;
+  height: 5rem;
+}
+.create-project-2__footer__right>button{
+  outline: none;
+  border: none;
+  font-size: 1.55rem;
+  font-weight: 500;
+  padding: 1.5rem;
+  border-radius: .3rem;
+  cursor: pointer;
+}
+.create-project-2__footer__right>button:nth-child(1){
+  background-color: var(--color-button);
+  color: white;
+  margin-right: 2rem;
+  border: 1px solid var(--color-button);
+}
+
+.create-project-2__footer__right>button:nth-child(1).disable{
+  background-color: #EEEEEE;
+  border: 1px solid #C4C4C4;
+  cursor: initial;
+  color: #a3a3a3;
+}
+
+.create-project-2__footer__right>button:nth-child(2){
+  background-color: white;
+  border: 1px solid #C4C4C4;
+}
+
+@media only screen and (min-width: 768px) {
+  .create-project-2{
+    --width-left: 10rem;
+    --margin : 2rem;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .create-project-2{
+    --width-left: 15rem;
+    --margin: 5rem;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .create-project-2{
+    --width-left: 25rem;
+    --margin: 10rem;
+  }
+}

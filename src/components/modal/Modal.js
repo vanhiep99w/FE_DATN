@@ -10,6 +10,7 @@ const Modal = ({
   show,
   onCloseModal,
   cssBody,
+  closeWhenClickOutSide = true,
 }) => {
   if (!show) {
     return null;
@@ -19,7 +20,7 @@ const Modal = ({
       className="modal"
       onClick={(event) => {
         event.stopPropagation();
-        onCloseModal();
+        if (closeWhenClickOutSide) onCloseModal();
       }}
     >
       <div

@@ -12,7 +12,6 @@ const DiscussionItem = ({ discussion, onDeleteItem, user, project }) => {
   const [showComment, setShowComment] = useState(false);
   const [comments, setComments] = useState(null);
   const [data, setData] = useState(discussion);
-  const [editMode, setEditMode] = useState(false);
   const [showDDType, setShowDDType] = useState(false);
 
   const onButtonCommentClick = () => {
@@ -103,9 +102,7 @@ const DiscussionItem = ({ discussion, onDeleteItem, user, project }) => {
       <div
         className="discussion_item__top"
         style={{
-          boxShadow: showComment
-            ? "2px 2px .5rem rgba(0, 0, 0, .5)"
-            : "initial",
+          boxShadow: showComment ? "rgba(0, 0, 0, 0.5) 1px 1px 2px" : "initial",
         }}
       >
         <div>
