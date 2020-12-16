@@ -30,13 +30,12 @@
 
 .report_item__project_name_isDone>h3{
     font-size: 1.4rem;
-    margin-top: 0.7rem;
+    margin-top: 0.3rem;
     font-weight: bold;
     color:white;
     padding: 0.5rem;
     border-radius: 1.5rem;
     vertical-align: middle;
-    background-color: var(--color-error);
 }
 
 .report_item__project__right>p{
