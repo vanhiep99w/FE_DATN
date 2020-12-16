@@ -89,11 +89,49 @@ export const getMouthAndDate = (date) => {
 
 export const countDate = (start, end) => {
   let result = checkDayOff(start, end);
-  if (start.getTime() === end.getTime()) return 0.5;
-  if (end.getTime() - start.getTime() === 43200000) return 1;
-  if (end.getTime() - start.getTime() === 129600000) return 1.5;
-  return (end.getTime() - start.getTime() + 86400000) / 86400000 - result;
+  console.log(start, end);
+  if(start.getHours() === 0) {
+    console.log(1);
+    if(end.getHours() === 0) return (end.getTime() - start.getTime() + 86400000) / 86400000 - result;
+    else return (end.getTime() - start.getTime()) / 86400000 - result;
+  }
+  else {
+    console.log(2);
+    if(end.getHours() === 12) {
+      if(start.getDate() === end.getDate()) return 0.5;
+      else return (end.getTime() - start.getTime() ) / 86400000 - result;
+    }
+    else return (end.getTime() - start.getTime() + 86400000) / 86400000 - result;
+  }
+  // if (start.getTime() === end.getTime()) return 0.5;
+  // if (end.getTime() - start.getTime() === 43200000) return 1;
+  // if (end.getTime() - start.getTime() === 129600000) return 2.5;
+  // return (end.getTime() - start.getTime() + 86400000) / 86400000 - result;
 };
+
+export const convertSalary = (number) => {
+  if(number < 1000) return number;
+  else {
+    let temp = number;
+    let split = [];
+    let result = '';
+    do {
+      split.push(temp % 1000);
+      temp = Math.floor(temp / 1000);
+    } while (temp >= 1);
+    for(let i = split.length - 1; i >= 0; i--) {
+      if(i === 0) {
+        if(split[i] === 0) result += "000";
+        else result += split[i];
+      }
+      else {
+        if(split[i] === 0) result +="000.";
+        else result += split[i] + ".";
+      }
+    }
+    return result;
+  }
+}
 
 export const convertSecondToHour = (seconds) => {
   let hours = seconds / 60 / 60;

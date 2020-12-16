@@ -126,3 +126,18 @@
   margin-right: 2rem;
   visibility: hidden;
 }
+
+.request_time_off_response {
+    position: relative;
+}
+
+.response__content>p{
+    background-color: #2496F7;
+    width: 20rem;
+    padding: 1rem;
+    margin-top: -1.85rem;
+}
+.response__content {
+    background-color: #FFFFFF;
+    margin-top: -1rem;
+}
