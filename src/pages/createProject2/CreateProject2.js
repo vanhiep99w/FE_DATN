@@ -11,6 +11,7 @@ import Spinner from "../../components/loading/spinner/Spinner";
 import { USER_ID } from "../../utils/localStorageContact";
 import { randomColorArray, randomNumber } from "../../utils/Utils";
 import { action } from "../../utils/UtilArr";
+import history from "../../history";
 
 const CreateProject2 = ({ match }) => {
   const editMode = useRef(match.params.id ? true : false);
@@ -80,6 +81,7 @@ const CreateProject2 = ({ match }) => {
       }),
     ]);
     setSaving(false);
+    history.push("/");
   };
 
   const saveTaskAndTaskMembers = async (task, projectId) => {
@@ -166,6 +168,7 @@ const CreateProject2 = ({ match }) => {
     setSaving(true);
     await Promise.all([editProjectInfo(), editTeamMembers(), editTasks()]);
     setSaving(false);
+    history.push("/projects");
   };
 
   const projectInfoHaveAnyChanged = () => {
