@@ -153,7 +153,7 @@ class Discussion extends Component {
             currentPage: currentPage + 1,
           });
           this.contentRef.current.scroll({
-            top: offsetHeight,
+            top: scrollTop,
             behavior: "auto",
           });
           this.setState({ loadingMore: false });

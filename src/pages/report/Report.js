@@ -17,68 +17,54 @@ const Report = () => {
   const [projects, setProjects] = useState([]);
   const [timeUsers, setTimeUsers] = useState([]);
 
-  useEffect(() => {
-    let isMounted = true;
+  const fetchTotalUser = () => {
     TimeCloudAPI()
       .get(`users/${history.location.state}/total-times`)
       .then((response) => {
-        if (isMounted) setTime(response.data);
-      })
-      .catch((error) => {});
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+        setTime(response.data);
+      });
+  };
 
-  useEffect(() => {
-    let isMounted = true;
+  const fetchUserInfo = () => {
     TimeCloudAPI()
       .get(`users/${history.location.state}`)
       .then((response) => {
-        if (isMounted) setUser(response.data);
-      })
-      .catch((error) => {});
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+        setUser(response.data);
+      });
+  };
 
   const fetchProject = async () => {
     const res = await TimeCloudAPI().get(
       `users/${history.location.state}/project-users`
     );
-
     setProjects(res.data);
-  };
-
-  useEffect(() => {
-    fetchProject();
-  }, []);
-
-  useEffect(() => {
-    Promise.all(
-      projects.map((project) =>
+    const res1 = await Promise.all(
+      res.data.map((project) =>
         TimeCloudAPI().get(
           `projects/${project.project.id}/users/${history.location.state}/total-times`
         )
       )
-    ).then((res) => {
-      if (res.length) {
-        const temp = res.map((ele) => convertTime(ele.data));
-        const totalTime = temp.reduce((a, b) => a + b);
-
-        if (temp.every((ele) => ele === 0)) {
-          setTimeUsers(temp.fill(-1));
-        } else {
-          const result = temp.map((ele) => {
-            console.log(ele);
-            return Math.floor((ele / totalTime) * 10000) / 100;
-          });
-          setTimeUsers(result);
-        }
+    );
+    if (res1.length) {
+      const temp = res1.map((ele) => convertTime(ele.data));
+      const totalTime = temp.reduce((a, b) => a + b);
+      if (temp.every((ele) => ele === 0)) {
+        setTimeUsers(temp.fill(-1));
+      } else {
+        const result = temp.map((ele) => {
+          return Math.floor((ele / totalTime) * 10000) / 100;
+        });
+        setTimeUsers(result);
       }
-    });
-  }, [projects]);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserInfo();
+    fetchTotalUser();
+    fetchProject();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   let labels = projects.map((project) => project.project.name);
   let color = projects.map((project) => project.project.color);
@@ -116,7 +102,7 @@ const Report = () => {
           {user ? (
             <TabNav tabTitles={tabTitles}>
               <div>
-                <ReportList user={user} />
+                <ReportList user={user} projects={projects} />
               </div>
               <div>
                 <ReportListDes user={user} />
