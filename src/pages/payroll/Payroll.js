@@ -24,8 +24,21 @@ const PayRoll = (props) => {
     timeCloudAPI()
       .get(`projects/${props.match.params.id}/users`)
       .then((res) => {
+        const temp = res.data
+        .sort((firstEle, secondEle) => {
+          if(firstEle.user.name.toLowerCase() < secondEle.user.name.toLowerCase() ) return -1;
+          if(firstEle.user.name.toLowerCase()  > secondEle.user.name.toLowerCase() ) return 1;
+          return 0;
+        });
+        setData(temp.map(ele => {
+          return {
+            user : ele,
+            time: 0,
+            id: ele.id
+          }
+        }))
         Promise.all(
-          res.data.map((ele) => {
+          temp.map((ele) => {
             return timeCloudAPI().get(
               `projects/${props.match.params.id}/users/${ele.user.id}/total-times`
             );
@@ -34,15 +47,16 @@ const PayRoll = (props) => {
           setData(
             res1.map((item, index) => {
               return {
-                user: res.data[index],
+                user: temp[index],
                 time: item.data,
+                id: temp[index].id
               };
             })
           );
         });
       });
   },[]);
-
+console.log(data);
   const cssHeader = {
     textAlign: "left",
     fontWeight: "650",
@@ -97,8 +111,7 @@ const PayRoll = (props) => {
             fontWeight: "500"
           },
           convertData: (data) => {
-            if(project.done) return convertToHour(data.time);
-            else return "?";
+            return convertToHour(data.time);
           },
         },
         salary: {
@@ -113,7 +126,7 @@ const PayRoll = (props) => {
             fontWeight: "500"
           },
           convertData: (data) => {
-            if(project.done) return convertSalary(data.user.salary);
+            if(project?.done) return convertSalary(data.user.salary);
             else return "?";
           },
         },

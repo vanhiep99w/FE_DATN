@@ -1,5 +1,6 @@
 .payroll {
     display: flex;
+    padding-bottom: 10rem;
 }
 
 .payroll_left {
