@@ -17,6 +17,7 @@ class ViewUsersByTask extends React.Component {
     timeCloudAPI()
       .get(`tasks/${this.props.task.id}/users-did`)
       .then((response) => {
+        console.log(response.data);
         if (this._isMounted) {
           this.setState({
             users: [...response.data, ...this.props.oldUsers],

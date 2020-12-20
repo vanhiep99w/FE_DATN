@@ -43,6 +43,7 @@ class ShowUsers extends React.Component {
         });
     } else {
       // * fetch all in oldProject(isDoing = false)
+      console.log(this.props.unavailableTasks);
       Promise.all(
         this.props.unavailableTasks?.map((ele) =>
           timeCloudAPI().get(`tasks/${ele}`, {

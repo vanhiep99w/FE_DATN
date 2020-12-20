@@ -102,7 +102,6 @@ class Router extends React.Component {
           {/* <Route path="/time-off" component={TimeOff} /> */}
           <Route path="/timer" component={Timer} />
           <Route path="/report" component={Report} />
-          <Route path="/all-request" component={AllRequest} />
           <Route
             path="/create-request-time-off"
             component={CreateRequestTimeOff}
