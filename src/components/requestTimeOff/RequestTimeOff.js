@@ -16,7 +16,7 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import DropDown2 from '../../components/dropdown2/DropDown2';
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-const RequestTimeOff = ({ data, user, onDelete }) => {
+const RequestTimeOff = ({ data, user, onDelete, timeOffs }) => {
   console.log(data);
   const [descriptionStatus, setDescriptionStatus] = useState(false);
   const [responseStatus, setResponseStatus] = useState(false);
@@ -178,7 +178,7 @@ const RequestTimeOff = ({ data, user, onDelete }) => {
       </div>
 
       <div className="request_time_off__right">
-        <TimeOffActions data={data} onDelete={onDelete} />
+        <TimeOffActions data={data} onDelete={onDelete} timeOffs={timeOffs}/>
       </div>
     </div>
   );

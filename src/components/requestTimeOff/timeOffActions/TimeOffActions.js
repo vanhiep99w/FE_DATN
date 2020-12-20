@@ -4,8 +4,9 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import history from "../../../history/index";
 import Modal from "../../../components/modal/Modal";
+import {countDate} from '../../../utils/Utils';
 
-const TimeOffActions = ({ onDelete, data }) => {
+const TimeOffActions = ({ onDelete, data, timeOffs }) => {
   const [deleteStatus, setDeleteStatus] = useState(false);
   const [deleteValiable, setDeleteValiable] = useState(true);
 
@@ -14,8 +15,23 @@ const TimeOffActions = ({ onDelete, data }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const onEdit = () => {
-    history.push(`/create-request-time-off/${data.id}`);
+    history.push({
+      pathname: `/create-request-time-off/${data.id}`,
+      state: countDateOff()
+    });
   };
+
+  const countDateOff = () => {
+    let result = 0;
+    timeOffs.forEach((ele) => {
+      result += countDate(
+        new Date(ele.timeOff.startTime),
+        new Date(ele.timeOff.endTime)
+      );
+    });
+    return result;
+  };
+
   const onDeleteClick = () => {
     setDeleteStatus(true);
   };

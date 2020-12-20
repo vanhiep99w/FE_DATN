@@ -6,25 +6,34 @@
 .delete_time_off__model_actions {
     display: flex;
     justify-content: flex-end;
+    margin-top: .5rem;
 }
 
 .delete_time_off__model_actions>button {
-    padding: 1rem 2rem;
+    padding: 1rem;
     border: none;
-    margin-top: .5rem;
+    
     border-radius: .3rem;
     cursor: pointer;
     outline: none;
-    color: black;
+    color: rgb(116, 102, 102);
     font-size: 1.5rem;
     font-weight: 550;
 }
 
 .delete_time_off__model_actions>button:nth-child(1) {
-    background-color: red;
-    margin-right: 1rem
+    background-color: var(--color-button);
+    
+    margin-right: 1rem;
+    color: white;
 }
 
 .delete_time_off__model_actions>button:nth-child(2) {
-    
+    background-color: #EEEEEE;
+    color: #4b4b4b;
+    border: 1px solid #d3d3d3;
+}
+
+.time_off__modal_content {
+    padding: 3rem 0;
 }

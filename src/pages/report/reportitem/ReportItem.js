@@ -16,13 +16,11 @@ const ReportItem = ({ project, user, isDoing }) => {
 
   useEffect(() => {
     let isMounted = true;
-    if (project.done) {
       timeCloudAPI()
         .get(`projects/${project.id}/users/${user.id}`)
         .then((res) => {
           setProjectUser(res.data);
         });
-    } else setProjectUser(0);
 
     timeCloudAPI()
       .get(`projects/${project.id}/users/${user.id}/tasks`)

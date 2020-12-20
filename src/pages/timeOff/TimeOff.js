@@ -96,6 +96,7 @@ const TimeOff = () => {
               key={v4()}
               data={ele}
               onDelete={() => onDelete(ele)}
+              timeOffs={timeOffs}
             />
           ))}
         </div>
