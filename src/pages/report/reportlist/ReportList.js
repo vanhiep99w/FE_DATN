@@ -4,21 +4,12 @@ import Collapse from "../../../components/collapse/Collapse";
 import timeCloudAPI from "../../../apis/timeCloudAPI";
 import ReportItem from "../reportitem/ReportItem";
 
-const ReportList = ({ user }) => {
+const ReportList = ({ user, projects = [] }) => {
   const [projectUsers, setProjectUsers] = useState([]);
+
   useEffect(() => {
-    let isMounted = true;
-    timeCloudAPI()
-      .get(`users/${user.id}/project-users`)
-      .then((response) => {
-        if (isMounted) setProjectUsers(response.data);
-      })
-      .catch((error) => {});
-    return () => {
-      isMounted = false;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    setProjectUsers(projects);
+  }, [projects]);
 
   return (
     <div className="reportList">
