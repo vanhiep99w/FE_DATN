@@ -67,7 +67,6 @@ class Router extends React.Component {
 
   render() {
     const { user, isLogin, managedProjects } = this.props;
-
     let routes;
     if (user?.roles?.some((ele) => ele.id === 1)) {
       routes = (

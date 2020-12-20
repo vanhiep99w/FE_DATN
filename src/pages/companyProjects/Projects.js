@@ -143,10 +143,19 @@ class Projects extends React.Component {
   };
 
   onSortProjects = (projects) => {
+    console.log(projects);
+    console.log(projects.map((ele) => ele.done));
     return projects.sort((first, second) => {
-      if (first.done < second.done) return -1;
-      else if (first.done > second.done) return 1;
-      else return 0;
+      if (first.done) {
+        if (second.done) return first.name.localeCompare(second.name);
+        return 1;
+      } else {
+        if (second.done) return -1;
+        return first.name.localeCompare(second.name);
+      }
+      // if (first.done < second.done) return -1;
+      // else if (first.done > second.done) return 1;
+      // else return 0;
     });
   };
 

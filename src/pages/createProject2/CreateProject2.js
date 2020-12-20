@@ -89,7 +89,7 @@ const CreateProject2 = ({ match }) => {
       name: task.name,
     });
     const taskId = res.data.id;
-    if (task.users) {
+    if (task.members) {
       const arrRequest = [
         timeCloudAPI().post(
           `tasks/${taskId}/users/${localStorage.getItem("userId")}`
@@ -191,11 +191,6 @@ const CreateProject2 = ({ match }) => {
 
   const disableButtonSubmit = () => {
     if (editMode.current) {
-      console.log(
-        projectInfoHaveAnyChanged(),
-        changedTeamMembers.length,
-        changedTasks.length
-      );
       if (
         projectInfoHaveAnyChanged() ||
         changedTeamMembers.length ||
@@ -206,17 +201,13 @@ const CreateProject2 = ({ match }) => {
       return true;
     } else {
       if (projectName && clientName && color && manager) {
-        if (haveBudget) {
-          if (budget) return false;
-          return true;
-        }
+        if (haveBudget && !budget) return true;
         return false;
       } else {
         return true;
       }
     }
   };
-  console.log(disableButtonSubmit());
 
   const editProjectInfo = async () => {
     if (projectInfoHaveAnyChanged()) {

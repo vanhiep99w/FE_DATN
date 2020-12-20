@@ -23,20 +23,20 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
         setProjectUsers(response.data);
         Promise.all(
           response.data.map((ele) => {
-            return timeCloudAPI()
-              .get(`projects/${project.id}/users/${ele.user.id}/total-times`);
+            return timeCloudAPI().get(
+              `projects/${project.id}/users/${ele.user.id}/total-times`
+            );
           })
         ).then((res) => {
           setTotalTime(
             res.map((ele, index) => {
               return {
                 id: response.data[index].user.id,
-                time: convertToHour(ele.data)
-              }
+                time: convertToHour(ele.data),
+              };
             })
-          )
+          );
         });
-       
       });
   }, [project.id]);
 
@@ -44,15 +44,15 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
     let rate = Math.round((project.budget / billableRate()) * 10) / 10;
     projectUsers.forEach((ele, index) => {
       timeCloudAPI().put(`projects/${project.id}/users/${ele.user.id}`, {
-        salary: Math.round(totalTime[index].time * ele.rate * rate)
-      })
+        salary: Math.round(totalTime[index].time * ele.rate * rate),
+      });
     });
   };
 
   const billableRate = () => {
     let result = 0;
     projectUsers.forEach((ele, index) => {
-      let temp = totalTime.filter(element => element.id === ele.user.id);
+      let temp = totalTime.filter((element) => element.id === ele.user.id);
       result += temp[0].time * ele.rate;
     });
     return Math.round(result * 10) / 10;
@@ -63,7 +63,6 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
       <div className="action_column__button">
         <button
           onClick={() => {
-            console.log(project);
             setShowModal(false);
             calculateSalary();
             timeCloudAPI().put(
@@ -92,7 +91,6 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
             className="projects__icon__item"
             onClick={(e) => {
               e.stopPropagation();
-              // onDelete(project.id);
               setShowModal(true);
             }}
           />

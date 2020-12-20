@@ -4,18 +4,15 @@
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
   padding: 1.7rem;
-
   display: inline-block;
   min-width: 20rem;
   margin-right: 2rem;
-  
   box-shadow: 3px 3px 0.5rem rgba(0, 0, 0, 0.4);;
   transition: all .5s;
   transition-property: transform box-shadow;
 }
 
 .project_item.nonvisible{
-  /* min-width: 20rem; */
   padding: 1.7rem;
   background-color: #e9e9e9 !important;
   box-shadow: 1px 1px .2rem rgba(0, 0, 0, 0.2);
@@ -70,7 +67,6 @@
 .project_header__company_name>button>.MuiSvgIcon-root{
   color: #ffffff;
   font-size: 1.8rem;
-  
   display: none;
 }
 
