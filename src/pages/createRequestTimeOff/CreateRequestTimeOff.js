@@ -24,8 +24,8 @@ const CreateRequestTimeOff = (props) => {
 
   const titleDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const [description, setDescription] = useState("");
-  const [periodOfStartDay, setPeriodOfStartDay] = useState(0);
-  const [periodOfEndDay, setPeriodOfEndDay] = useState(0);
+  const [periodOfStartDay, setPeriodOfStartDay] = useState("0");
+  const [periodOfEndDay, setPeriodOfEndDay] = useState("0");
   const [startValidation, setStartValidation] = useState("");
   const [descriptionValidation, setDescriptionValidation] = useState("");
   const [endValidation, setEndValidation] = useState("");
@@ -141,7 +141,7 @@ const CreateRequestTimeOff = (props) => {
   };
 
   const viewOptionsEndTime = () => {
-    if (startTime?.getDate() === endTime?.getDate())
+    if (endTime === null || startTime?.getDate() === endTime?.getDate())
       return false;
     return true;
   };
@@ -279,7 +279,8 @@ const CreateRequestTimeOff = (props) => {
                     type="radio"
                     name="radio-start"
                     id="all-start"
-                    value={0}
+                    value="0"
+                    checked={periodOfStartDay === "0"}
                     onChange={(e) => onSetPeriodOfDay(e)}
                   />{" "}
                   All day <br />
@@ -287,7 +288,8 @@ const CreateRequestTimeOff = (props) => {
                     type="radio"
                     name="radio-start"
                     id="half-start"
-                    value={1}
+                    value="1"
+                    checked={periodOfStartDay === "1"}
                     onChange={(e) => onSetPeriodOfDay(e)}
                   />{" "}
                   Half day
@@ -325,7 +327,8 @@ const CreateRequestTimeOff = (props) => {
                       type="radio"
                       name="radio-end"
                       id="all-end"
-                      value={0}
+                      value="0"
+                      checked={periodOfEndDay === "0"}
                       onChange={(e) => onSetPeriodOfDay(e)}
                     />{" "}
                     All day <br />
@@ -333,7 +336,8 @@ const CreateRequestTimeOff = (props) => {
                       type="radio"
                       name="radio-end"
                       id="half-end"
-                      value={1}
+                      value="1"
+                      checked={periodOfEndDay === "1"}
                       onChange={(e) => onSetPeriodOfDay(e)}
                     />{" "}
                     Half day
