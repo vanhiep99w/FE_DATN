@@ -8,7 +8,7 @@ import { NavLink } from "react-router-dom";
 import UserInfo from "../../components/userInfo/UserInfo";
 import history from "../../history/index";
 
-const Header = ({ user, logout, managedProjects }) => {
+const Header = ({ user, logout, managedProjects, permissionProjects }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropDownRef = useRef(null);
   function onClickHandler() {
@@ -78,9 +78,9 @@ const Header = ({ user, logout, managedProjects }) => {
       >
         Report
       </NavLink>
-      {managedProjects.length > 0 && (
+      {(managedProjects.length > 0 || permissionProjects.length > 0) && (
         <NavLink to="/projects" activeClassName="header__feature__active">
-          Project
+          Projects
         </NavLink>
       )}
       <NavLink to="/discussion" activeClassName="header__feature__active">
@@ -128,10 +128,11 @@ const Header = ({ user, logout, managedProjects }) => {
 };
 
 const mapStateToProps = (state) => {
-  const { user, managedProjects } = state.auth;
+  const { user, managedProjects, permissionProjects } = state.auth;
   return {
     user,
     managedProjects,
+    permissionProjects,
   };
 };
 

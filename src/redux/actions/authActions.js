@@ -75,10 +75,13 @@ const setUserRole = (userRole) => {
   };
 };
 
-const setManagedProjects = (projects) => {
+const setManagedProjects = (managedProjects, permissionProjects) => {
   return {
     type: AUTH_SET_MANAGED_PROJECTS,
-    payload: projects,
+    payload: {
+      managedProjects: managedProjects,
+      permissionProjects: permissionProjects,
+    },
   };
 };
 
@@ -93,8 +96,10 @@ const fetchUserRole = (userId) => {
       if (roles.some((ele) => ele.name === "ADMIN")) {
         dispatch(fetchMembers(52));
       } else {
-        const res = await timeCloudAPI().get(`users/${userId}/manage_project`);
-        dispatch(setManagedProjects(res.data));
+        const api1 = timeCloudAPI().get(`users/${userId}/manage_project`);
+        const api2 = timeCloudAPI().get(`users/${userId}/project_permission`);
+        const res = await Promise.all([api1, api2]);
+        dispatch(setManagedProjects(res[0].data, res[1].data));
       }
     } catch (error) {
       console.log("error");
