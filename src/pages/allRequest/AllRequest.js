@@ -62,7 +62,9 @@ const AllRequest = () => {
 
   const fetchPendingRequest = async () => {
     const res = await timeCloudAPI().get("time-off/pending");
-    const temp = res.data;
+    const temp = res.data.filter(
+      (ele) => new Date(ele.timeOff.startTime) - new Date() >= 0
+    );
     temp.sort((a1, a2) => {
       return new Date(a2.timeOff.createAt) - new Date(a1.timeOff.createAt);
     });

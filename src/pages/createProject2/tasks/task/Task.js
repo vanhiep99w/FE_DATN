@@ -89,7 +89,9 @@ const Task = ({ task, teamMembers, onTaskChanged, onDeleteTask }) => {
             All
           </div>
           <Tag
-            data={task.members}
+            data={task.members.filter((ele) =>
+              teamMembers.some((e) => e.id === ele.id)
+            )}
             convertData={(item) => item.name}
             onRemoveItem={onDeleteMember}
           >

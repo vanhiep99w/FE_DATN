@@ -98,24 +98,17 @@ export const getMouthAndDate = (date) => {
 
 export const countDate = (start, end) => {
   let result = checkDayOff(start, end);
-  console.log(start, end);
   if (start.getHours() === 0) {
-    console.log(1);
     if (end.getHours() === 0)
       return (end.getTime() - start.getTime() + 86400000) / 86400000 - result;
     else return (end.getTime() - start.getTime()) / 86400000 - result;
   } else {
-    console.log(2);
     if (end.getHours() === 12) {
       if (start.getDate() === end.getDate()) return 0.5;
       else return (end.getTime() - start.getTime()) / 86400000 - result;
     } else
       return (end.getTime() - start.getTime() + 86400000) / 86400000 - result;
   }
-  // if (start.getTime() === end.getTime()) return 0.5;
-  // if (end.getTime() - start.getTime() === 43200000) return 1;
-  // if (end.getTime() - start.getTime() === 129600000) return 2.5;
-  // return (end.getTime() - start.getTime() + 86400000) / 86400000 - result;
 };
 
 export const convertSalary = (number) => {

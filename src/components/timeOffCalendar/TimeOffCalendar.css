@@ -18,7 +18,7 @@
   vertical-align: middle;
 }
 
-.time_off_calendar__header th:nth-of-type(2){
+.time_off_calendar__header th.now{
   border-top: 4px solid #0066CC;
 }
 .time_off_calendar__header th:not(:first-child){

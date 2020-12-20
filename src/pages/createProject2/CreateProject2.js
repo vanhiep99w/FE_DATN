@@ -68,6 +68,7 @@ const CreateProject2 = ({ match }) => {
       name: projectName,
       projectManagerId: manager?.id,
       budget: +budget,
+      permission: permission,
     });
 
     await Promise.all([
@@ -114,6 +115,7 @@ const CreateProject2 = ({ match }) => {
         setHaveBudget(data.budget && true);
         setBudget(data.budget || "");
         setManager(data.projectManager);
+        setPermission(data.permission);
       });
   };
 
@@ -179,7 +181,8 @@ const CreateProject2 = ({ match }) => {
         color === temp.color &&
         clientName === temp.clientName &&
         +budget === +temp.budget &&
-        manager?.id === temp.projectManager?.id
+        manager?.id === temp.projectManager?.id &&
+        permission === temp.permission
       ) {
         return false;
       }
@@ -217,6 +220,7 @@ const CreateProject2 = ({ match }) => {
         color: color,
         projectManagerId: manager?.id,
         budget: budget,
+        permission: permission,
       });
     }
   };
@@ -352,7 +356,7 @@ const CreateProject2 = ({ match }) => {
         />
       </SectionDesign>
       <SectionDesign title="Permissions">
-        <Permissions />
+        <Permissions permission={permission} setPermission={setPermission} />
       </SectionDesign>
       <SectionDesign title="">
         <div className="create-project-2__footer">
