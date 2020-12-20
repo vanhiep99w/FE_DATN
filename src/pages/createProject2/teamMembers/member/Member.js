@@ -14,7 +14,7 @@ const Member = ({
   onRemoveTeamMember,
   onEditTeamMember,
 }) => {
-  const [rateInput, setRateInput] = useState(member.rate || "");
+  const [rateInput, setRateInput] = useState("");
   const onBlurRateInputHandler = () => {
     if (rateInput !== member.rate) {
       const temp = { ...member };
@@ -22,6 +22,14 @@ const Member = ({
       onEditTeamMember(temp);
     }
   };
+
+  useEffect(() => {
+    if (member.rate) {
+      setRateInput(member.rate);
+    } else {
+      setRateInput("");
+    }
+  }, [member]);
   return (
     <tr>
       <td>
@@ -67,7 +75,6 @@ const Member = ({
           </label>
           <input
             type="number"
-            maxLength={5}
             value={rateInput}
             onChange={(event) => setRateInput(event.target.value)}
             onBlur={(event) => onBlurRateInputHandler(event.target.value)}

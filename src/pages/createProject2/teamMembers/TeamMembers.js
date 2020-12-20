@@ -32,7 +32,7 @@ const TeamMembers = ({
   };
 
   const onRemoveTeamMember = (member) => {
-    if (member.id === manager.id) {
+    if (member.id === manager?.id) {
       setShowModal(true);
     } else {
       setTeamMembers(teamMembers.filter((ele) => ele.id !== member.id));
@@ -184,7 +184,7 @@ const mapStateToProps = (state) => {
     members: members
       .filter((ele) => ele.id !== +localStorage.getItem(USER_ID))
       .map((ele) => {
-        return { ...ele.user, rate: "" };
+        return { ...ele.user, rate: "1" };
       }),
   };
 };
