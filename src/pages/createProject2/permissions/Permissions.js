@@ -2,10 +2,14 @@ import "./Permissions.css";
 import React from "react";
 import DoubleButton from "../common/doubleButton/DoubleButton";
 
-const Permissions = () => {
-  const pmAndAdminSelect = () => {};
+const Permissions = ({ permission, setPermission }) => {
+  const pmAndAdminSelect = () => {
+    setPermission(false);
+  };
 
-  const everyoneSelect = () => {};
+  const everyoneSelect = () => {
+    setPermission(true);
+  };
 
   return (
     <div className="permissions">
@@ -21,6 +25,7 @@ const Permissions = () => {
       </div>
       <div className="permissions__right">
         <DoubleButton
+          defaultSelectIndex={permission ? 2 : 1}
           titleLeft="PM & Admin"
           titleRight="Everyone"
           onButtonLeftClick={pmAndAdminSelect}

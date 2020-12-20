@@ -32,7 +32,11 @@ const TimeOffAdmin = () => {
     timeCloudAPI()
       .get("time-off/pending")
       .then((res) => {
-        setPendingRequest(res.data);
+        setPendingRequest(
+          res.data.filter(
+            (ele) => new Date(ele.timeOff.startTime) - new Date() >= 0
+          )
+        );
       });
   };
   const fetchApproveRequest = () => {
@@ -71,14 +75,14 @@ const TimeOffAdmin = () => {
         <Link to="/all-request">Show pass Time off</Link>
       </PageDesign>
       <div className="time_off_admin__footer">
-        <h3>My time off</h3>
+        {/* <h3>My time off</h3>
         <p>
           <span>1</span>
           days used
           <span>/</span>
           <span>11</span>
           remaining
-        </p>
+        </p> */}
       </div>
     </div>
   );

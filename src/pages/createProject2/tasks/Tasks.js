@@ -12,7 +12,6 @@ const Tasks = ({
   teamMembers,
 }) => {
   const [createTaskInput, setCreateTaskInput] = useState("");
-  console.log(changedTasks);
 
   const onCreateTask = (event) => {
     event.preventDefault();

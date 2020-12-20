@@ -6,6 +6,7 @@ import React, { useState, useEffect } from "react";
 import { includesIgnoreCase } from "../../../../utils/Utils";
 
 const SearchMembers = ({ onSelectItemHandler, members, teamMembers }) => {
+  console.log(members);
   const [showDD, setShowDD] = useState(false);
   const [listSearch, setListSearch] = useState([]);
   const [inputSearch, setInputSearch] = useState("");

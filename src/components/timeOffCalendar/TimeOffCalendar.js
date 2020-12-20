@@ -1,6 +1,10 @@
 import "./TimeOffCalendar.css";
 import React, { useState, useEffect } from "react";
-import { getDaysFromSelectedDay, getStringDayInWeek } from "../../utils/Utils";
+import {
+  equalDates,
+  getDaysFromSelectedDay,
+  getStringDayInWeek,
+} from "../../utils/Utils";
 import SearchIcon from "@material-ui/icons/Search";
 import Avatar from "../avatar/Avatar";
 import { connect } from "react-redux";
@@ -57,6 +61,7 @@ const TimeOffCalendar = ({ members, _pendingRequest, _approveRequest }) => {
     const temp1 = new Date(date);
     const temp2 = new Date(startDate);
     const temp3 = new Date(endDate);
+    temp1.setHours(1);
     if (temp3.getHours() === 0) {
       temp3.setHours(23);
     }
@@ -78,7 +83,6 @@ const TimeOffCalendar = ({ members, _pendingRequest, _approveRequest }) => {
     const temp1 = pendingRequest.filter(
       (ele) => ele.timeOff.user.id === member.id
     );
-
     if (temp1.length) {
       if (
         temp1.some((ele) =>
@@ -136,7 +140,10 @@ const TimeOffCalendar = ({ members, _pendingRequest, _approveRequest }) => {
             </th>
             {selectedDays.map((day, index) => {
               return (
-                <th key={index}>
+                <th
+                  key={index}
+                  className={equalDates(day, new Date()) ? "now" : ""}
+                >
                   <p>{getStringDayInWeek(day)}</p>
                   <p>{day.getDate()}</p>
                 </th>
