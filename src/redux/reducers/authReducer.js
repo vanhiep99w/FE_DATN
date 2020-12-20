@@ -20,6 +20,7 @@ const initialState = {
   authRedirectPath: "/",
   user: null,
   managedProjects: [],
+  permissionProjects: [],
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -84,7 +85,8 @@ export default (state = initialState, { type, payload }) => {
     case AUTH_SET_MANAGED_PROJECTS:
       return {
         ...state,
-        managedProjects: payload,
+        managedProjects: payload.managedProjects,
+        permissionProjects: payload.permissionProjects,
       };
     default:
       return state;

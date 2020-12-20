@@ -66,7 +66,7 @@ class Router extends React.Component {
   }
 
   render() {
-    const { user, isLogin, managedProjects } = this.props;
+    const { user, isLogin, managedProjects, permissionProjects } = this.props;
     let routes;
     if (user?.roles?.some((ele) => ele.id === 1)) {
       routes = (
@@ -97,9 +97,6 @@ class Router extends React.Component {
       routes = (
         <Switch>
           <Redirect from="/" exact to="/timer" />
-          {/* <Route path="/time-off" component={TimeOffAdmin} /> */}
-
-          {/* <Route path="/time-off" component={TimeOff} /> */}
           <Route path="/timer" component={Timer} />
           <Route path="/report" component={Report} />
           <Route
@@ -115,7 +112,7 @@ class Router extends React.Component {
           <Route path="/profile/:id" component={Profile} />
           <Route path="/discussion" component={Discussion} />
           {user?.roles && <Route path="/time-off" component={TimeOff} />}
-          {managedProjects.length && (
+          {(managedProjects.length || permissionProjects.length) && (
             <>
               <Route
                 path="/projects"
@@ -124,15 +121,15 @@ class Router extends React.Component {
                   <Projects
                     adminMode={true}
                     managedProjects={managedProjects}
+                    permissionProjects={permissionProjects}
                   />
                 )}
               />
               <Route path="/edit_project/:id" component={CreateProject} />
+              <Route path="/projects/:id" component={ProjectDetail} />
             </>
           )}
-          {managedProjects.length && (
-            <Route path="/projects/:id" component={ProjectDetail} />
-          )}
+
           {user?.roles ? <Route component={NotFound} /> : null}
         </Switch>
       );
@@ -157,11 +154,12 @@ class Router extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { token, user, managedProjects } = state.auth;
+  const { token, user, managedProjects, permissionProjects } = state.auth;
   return {
     isLogin: token ? true : false,
     user,
     managedProjects,
+    permissionProjects,
   };
 };
 export default connect(mapStateToProps, {

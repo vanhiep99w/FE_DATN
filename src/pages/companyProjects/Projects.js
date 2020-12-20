@@ -119,7 +119,18 @@ class Projects extends React.Component {
     if (!this.props.adminMode) {
       this.fetchAllProject();
     } else {
-      this.setState({ projects: this.props.managedProjects });
+      this.setState({
+        projects: [
+          ...this.props.managedProjects,
+          ...this.props.permissionProjects
+            .filter(
+              (ele) => !this.props.managedProjects.some((e) => e.id === ele.id)
+            )
+            .map((ele) => {
+              return { ...ele, permissionProject: true };
+            }),
+        ],
+      });
     }
   };
 

@@ -85,44 +85,48 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
   };
   return (
     <div className="visible_hover action_column">
-      {!project.done && (
-        <span className="projects__icon">
-          <DeleteIcon
-            className="projects__icon__item"
-            onClick={(e) => {
-              e.stopPropagation();
-              setShowModal(true);
-            }}
-          />
-        </span>
-      )}
-      <span className="projects__icon">
-        <AttachMoneyIcon
-          className="projects__icon__item"
-          onClick={(e) => {
-            e.stopPropagation();
-            history.push({
-              pathname: `projects/${project.id}/payroll`,
-              state: {
-                project: project,
-                salary: null,
-                user: projectUsers,
-                time: totalTime,
-              },
-            });
-          }}
-        />
-      </span>
+      {project.permissionProject || (
+        <>
+          {!project.done && (
+            <span className="projects__icon">
+              <DeleteIcon
+                className="projects__icon__item"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowModal(true);
+                }}
+              />
+            </span>
+          )}
+          <span className="projects__icon">
+            <AttachMoneyIcon
+              className="projects__icon__item"
+              onClick={(e) => {
+                e.stopPropagation();
+                history.push({
+                  pathname: `projects/${project.id}/payroll`,
+                  state: {
+                    project: project,
+                    salary: null,
+                    user: projectUsers,
+                    time: totalTime,
+                  },
+                });
+              }}
+            />
+          </span>
 
-      <span className="projects__icon">
-        <EditIcon
-          className="projects__icon__item"
-          onClick={(e) => {
-            e.stopPropagation();
-            onEdit(project);
-          }}
-        />
-      </span>
+          <span className="projects__icon">
+            <EditIcon
+              className="projects__icon__item"
+              onClick={(e) => {
+                e.stopPropagation();
+                onEdit(project);
+              }}
+            />
+          </span>
+        </>
+      )}
 
       <Modal
         show={showModal}

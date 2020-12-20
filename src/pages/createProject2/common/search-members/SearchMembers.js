@@ -1,12 +1,10 @@
 import "./SearchMembers.css";
 import DropDown2 from "../../../../components/dropdown2/DropDown2";
 import Avatar from "../../../../components/avatar/Avatar";
-
 import React, { useState, useEffect } from "react";
 import { includesIgnoreCase } from "../../../../utils/Utils";
 
 const SearchMembers = ({ onSelectItemHandler, members, teamMembers }) => {
-  console.log(members);
   const [showDD, setShowDD] = useState(false);
   const [listSearch, setListSearch] = useState([]);
   const [inputSearch, setInputSearch] = useState("");
