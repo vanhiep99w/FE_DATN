@@ -370,7 +370,7 @@ const CreateProject2 = ({ match }) => {
             >
               {editMode.current ? "Update" : "Create New"}{" "}
             </button>
-            <button>Cancel</button>
+            <button onClick={() => history.push("/projects")}>Cancel</button>
           </div>
         </div>
       </SectionDesign>
