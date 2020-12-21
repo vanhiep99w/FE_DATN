@@ -117,7 +117,7 @@ const DiscussionItem = ({ discussion, onDeleteItem, user, project }) => {
             project={project}
           />
         </div>
-        <div
+        {/* <div
           onClick={() => setShowDDType(!showDDType)}
           className={`discussion_item__type ${
             getClassNameType(data.type).className
@@ -136,7 +136,7 @@ const DiscussionItem = ({ discussion, onDeleteItem, user, project }) => {
               padding: "2px",
             }}
           />
-        </div>
+        </div> */}
       </div>
       {showComment && (
         <div className="discussion_item__comment">

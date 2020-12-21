@@ -251,7 +251,7 @@ class Discussion extends Component {
     const { projectSelected, selectedTypeIndex } = this.state;
     return (
       <div className="discussion__filter">
-        <span>Type</span>
+        {/* <span>Type</span>
         <div
           onClick={() => this.setState({ showDDType: true })}
           className="discussion__filter__item discussion__filter__type"
@@ -270,7 +270,7 @@ class Discussion extends Component {
               padding: "2px",
             }}
           />
-        </div>
+        </div> */}
         <span>Project</span>
         <div
           onClick={() => this.setState({ showDDProject: true })}
