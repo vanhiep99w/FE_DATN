@@ -48,7 +48,7 @@ class Projects extends React.Component {
         width: "25%",
         cssHeader: this.cssHeader,
         cssData: {
-          verticalAlign: "middle",
+          verticalAlign: "sub",
           cursor: "pointer",
           minHeight: "3.7rem",
         },

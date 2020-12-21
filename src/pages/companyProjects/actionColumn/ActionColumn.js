@@ -51,11 +51,13 @@ const ActionColumn = ({ project, onEdit, deleteProject }) => {
 
   const billableRate = () => {
     let result = 0;
-    projectUsers.forEach((ele, index) => {
-      let temp = totalTime.filter((element) => element.id === ele.user.id);
-      result += temp[0].time * ele.rate;
-    });
-    return Math.round(result * 10) / 10;
+    if (projectUsers) {
+      projectUsers.forEach((ele, index) => {
+        let temp = totalTime.filter((element) => element.id === ele.user.id);
+        result += temp[0].time * ele.rate;
+      });
+      return Math.round(result * 10) / 10;
+    }
   };
 
   const renderModalAction = () => {

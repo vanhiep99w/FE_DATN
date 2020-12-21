@@ -1,5 +1,6 @@
 .user_info{
   font-family: 'Quicksand', sans-serif !important;
+  
 }
 .user_info button {
   background-color: var(--color-button); /* Green */

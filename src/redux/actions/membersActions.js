@@ -7,6 +7,7 @@ import {
   ADD_ROLE_USER_SUCCESS,
   DELETE_ROLE_USER_SUCCESS,
   START_CHANGE_USER_ROLE,
+  UPDATE_MEMBER,
 } from "./actionType";
 import { ROLE_LIST } from "../../utils/Utils";
 import timeCloudAPI from "../../apis/timeCloudAPI";
@@ -116,5 +117,12 @@ export const getUserSuccess = (user) => {
   return {
     type: GET_USER_SUCCESS,
     payload: user,
+  };
+};
+
+export const editMember = (member) => {
+  return {
+    type: UPDATE_MEMBER,
+    payload: member,
   };
 };

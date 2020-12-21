@@ -7,6 +7,7 @@ import {
   ADD_ROLE_USER_SUCCESS,
   DELETE_ROLE_USER_SUCCESS,
   START_CHANGE_USER_ROLE,
+  UPDATE_MEMBER,
 } from "../actions/actionType";
 
 const initialState = {
@@ -87,6 +88,14 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         selectedMember: payload,
+      };
+    case UPDATE_MEMBER:
+      return {
+        ...state,
+        members: state.members.map((ele) => {
+          if (ele.id === payload.id) return { ...ele, user: payload };
+          return ele;
+        }),
       };
     default:
       return state;

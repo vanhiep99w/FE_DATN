@@ -5,6 +5,7 @@ import male from "../../assets/images/male.png";
 import female from "../../assets/images/female.png";
 import UserInfo from "./userInfo/UserInfo";
 import { withRouter } from "react-router-dom";
+import { editMember } from "../../redux/actions";
 
 class Profile extends React.Component {
   state = {

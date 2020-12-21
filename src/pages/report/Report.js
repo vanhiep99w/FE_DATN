@@ -16,6 +16,7 @@ const Report = () => {
   const [user, setUser] = useState(null);
   const [projects, setProjects] = useState([]);
   const [timeUsers, setTimeUsers] = useState([]);
+  const [descriptions, setDescriptions] = useState([]);
 
   const fetchTotalUser = () => {
     TimeCloudAPI()
@@ -30,6 +31,14 @@ const Report = () => {
       .get(`users/${history.location.state}`)
       .then((response) => {
         setUser(response.data);
+      });
+  };
+
+  const fetchDescription = () => {
+    TimeCloudAPI()
+      .get(`users/${history.location.state}/times`)
+      .then((response) => {
+        setDescriptions(response.data);
       });
   };
 
@@ -63,6 +72,7 @@ const Report = () => {
     fetchUserInfo();
     fetchTotalUser();
     fetchProject();
+    fetchDescription();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -105,7 +115,7 @@ const Report = () => {
                 <ReportList user={user} projects={projects} />
               </div>
               <div>
-                <ReportListDes user={user} />
+                <ReportListDes user={user} descriptions={descriptions} />
               </div>
             </TabNav>
           ) : null}

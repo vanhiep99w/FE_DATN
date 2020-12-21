@@ -31,9 +31,9 @@
 
 .user_content {
   background-color: white;
-  height: 500px;
+  height: 450px;
   width: 880px;
-  transform: translate(120px, 0px);
+  transform: translate(120px, 50px);
 }
 
 .profile_left__image {

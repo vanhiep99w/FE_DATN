@@ -94,7 +94,7 @@
 .view_time__modal_action>button:nth-of-type(2){
   background-color: #EEEEEE;
   color: #363636;
-  border: 1px solid #363636;
+  border: 1px solid #d3d3d3;
 }
 
 .view_time__modal_content>p{

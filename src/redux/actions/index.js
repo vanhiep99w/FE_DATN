@@ -32,6 +32,7 @@ export {
   addUserRole,
   deleteUserRole,
   getUser,
+  editMember,
 } from "./membersActions";
 
 export {
@@ -52,4 +53,3 @@ export {
   updateTimeOfSelectedDay,
   setSelectedIndex,
 } from "./weekActions";
-

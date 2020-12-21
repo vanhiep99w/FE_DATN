@@ -24,6 +24,8 @@ class Projects extends React.Component {
     project: null,
     unavailableUsers: [],
     data: [],
+    projectUsers: [],
+    tasks: [],
   };
 
   fetchTimeWeekByDay = (day) => {
@@ -36,6 +38,15 @@ class Projects extends React.Component {
           data: res.data.map((ele) => (!ele ? 0 : convertTime(ele))),
         });
       });
+  };
+
+  fetchTasks = async () => {
+    const { id } = this.props.match.params;
+    let res = await timeCloudAPI().get(`projects/${id}/tasks`);
+    const tasks = res.data;
+    this.setState({
+      tasks,
+    });
   };
 
   componentDidUpdate = (preProps) => {
@@ -84,10 +95,23 @@ class Projects extends React.Component {
     });
   }
 
+  fetchProjectUser() {
+    const { id } = this.props.match.params;
+    timeCloudAPI()
+      .get(`projects/${id}/users`)
+      .then((response) => {
+        this.setState({
+          projectUsers: response.data,
+        });
+      });
+  }
+
   componentDidMount = () => {
     this.fetchProject();
     this.props.getWeek(new Date());
     this.fetchTimeWeekByDay(new Date());
+    this.fetchProjectUser();
+    this.fetchTasks();
   };
 
   onDaySelected = (selectedDays) => {
@@ -102,7 +126,7 @@ class Projects extends React.Component {
   };
 
   render() {
-    const { project, unavailableUsers, data } = this.state;
+    const { project, unavailableUsers, data, projectUsers, tasks } = this.state;
     let { days } = this.props;
     var createAt = new Date(project?.createAt);
     createAt = createAt.toLocaleDateString();
@@ -155,12 +179,14 @@ class Projects extends React.Component {
             <ProjectDetailTask
               project={project}
               unavailableUsers={unavailableUsers}
+              tasks={tasks}
             />
           )}
           {project && (
             <ProjectDetailTeam
               project={project}
               unavailableUsers={unavailableUsers}
+              projectUsers={projectUsers}
             />
           )}
         </TabNav>
