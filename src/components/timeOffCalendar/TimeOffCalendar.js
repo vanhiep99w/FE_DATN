@@ -166,7 +166,7 @@ const TimeOffCalendar = ({ members, _pendingRequest, _approveRequest }) => {
                             <span className="status_rejected">Pending</span>
                           ) : null}
                         </div>
-                        <p>Developer</p>
+                        <p>{memberInfo.email}</p>
                       </div>
                     </Avatar>
                   </div>
