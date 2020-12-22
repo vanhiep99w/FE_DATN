@@ -190,7 +190,7 @@ const TimeOffCalendar = ({ members, _pendingRequest, _approveRequest }) => {
         <div className="pending"></div>
         <p>Pending</p>
         <div className="last_of_week"></div>
-        <p>Last Week</p>
+        <p>Weekend</p>
       </div>
     </div>
   );
